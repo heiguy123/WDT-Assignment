@@ -1,0 +1,38 @@
+$primary-color: #d5d5d5;
+$secondary-color: #ffffff;
+$third-color: #3f3f3f; 
+
+.social {
+    > a {
+        font-size: 3.5em;
+        padding: 3rem;
+        > i {
+            color: $secondary-color;
+        }
+        > i:hover {
+        color: $primary-color;
+        } 
+    }
+}
+
+footer {
+    background-color: #3f3f3f;
+    color: $primary-color;
+    padding-top: 2rem;
+    hr {
+        border-top: 1px solid $primary-color;
+        width: 1;
+    }
+    a {
+        color: $primary-color;
+        font-size: 1.15;
+    } 
+    a:hover {
+        color: $secondary-color;
+        text-decoration: none;
+    }
+    #logo_a {
+        font-size: 1.5;
+        color: $primary-color;
+    }
+}

@@ -1,0 +1,115 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Baloo Tammudu 2', cursive;
+    color: #262823;
+}
+.navbar {
+    padding: .8rem;
+}
+.navbar-nav li {
+    padding-top: .7rem;
+    padding-right: 20px;
+}
+.nav-link {
+    font-size: 22px;
+}
+.carousel-inner img {
+    height: 350px;
+}
+.banner {
+    background: url(../img/banner/banner0.jpg) no-repeat;
+    background-size: cover;
+    height: 60%;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+.banner > div {
+    background-color: rgba(0,0,0,0.75);
+    padding: 30 px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    color: white;
+}
+.banner > div h4 {
+    font-size: 300%;
+    text-shadow: 1px 1px 10px #000;
+}
+.banner > div p {
+    font-size: 150%;
+    text-shadow: 1px 1px 10px #000;
+}
+.btn {
+    margin: 10px; 
+    padding: 14px;
+    font-size: 26px;
+    padding-bottom: 0;
+}
+.btn-primary {
+    background-color: grey;
+    border: 1px solid grey;
+}
+.btn-primary:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+    border: 1px solid rgba(128, 128, 128, 0.502);
+}
+.welcome h1 {
+    font-size: 650%;
+    padding-top: 100px;
+}
+.welcome h4 {
+    font-size: 150%;
+    padding-bottom: 40px;
+}
+#card > div {
+    padding-bottom: 30px;
+}
+.card {
+    box-shadow: 5px 5px 15px #d5d5d5;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+}
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 15px #8f8f8f;
+}
+.modal-content img {
+    width: 100%;
+}
+.social a {
+    font-size: 3.5em;
+    padding: 3rem;
+    color: white;
+}
+.fa-youtube:hover, 
+.fa-instagram:hover, 
+.fa-twitter:hover, 
+.fa-facebook:hover, 
+.fa-google-plus-g:hover {
+    color: #d5d5d5;
+}
+footer {
+    background-color: #3f3f3f;
+    color: #d5d5d5;
+    padding-top: 2rem;
+}
+hr.light {
+    border-top: 1px solid #d5d5d5;
+    width: 100%;
+}
+footer a {
+    color: #d5d5d5;
+    font-size: 115%;
+}
+footer a:hover {
+    color: white;
+    text-decoration: none;
+}
+#logo_a {
+    font-size: 150%;
+    color: #d5d5d5;
+}

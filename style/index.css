@@ -1,0 +1,144 @@
+.navbar {
+  padding: .8rem;
+}
+
+.navbar .navbar-nav > li {
+  padding-top: .7rem;
+  padding-right: 20px;
+}
+
+.navbar .nav-link {
+  font-size: 22px;
+}
+
+.social > a {
+  font-size: 3.5em;
+  padding: 3rem;
+}
+
+.social > a > i {
+  color: #ffffff;
+}
+
+.social > a > i:hover {
+  color: #d5d5d5;
+}
+
+footer {
+  background-color: #3f3f3f;
+  color: #d5d5d5;
+  padding-top: 2rem;
+}
+
+footer hr {
+  border-top: 1px solid #d5d5d5;
+  width: 1;
+}
+
+footer a {
+  color: #d5d5d5;
+  font-size: 1.15;
+}
+
+footer a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+footer #logo_a {
+  font-size: 1.5;
+  color: #d5d5d5;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Baloo Tammudu 2', cursive;
+  color: #262823;
+}
+
+.carousel-inner img {
+  height: 350px;
+}
+
+.banner {
+  background: url(../img/banner/banner0.jpg) no-repeat;
+  background-size: cover;
+  height: 60%;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.banner > div {
+  background-color: #000000bf;
+  padding: 30px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  color: #ffffff;
+}
+
+.banner > div h4 {
+  font-size: 300%;
+  text-shadow: 1px 1px 10px #000000;
+}
+
+.banner > div p {
+  font-size: 150%;
+  text-shadow: 1px 1px 10px #000000;
+}
+
+.btn {
+  margin: 10px;
+  padding: 14px;
+  font-size: 26px;
+  padding-bottom: 0;
+}
+
+.btn-primary {
+  background-color: #808080;
+  border: 1px solid #808080;
+}
+
+.btn-primary:hover {
+  background-color: rgba(128, 128, 128, 0.5);
+  border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.welcome h1 {
+  font-size: 650%;
+  padding-top: 100px;
+}
+
+.welcome h4 {
+  font-size: 150%;
+  padding-bottom: 40px;
+}
+
+#card > div {
+  padding-bottom: 30px;
+}
+
+.card {
+  -webkit-box-shadow: 5px 5px 15px #d5d5d5;
+          box-shadow: 5px 5px 15px #d5d5d5;
+  -webkit-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+  cursor: pointer;
+}
+
+.card:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-box-shadow: 5px 5px 15px #8f8f8f;
+          box-shadow: 5px 5px 15px #8f8f8f;
+}
+
+.modal-content img {
+  width: 100%;
+}
+/*# sourceMappingURL=index.css.map */
