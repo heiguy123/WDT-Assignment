@@ -87,7 +87,7 @@ body {
   position: absolute;
   font-size: 22px;
   color: #555e60;
-  left: 28px;
+  left: 18px;
   padding-top: 7px;
 }
 .form-group:first-of-type::before {

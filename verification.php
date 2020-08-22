@@ -46,9 +46,9 @@
                 <h2>Please verify your email</h2>
                 <br>
                 <h5>You're almost there! We sent an email to</h5>
-                <!-- href="reset_password.html" -->
-                <!-- href="register_form.html" -->
-                <p><a href="register_form.html">Abcde12345@segment.com</a></p>
+                <!-- href="reset_password.php" -->
+                <!-- href="register_form.php" -->
+                <p><a href="register_form.php">Abcde12345@segment.com</a></p>
                 <h5>Just click on the link in that email to complete your sign up.
                     If you don’t see it, you may need to check your spam folder.</h5>
                     <!-- Just click on the link in that email to reset your password.

@@ -16,6 +16,11 @@ Food Delivery System (Website)
 ]<br><br>
 6. Remove unnessary img from /img folder.<br>
 7. You might require to @import "_nav.scss" + "_footer.scss" when doing new .scss file.<br>
+------------------------------------------------------------------------------------<br>
+8. Small update on footer.<br>
+9. Note: This line could delete it in the head of the html. <br><br>
+<,script src="./fontawesome-free-5.14.0-web/js/all.js"></,script><br><br>
+10. Fully functionable login.php. <b>REMEMBER ME HAVENT DO</b><br>
 
 <br>
 

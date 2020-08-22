@@ -2,6 +2,11 @@ $primary-color: #d5d5d5;
 $secondary-color: #ffffff;
 $third-color: #3f3f3f; 
 
+%hr-line {
+    border-top: 1px solid $primary-color;
+    width: 100%;
+}
+
 .social {
     > a {
         font-size: 3.5em;
@@ -20,8 +25,7 @@ footer {
     color: $primary-color;
     padding-top: 2rem;
     hr {
-        border-top: 1px solid $primary-color;
-        width: 1;
+        @extend %hr-line;
     }
     a {
         color: $primary-color;
@@ -34,5 +38,7 @@ footer {
     #logo_a {
         font-size: 1.5;
         color: $primary-color;
+        font-size: 130%;
+        line-height: 52px;
     }
 }
