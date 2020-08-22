@@ -106,7 +106,7 @@ include_once('admincheck.php');
         <div class="container-fluid padding">
             <div class="row text-center">
                 <div class="col-md-3">
-                    <a id="logo_a" href="index.html"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
+                    <a id="logo_a" href="index.php"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
                     <hr class="light">
                     <a href="tel:0388699498">03-8869 9498</a><br><br>
                     <a href="mailto:myrestaurant@gmail.com">myrestaurant@gmail.com</a><br><br>
