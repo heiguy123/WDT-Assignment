@@ -1,0 +1,100 @@
+@import "_nav.scss";
+@import "_footer.scss";
+
+$primary-color: #d5d5d5;
+$secondary-color: #ffffff;
+$third-color: #3f3f3f; 
+$fourth-color: #000000;
+$fifth-color: #808080;
+$sixth-color: #8f8f8f;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Baloo Tammudu 2', cursive;
+    color: #262823;
+}
+
+.carousel-inner {
+    img {
+        height: 350px;
+    }
+}
+
+.banner {
+    background: url(../img/banner/banner0.jpg) no-repeat;
+    background-size: cover;
+    height: 60%;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    > div {
+        background-color: $fourth-color+bf;
+        padding: 30px;
+        padding-top: 100px;
+        padding-bottom: 100px;
+        color: $secondary-color;
+        h4 {
+            font-size: 300%;
+            text-shadow: 1px 1px 10px $fourth-color;
+        }
+        p {
+            font-size: 150%;
+            text-shadow: 1px 1px 10px $fourth-color;
+        }
+    }
+}
+
+.btn {
+    margin: 10px; 
+    padding: 14px;
+    font-size: 26px;
+    padding-bottom: 0;
+}
+
+.btn-primary {
+    background-color: $fifth-color;
+    border: 1px solid $fifth-color;
+}
+
+.btn-primary:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.welcome {
+    h1 {
+        font-size: 650%;
+        padding-top: 100px;
+    }
+    h4 {
+        font-size: 150%;
+        padding-bottom: 40px;
+    }
+}
+
+#card {
+    > div {
+        padding-bottom: 30px;
+    }
+}
+
+.card {
+    box-shadow: 5px 5px 15px $primary-color;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 15px $sixth-color;
+}
+
+.modal-content {
+    img {
+        width: 100%;
+    }
+}
