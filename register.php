@@ -1,3 +1,7 @@
+<?php
+    include("cus_register.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,18 +49,18 @@
             </div>
 
             <form action="register.php" method="POST" class="col-12">
-            <div class="form-group">
-                <input name="email" type="text" class="form-control" placeholder="Eg. name@example.com">
-            </div>
-            <button class="btn col-12" type="button" onclick="location.href='verification.php';">Create New Account</button>
-            <div class="separator">Creare New Account</div>
+                <div class="form-group">
+                    <input name="email" type="email" class="form-control" placeholder="Eg. name@example.com" required>
+                </div>
+                <button class="btn col-12" type="submit" name="submit">Create New Account</button>
+                <div class="separator">Creare New Account</div>
             </form>
 
             <div class="row text-center padding">
                 <div class="col-12 padding" id="link">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="https://www.facebook.com"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.twitter.com"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.google.com"><i class="fab fa-google-plus-g"></i></a>
                 </div>
             </div>
         </div>
