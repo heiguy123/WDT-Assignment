@@ -21,17 +21,17 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="img/res_logo.png" height=50>My Restaurant</a>
+            <a class="navbar-brand" href="index.php"><img src="img/res_logo.png" height=50>My Restaurant</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="login.html" class="nav-link active">Login</a>
+                        <a href="login.php" class="nav-link active">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="register.html" class="nav-link">Sign Up</a>
+                        <a href="register.php" class="nav-link">Sign Up</a>
                     </li>
                 </ul>
             </div>
@@ -80,8 +80,8 @@
                     <p>More than 20++ food and drinks available</p>
                 </div>
                 <div class="col-md-12">
-                    <button type="button" onclick="location.href='login.html';" class="btn btn-outline-light btn-lg">LOGIN</button>
-                    <button type="button" onclick="location.href='register.html';" class="btn btn-primary btn-lg">SIGN
+                    <button type="button" onclick="location.href='login.php';" class="btn btn-outline-light btn-lg">LOGIN</button>
+                    <button type="button" onclick="location.href='register.php';" class="btn btn-primary btn-lg">SIGN
                         UP</button>
                 </div>
             </div>
@@ -184,7 +184,7 @@
         <div class="container-fluid padding">
             <div class="row text-center">
                 <div class="col-md-3">
-                    <a id="logo_a" href="index.html"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
+                    <a id="logo_a" href="index.php"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
                     <hr class="light">
                     <a href="tel:0388699498">03-8869 9498</a><br><br>
                     <a href="mailto:myrestaurant@gmail.com">myrestaurant@gmail.com</a><br><br>
