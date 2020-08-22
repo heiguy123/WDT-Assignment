@@ -11,6 +11,11 @@
   font-size: 22px;
 }
 
+footer hr {
+  border-top: 1px solid #d5d5d5;
+  width: 100%;
+}
+
 .social > a {
   font-size: 3.5em;
   padding: 3rem;
@@ -30,11 +35,6 @@ footer {
   padding-top: 2rem;
 }
 
-footer hr {
-  border-top: 1px solid #d5d5d5;
-  width: 1;
-}
-
 footer a {
   color: #d5d5d5;
   font-size: 1.15;
@@ -48,6 +48,8 @@ footer a:hover {
 footer #logo_a {
   font-size: 1.5;
   color: #d5d5d5;
+  font-size: 130%;
+  line-height: 52px;
 }
 
 * {
@@ -141,4 +143,3 @@ html, body {
 .modal-content img {
   width: 100%;
 }
-/*# sourceMappingURL=index.css.map */
