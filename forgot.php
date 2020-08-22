@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Restaurant | Enter User Details</title>
+    <title>My Restaurant | Forgot Password</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -45,42 +45,14 @@
             <hr class="light">
             
             <div class="row">
-                <div class="col-md-12"><h2>User Infomation</h2></div>
+                <div class="col-md-12"><h2>Forgot Password</h2></div>
             </div>
             <form action="" class="col-md-12">
             <div class="form-group" id="email">
-                <input type="text" class="form-control" placeholder="Email Address (Auto Fill)" disabled>
+                <input type="text" class="form-control" placeholder="Email Address">
             </div>
-            <div class="form-group" id="userid">
-                <input type="text" class="form-control" placeholder="Username">
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-4 form-group" id="tel">
-                    <select class="form-control">
-                        <option value="malaysia">+60</option>
-                        <option value="brunei">+080</option>
-                        <option value="china">+181</option>
-                        <option value="canada">+8</option>
-                    </select>
-                </div>
-                <div class="col-md-8 form-group" id="contact"><input type="text" class="form-control" placeholder="Contact No."></div>
-            </div>
-            <br>
-            <div class="form-group" id="password">
-                <input type="password" class="form-control" placeholder="Password">
-            </div>
-            <div class="form-group" id="re-password">
-                <input type="password" class="form-control" placeholder="Re-Enter Password">
-            </div>
-            <div class="col-md-12 checkbox">
-                <input type="checkbox">
-                <label>Show Password</label>
-            </div> 
-            <button class="btn col-md-12" type="button" onclick="location.href='login.html';">Create New Account</button>
+            <button class="btn col-md-12" type="button" onclick="location.href='verification.html';">Continue</button>
             </form>
-
-            <p>By clicking Create new account, you agree our <a href="#"> Terms and Conditions.</a></p>
         </div>
     </div>
 </div>    
