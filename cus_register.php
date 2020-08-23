@@ -31,9 +31,7 @@
             } else {
                 // If there is no email in database
                 mysqli_close($con);
-                // header("Location:register_form.php");
-
-                echo '<script>window.location.href="register_form.php?email="'.$email.'";</script>';
+                echo '<script>window.location.href="register_form.php?email='.$email.'";</script>';
             }
         } 
     }

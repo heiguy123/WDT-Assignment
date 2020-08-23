@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./style/register.css">
 </head>
 
 <body>
@@ -57,7 +57,7 @@
             </form>
 
             <div class="row text-center padding">
-                <div class="col-12 padding" id="link">
+                <div class="col-12" id="link">
                     <a href="https://www.facebook.com"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.twitter.com"><i class="fab fa-twitter"></i></a>
                     <a href="https://www.google.com"><i class="fab fa-google-plus-g"></i></a>

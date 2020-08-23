@@ -1,6 +1,11 @@
 # WDT-Assignment
 Food Delivery System (Website)
 
+<h4>Date: 2020/08/23</h4>
+<b>From: heiguy123</b><br>
+1. Fully functionable register.php<br>
+2. Add cus_check.php, cus_register.php<br>
+
 <h4>Date: 2020/08/22</h4>
 <b>From: heiguy123</b><br>
 1. Fully functionable index.php<br>

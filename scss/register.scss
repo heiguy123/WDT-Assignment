@@ -160,3 +160,12 @@ html, body {
 .separator::after {
     margin-left: .25em;
 }
+
+#link {
+    margin-bottom: 15px;
+    > a {
+        font-size: 30px;
+        padding: 45px;
+        color: $secondary-color;
+    }
+}
