@@ -178,7 +178,7 @@ html, body {
   border-bottom: 4px solid #219882;
 }
 
-.btn .btn:hover, .btn .btn:focus {
+.btn:hover, .btn:focus {
   background-color: #25a890 !important;
   border-bottom: 4px solid #25a890 !important;
 }

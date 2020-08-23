@@ -127,10 +127,11 @@ html, body {
     padding-top: 10px;
     border-radius: 5px;
     border-bottom: 4px solid #219882;
-    .btn:hover, .btn:focus {
-        background-color: #25a890 !important;
-        border-bottom: 4px solid #25a890 !important;
-    }
+}
+
+.btn:hover, .btn:focus {
+    background-color: #25a890 !important;
+    border-bottom: 4px solid #25a890 !important;
 }
 
 .sign-up {

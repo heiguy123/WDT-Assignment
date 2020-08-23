@@ -58,9 +58,9 @@
 
             <div class="row text-center padding">
                 <div class="col-12" id="link">
-                    <a href="https://www.facebook.com"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.twitter.com"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.google.com"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.google.com" target="_blank"><i class="fab fa-google-plus-g"></i></a>
                 </div>
             </div>
         </div>

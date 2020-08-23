@@ -1,12 +1,12 @@
 <?php
-    if (isset($_POST["submit"])) //If all the field is filled
+    if (isset($_POST["submit"])) // If all the field is filled
     {
         $email = $_POST["email"];
 
         // Validate email structure
-        function email_validation($str) { 
+        function email_validation($email) { 
             return (!preg_match( 
-        "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $str)) 
+        "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email)) 
                 ? FALSE : TRUE; 
         } 
           
