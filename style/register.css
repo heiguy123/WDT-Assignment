@@ -216,3 +216,13 @@ html, body {
 .separator::after {
   margin-left: .25em;
 }
+
+#link {
+  margin-bottom: 15px;
+}
+
+#link > a {
+  font-size: 30px;
+  padding: 45px;
+  color: #ffffff;
+}
