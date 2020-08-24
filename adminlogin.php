@@ -1,4 +1,8 @@
 <?php
+include_once('_admin.function.php');
+if (havesession()) {
+    header("location:admindashboard.php"); //if the cookie or session is empty, go to login
+}
 include_once('admincheck.php');
 ?>
 
@@ -80,6 +84,10 @@ include_once('admincheck.php');
                         <input type="checkbox" onclick="showpass()">
                         <label>Show Password</label>
 
+                    </div>
+                    <div class="col-md-12 checkbox">
+                        <input type="checkbox" name="remember">
+                        <label>Remember Me</label>
                     </div>
 
                     <button class="btn col-md-12" name="submit" type="submit">Login</button>

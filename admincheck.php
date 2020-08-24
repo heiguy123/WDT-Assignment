@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
         //if there is no record for username
         $username_err = "Username or Email not found!";
         mysqli_close($con);
-    } else {
+    } elseif (mysqli_num_rows($result) == 1) { //result must be only one record
         //if valid username or email
         $sql = "SELECT * FROM admin WHERE (username='$username' OR email='$username') AND password = '$password'";
         $result = mysqli_query($con, $sql);
@@ -29,8 +29,21 @@ if (isset($_POST['submit'])) {
             mysqli_close($con);
         } else {
             //if password matches
+
+            $row = mysqli_fetch_array($result);
+            $_SESSION["admin_row"] = $row;
+
+            if (!empty($_POST["remember"])) { //if the user choose to "remember me", store the credential into cookie
+                setcookie("admin_username", $username, time() + 3600 * 24 * 365);
+                setcookie("admin_password", $password, time() + 3600 * 24 * 365);
+            }
             mysqli_close($con);
             header("Location:admindashboard.php");
         }
+    } else {
+        echo "<script>
+        alert('Something went wrong! Please try again!');
+        windows.location.href('adminlogin.php');
+        </script>";
     }
 }
