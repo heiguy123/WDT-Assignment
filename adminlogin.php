@@ -23,7 +23,7 @@ include_once('admincheck.php');
     <link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css">
     <script src="./fontawesome-free-5.14.0-web/js/all.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/adminlogin.css">
+    <link rel="stylesheet" href="./style/adminlogin.css">
 
     <!--JS for the show and hide passsword-->
     <script>
@@ -98,58 +98,61 @@ include_once('admincheck.php');
         </div>
     </div>
 
+
+    <!-- Footer -->
     <footer>
         <div class="container-fluid padding">
-            <div class="row text-center padding">
-                <div class="col-12 social padding">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+            <div class="row text-center">
+                <div class="col-12 social">
+                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.google.com" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
 
         <div class="container-fluid padding">
             <div class="row text-center">
-                <div class="col-md-3">
+                <div class="col-3">
                     <a id="logo_a" href="index.php"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
-                    <hr class="light">
+                    <hr>
                     <a href="tel:0388699498">03-8869 9498</a><br><br>
                     <a href="mailto:myrestaurant@gmail.com">myrestaurant@gmail.com</a><br><br>
                     <p>100 Bukit Jalil</p>
                     <p>Kuala Lumpur, Kuala Lumpur, 57000</p>
                 </div>
 
-                <div class="col-md-3">
-                    <hr class="light">
+                <div class="col-3">
+                    <hr>
                     <h5>Our Hours</h5>
-                    <hr class="light">
+                    <hr>
                     <p>Monday: 9am - 5pm</p>
                     <p>Saturday: 10am - 4pm</p>
                     <p>Sunday: closed</p>
                 </div>
 
-                <div class="col-md-3">
-                    <hr class="light">
+                <div class="col-3">
+                    <hr>
                     <h5>Service Area</h5>
-                    <hr class="light">
-                    <p>Kuala Lumpur, 57000</p>
-                    <p>Shah Alam, 40000</p>
-                    <p>Subang Jaya, 47600</p>
-                    <p>Batu Caves, 68100</p>
+                    <hr>
+                    <p>Kuala Lumpur</p>
+                    <p>Shah Alam</p>
+                    <p>Subang Jaya</p>
+                    <p>Batu Caves</p>
                 </div>
 
-                <div class="col-md-3">
-                    <hr class="light">
+                <div class="col-3">
+                    <hr>
                     <h5>Admin</h5>
-                    <hr class="light">
+                    <hr>
                     <a href="./adminlogin.php">Login</a>
                 </div>
+
                 <div class="col-12">
-                    <hr class="light">
-                    <a href="#">&copy; myrestaurant.com</a>
+                    <hr>
+                    <a href="term.php">&copy; myrestaurant.com</a>
                 </div>
             </div>
         </div>
