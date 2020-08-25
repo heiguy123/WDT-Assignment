@@ -14,13 +14,18 @@ Food Delivery System (Website)
 9. Create Gmail for myrestaurant:<br>
 Email: wdtmyrestaurant2020@gmail.com<br>
 Password: WDTmyrestaurant@2020<br><br>
-----------------------------------------------------
+----------------------------------------------------<br>
 10. Update reset_pasword.php UI<br>
 11. Add cus_rest_password.php<br>
 12. Update forgot.php UI <br>
 13. Note: The forgot.php and reset_password.php is using register.scss and register_form.scss<br>
 14. Note: Both register.php and forgot.php will link to verification.php<br>
 15. Update term.php UI<br>
+----------------------------------------------------<br>
+16. Add _cus.function.php<br>
+17. Add logout.php. To note 'session_destroy()' and '$_SESSION = arr()'<br>
+18. Note: term.php is using index.scss<br>
+19. Fix minor bugs.<br>
 
 <h4>Date: 2020/08/23</h4>
 <b>From: heiguy123</b><br>

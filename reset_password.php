@@ -1,5 +1,5 @@
 <?php 
-    include_once('cus_reset_password.php');
+include_once('cus_reset_password.php');
 ?>
 
 <!DOCTYPE html>
@@ -145,5 +145,4 @@
 	</div>
 </footer>
 </body>
-
 </html>

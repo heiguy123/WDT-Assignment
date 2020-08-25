@@ -1,5 +1,10 @@
-<?php 
-    include_once('cus_check.php');
+<?php
+include_once('_cus.function.php');
+if (havesession()) {
+    header("location:dashboard.php"); //if the cookie or session is empty, go to login
+}
+
+include_once('cus_check.php');
 ?>
 
 <!DOCTYPE html>
@@ -75,9 +80,8 @@
                     <label>Show Password</label>
                 </div> 
                 <div class="col-12 checkbox">
-                    <input type="checkbox">
+                    <input type="checkbox" name="remember">
                     <label>Remember Me</label>
-                    <!-- NOTED REMEMEER ME HAVENT DO-->
                 </div>
                 <button class="btn col-12" name="submit" type="submit">Login</button>
                 <div class="separator">Create New Account</div> 

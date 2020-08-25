@@ -7,3 +7,4 @@ if (mysqli_connect_errno()) {
 } else {
 	// echo"<script>alert('Successfully connected to MySql!')</script>";
 }
+?>

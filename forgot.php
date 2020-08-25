@@ -1,17 +1,17 @@
 <?php
-    if (!isset($_GET['err'])) {
-        $email_err = '';
-    } else {
-        $err = $_GET['err'];
+if (!isset($_GET['err'])) {
+    $email_err = '';
+} else {
+    $err = $_GET['err'];
 
-        if ($err == 0) {
-            $email_err = "Wrong Email Struture!";
-        } elseif ($err == 1) {
-            $email_err = "Email not existed!";
-        }
+    if ($err == 0) {
+        $email_err = "Wrong Email Struture!";
+    } elseif ($err == 1) {
+        $email_err = "Email not existed!";
     }
+}
 
-    include_once("cus_forgot.php");
+include_once("cus_forgot.php");
 ?>
 
 <!DOCTYPE html>

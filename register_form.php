@@ -1,5 +1,5 @@
 <?php 
-    include_once('cus_register_form.php');
+include_once('cus_register_form.php');
 ?>
 
 <!DOCTYPE html>
@@ -183,5 +183,4 @@
 	</div>
 </footer>
 </body>
-
 </html>
