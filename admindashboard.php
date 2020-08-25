@@ -166,11 +166,25 @@ checksession();
 
 <!-- javascript go here -->
 <script>
+    // this is to get the parameter using javascript
+    const queryString = window.location.search;
+
+    const urlParams = new URLSearchParams(queryString);
+
+    const welcome = urlParams.get('welcome');
+
+    //only alert when the user is logged in through login page
     $(document).ready(function() {
-        $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
-            $("#alert-box").slideUp(600);
-        });
+        if (welcome === "welcome") {
+            showAlert();
+        }
     });
+
+    function showAlert() {
+        $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
+            $("#alert-box").slideUp(500);
+        });
+    }
 </script>
 
 </html>

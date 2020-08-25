@@ -2,7 +2,7 @@
 include_once('_admin.function.php');
 include_once('admincheck.php');
 if (havesession()) {
-    header("location:admindashboard.php"); //if the cookie or session is empty, go to login
+    header("location:admindashboard.php?welcome=welcome"); //if the cookie or session is empty, go to dashboard
 }
 
 ?>
