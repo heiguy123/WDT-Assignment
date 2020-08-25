@@ -49,3 +49,4 @@ function getadminrow($uname, $pword)
         return "";
     }
 }
+?>
