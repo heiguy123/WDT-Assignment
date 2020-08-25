@@ -1,12 +1,18 @@
 @import "_admin_nav.scss";
 @import "_footer.scss";
 
+div#maincontent{
+    position: relative;
+    height:200px;
+}
+
 div#alert-box{
-    position: fixed;
+    position: absolute;
     top:0;
     left:50%;
     display: none;
     transform: translate(-50%, 0);
+    z-index: 1000;
 
 }
 

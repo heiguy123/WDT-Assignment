@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
                 setcookie("admin_password", $password, time() + 3600 * 24 * 365);
             }
             mysqli_close($con);
-            header("Location:admindashboard.php");
+            header("Location:admindashboard.php?welcome=welcome");
         }
     } else {
         echo "<script>
@@ -47,4 +47,3 @@ if (isset($_POST['submit'])) {
         </script>";
     }
 }
-?>

@@ -22,12 +22,7 @@ checksession();
 </head>
 
 <body>
-    <!-- alert box for success login -->
-    <div class="container" id="alert-box">
-        <div class="alert alert-success" role="alert" id="login-alert">
-            This is a success alert—check it out!
-        </div>
-    </div>
+
 
     <!-- 
     1. dashboard : word
@@ -102,7 +97,17 @@ checksession();
 
 
     </nav>
-
+    <div class="container" id="maincontent">
+        <!-- alert box for success login -->
+        <div class="container" id="alert-box">
+            <div class="alert alert-success" role="alert" id="login-alert">
+                Successfully logged in as <b><?php echo $_SESSION['admin_row']['name'] ?></b>!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
     <!--- Footer -->
     <footer>
         <div class="container-fluid padding">
@@ -161,6 +166,20 @@ checksession();
 
 <!-- javascript go here -->
 <script>
+    // this is to get the parameter using javascript
+    const queryString = window.location.search;
+
+    const urlParams = new URLSearchParams(queryString);
+
+    const welcome = urlParams.get('welcome');
+
+    //only alert when the user is logged in through login page
+    $(document).ready(function() {
+        if (welcome === "welcome") {
+            showAlert();
+        }
+    });
+
     function showAlert() {
         $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
             $("#alert-box").slideUp(500);
