@@ -1,0 +1,16 @@
+.navbar {
+    padding: .6rem;
+    .navbar-nav {
+        > li {
+            padding-top: 0rem;
+            padding-right: 20px;
+        }
+    }
+    .nav-link {
+        font-size: 18px;
+    }
+}
+
+.navbar-right{
+    float:right;
+}

@@ -21,19 +21,136 @@ checksession();
 </head>
 
 <body>
-
-    <div class="alert alert-success" role="alert" id="login-alert" style="display: none;">
-        This is a success alert—check it out!
+    <!-- alert box for success login -->
+    <div class="container" id="alert-box">
+        <div class="alert alert-success" role="alert" id="login-alert">
+            This is a success alert—check it out!
+        </div>
     </div>
 
-    <button onclick="">alert</button>
+    <!-- 
+    1. dashboard : word
+    1.view order : dropdown
+        completed
+        current
+    4. view menu :word
+    2. manage password :word
+    3. notification icon for message :  icon
+    5. sign out :icon -->
+
+    <!-- navigation bar for admin-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <a class="navbar-brand" href="admindashboard.php"><img src="img/res_logo.png" alt="restaurant logo" height=36></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="admindashboard.php">Dashboard<span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        View Order
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Current Order</a>
+                        <a class="dropdown-item" href="#">Completed Order</a>
+                        <!-- 
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a> 
+                        -->
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">View Menu</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav navbar-right mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">View Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">View Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">View Menu</a>
+                </li>
+            </ul>
+        </div>
+
+
+    </nav>
+
+    <!--- Footer -->
+    <footer>
+        <div class="container-fluid padding">
+            <div class="row text-center padding">
+                <div class="col-12 social padding">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid padding">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <a id="logo_a" href="index.php"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
+                    <hr class="light">
+                    <a href="#">03-8869 9498</a><br><br>
+                    <a href="#">myrestaurant@gmail.com</a><br><br>
+                    <p>100 Bukit Jalil</p>
+                    <p>Kuala Lumpur, Kuala Lumpur, 57000</p>
+                </div>
+
+                <div class="col-md-4">
+                    <hr class="light">
+                    <h5>Our Hours</h5>
+                    <hr class="light">
+                    <p>Monday: 9am - 5pm</p>
+                    <p>Saturday: 10am - 4pm</p>
+                    <p>Sunday: closed</p>
+                </div>
+
+                <div class="col-md-4">
+                    <hr class="light">
+                    <h5>Service Area</h5>
+                    <hr class="light">
+                    <p>Kuala Lumpur, 57000</p>
+                    <p>Shah Alam, 40000</p>
+                    <p>Subang Jaya, 47600</p>
+                    <p>Batu Caves, 68100</p>
+                </div>
+
+                <div class="col-12">
+                    <hr class="light">
+                    <a href="#">&copy; myrestaurant.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- 
+
+    <button onclick="showAlert()">alert</button> -->
 </body>
 
+<!-- javascript go here -->
 <script>
-    $(document).ready(function() {
-        alert("hi");
-        $('#login-alert').fadeIn();
-    });
+    function showAlert() {
+        $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
+            $("#alert-box").slideUp(500);
+        });
+    }
 </script>
 
 </html>

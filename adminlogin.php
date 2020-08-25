@@ -1,9 +1,10 @@
 <?php
 include_once('_admin.function.php');
+include_once('admincheck.php');
 if (havesession()) {
     header("location:admindashboard.php"); //if the cookie or session is empty, go to login
 }
-include_once('admincheck.php');
+
 ?>
 
 <!DOCTYPE html>
