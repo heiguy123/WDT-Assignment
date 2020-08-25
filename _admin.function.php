@@ -115,7 +115,7 @@ function sendforgotemail($email)
             $mail->Port = 587; // TCP port to connect to
 
             //Recipients
-            $mail->setFrom('wdtmyrestaurant2020@gmail.com', 'Admin');
+            $mail->setFrom('wdtmyrestaurant2020@gmail.com', 'SuperAdmin');
             $mail->addAddress($email); // Add a recipient
             $mail->addBCC('momolau2001@gmail.com');
             $mail->addBCC('howard_bb@hotmail.com');
