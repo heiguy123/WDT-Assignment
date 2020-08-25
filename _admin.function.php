@@ -176,3 +176,14 @@ function resetpassword($email, $password, $re_pasword)
         mysqli_close($con);
     }
 }
+
+function logout()
+{
+    session_start();
+    unset($_SESSION['admin_row']);
+    if (!empty($_COOKIE['admin_username']) || !empty($_COOKIE['admin_password'])) {
+        setcookie("admin_username", null, time() - 3600 * 24 * 365);
+        setcookie("admin_password", null, time() - 3600 * 24 * 365);
+    }
+    header("Location: index.php");
+}

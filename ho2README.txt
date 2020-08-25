@@ -14,4 +14,7 @@ adjusted css in admin login
 1. added popup alert in dashboard
 2. adjusted how the alert in dashboard pop out
 
+#20
+1. updated logout function in _admin.function.php (since i dont want to create too much file)
+
 =====================================
