@@ -17,6 +17,7 @@ checksession();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/admindashboard.css">
 </head>
 
@@ -34,6 +35,7 @@ checksession();
         completed
         current
     4. view menu :word
+
     2. manage password :word
     3. notification icon for message :  icon
     5. sign out :icon -->
@@ -71,17 +73,30 @@ checksession();
                 </li>
             </ul>
 
+            <!-- navigation bar at the right side -->
             <ul class="navbar-nav navbar-right mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">View Menu</a>
+                    <a class="nav-link" href="#"><i class="fas fa-bell">
+                            <span id="notification-number"></span>
+                        </i></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">View Menu</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-cog"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item account-list" href="#"><i class="fas fa-key"></i>Manage Password</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item account-list" href="#"><i class="fas fa-sign-out-alt"></i>Sign Out</a>
+                        <!-- 
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a> 
+                        -->
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">View Menu</a>
-                </li>
+
             </ul>
         </div>
 
