@@ -2,7 +2,7 @@
 function havesession()
 {
     session_start();
-    if (!isset($_SESSION['admin_id']))        // check if session is set
+    if (!isset($_SESSION['admin_row']))        // check if session is set
     {
         if (empty($_COOKIE['admin_username']) || empty($_COOKIE['admin_password'])) { //session not found
             //if cookie is empty return false
