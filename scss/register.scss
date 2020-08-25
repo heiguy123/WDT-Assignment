@@ -6,6 +6,16 @@
     width: 100%;
 }
 
+%icon {
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    position: absolute;
+    font-size: 22px;
+    color: #555e60;
+    left: 18px;
+    padding-top: 7px;
+}
+
 $primary-color: #d5d5d5;
 $secondary-color: #ffffff;
 $third-color: #3f3f3f; 
@@ -52,15 +62,6 @@ html, body {
     }
 }
 
-.forgot {
-    padding-top: 30px;
-    text-align: right;
-    font-size: 110%;
-    > a {
-        color: $primary-color;
-    }
-}
-
 .user-img {
     margin-top: -50px;
     margin-bottom: 35px;
@@ -93,30 +94,9 @@ html, body {
     }
 }
 
-.password {
-    margin-bottom: 40px;
-}
-
-.form-group::before {
-    font-family: "Font Awesome 5 Free"; 
-    font-weight: 900; 
-    content: "\f09c";
-    position: absolute;
-    font-size: 22px;
-    color: #555e60;
-    left: 18px;
-    padding-top: 7px;
-}
-
-.form-group:first-of-type::before {
-    content: "\f007";
-}
-
-.checkbox {
-    text-align: left;
-    font-size: 110%;
-    color: $primary-color;
-    margin-left: -10px;
+#email::before, #register::before {
+    @extend %icon;
+    content: "\f0e0";
 }
 
 .btn {
@@ -132,11 +112,6 @@ html, body {
 .btn:hover, .btn:focus {
     background-color: #25a890 !important;
     border-bottom: 4px solid #25a890 !important;
-}
-
-.sign-up {
-    padding-top: 14px;
-    margin-bottom: 100px;
 }
 
 .separator {
@@ -168,5 +143,8 @@ html, body {
         font-size: 30px;
         padding: 45px;
         color: $secondary-color;
+    }
+    > a:hover {
+        color: $primary-color;
     }
 }

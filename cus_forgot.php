@@ -23,13 +23,12 @@
 
             $result = mysqli_query($con, $sql);
 
-
-            if (mysqli_num_rows($result) == 1) {
-                //if there is a record in database
+            if (mysqli_num_rows($result) == 0) {
+                //if there is no record in database
                 mysqli_close($con);
                 return FALSE;
             } else {
-                //if there is no record in database
+                //if there is a record matched in database
                 mysqli_close($con);
                 return TRUE;
             }
@@ -37,9 +36,9 @@
           
         // Function call 
         if (!validate_structure("$email")) { 
-            echo '<script>window.location.href="register.php?err=0";</script>';
+            echo '<script>window.location.href="forgot.php?err=0";</script>';
         } elseif (!validate_email("$email")) {
-            echo '<script>window.location.href="register.php?err=1";</script>';
+            echo '<script>window.location.href="forgot.php?err=1";</script>';
         } else { 
             // Send email to from company website to recipient
             //Load composer's autoloader
@@ -62,12 +61,12 @@
                 $mail->addBCC('momolau2001@gmail.com');
 
                 //Content
-                $url = "http://localhost:8080/WDT-Assignment/register_form.php?email=".$email;
+                $url = "http://localhost:8080/WDT-Assignment/reset_password.php?email=".$email;
 
-                $subject = "[SIGN UP] Please verify your email";
+                $subject = "[RESET PASSWORD] Please verify your email";
 
                 $body = "<center>You are almost there!</center><br><br>
-                <center>Please <a href=".$url.">click here</a> to redirect back to fill up your information.</center><br><br>
+                <center>Please <a href=".$url.">click here</a> to redirect back to reset your password.</center><br><br>
                 <center>By myrestaurant</center>";
 
                 $mail->isHTML(true);                                     // Set email format to HTML
@@ -75,7 +74,7 @@
                 $mail->Body    = $body;
 
                 $mail->send();
-                echo '<script>window.location.href="verification.php?email='.$email.'&type=register";</script>';
+                echo '<script>window.location.href="verification.php?email='.$email.'&type=forgot";</script>';
             } catch (Exception $e) {
                 echo 'Message could not be sent.';
                 echo 'Mailer Error: '.$mail->ErrorInfo;

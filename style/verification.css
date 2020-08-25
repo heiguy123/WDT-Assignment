@@ -104,6 +104,10 @@ html, body {
   margin: 5px 0 25px;
 }
 
+.main-section > .modal-content a {
+  font-size: 18px;
+}
+
 #verify-bottom {
   font-size: 20px;
 }
