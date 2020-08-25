@@ -12,8 +12,6 @@ adjusted css in admin login
 
 #19
 1. added popup alert in dashboard
-
-#20
-1. updated read me
 2. adjusted how the alert in dashboard pop out
+
 =====================================
