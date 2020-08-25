@@ -1,17 +1,17 @@
 <?php
-    if (!isset($_GET['err'])) {
-        $email_err = '';
-    } else {
-        $err = $_GET['err'];
+if (!isset($_GET['err'])) {
+    $email_err = '';
+} else {
+    $err = $_GET['err'];
 
-        if ($err == 0) {
-            $email_err = "Wrong Email Struture!";
-        } elseif ($err == 1) {
-            $email_err = "Email existed!";
-        }
+    if ($err == 0) {
+        $email_err = "Wrong Email Struture!";
+    } elseif ($err == 1) {
+        $email_err = "Email existed!";
     }
-    
-    include("cus_register.php");
+}
+
+include("cus_register.php");
 ?>
 
 <!DOCTYPE html>
@@ -32,111 +32,114 @@
 </head>
 
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand navbar-light bg-light sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.php"><img src="img/res_logo.png" height=50>My Restaurant</a>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="login.php" class="nav-link active">Login</a>
-            </li>
-            <li class="nav-item">
-                <a href="register.php" class="nav-link">Sign Up</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php"><img src="img/res_logo.png" height=50>My Restaurant</a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="login.php" class="nav-link active">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="register.php" class="nav-link">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-<!-- Register Form -->
-<div class="modal-dialog text-center">
-    <div class="col-12 main-section">
-        <div class="modal-content">
-            <div class="col-12 user-img">
-                <img src="img/res_logo.png" width="130" height="120">
-            </div>
-            <hr>
-            
-            <div class="row">
-                <div class="col-12"><h2>Sign Up</h2></div>
-            </div>
-
-            <form action="register.php" method="POST" class="col-12">
-                <div class="form-group">
-                    <input name="email" type="email" class="form-control" placeholder="Eg. name@example.com" required>
-                    <span><?php echo $email_err; ?></span>
+    <!-- Register Form -->
+    <div class="modal-dialog text-center">
+        <div class="col-12 main-section">
+            <div class="modal-content">
+                <div class="col-12 user-img">
+                    <img src="img/res_logo.png" width="130" height="120">
                 </div>
-                <button class="btn col-12" type="submit" name="submit">Create New Account</button>
-                <div class="separator">Creare New Account</div>
-            </form>
+                <hr>
 
-            <div class="row text-center padding">
-                <div class="col-12" id="link">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Sign Up</h2>
+                    </div>
+                </div>
+
+                <form action="register.php" method="POST" class="col-12">
+                    <div class="form-group">
+                        <input name="email" type="email" class="form-control" placeholder="Eg. name@example.com" required>
+                        <span><?php echo $email_err; ?></span>
+                    </div>
+                    <button class="btn col-12" type="submit" name="submit">Create New Account</button>
+                    <div class="separator">Create New Account</div>
+                </form>
+
+                <div class="row text-center padding">
+                    <div class="col-12" id="link">
+                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.google.com" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container-fluid padding">
+            <div class="row text-center">
+                <div class="col-12 social">
                     <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
                     <a href="https://www.google.com" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Footer -->
-<footer>
-    <div class="container-fluid padding">
-        <div class="row text-center">
-            <div class="col-12 social">
-                <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.google.com" target="_blank"><i class="fab fa-google-plus-g"></i></a>
-                <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+        <div class="container-fluid padding">
+            <div class="row text-center">
+                <div class="col-3">
+                    <a id="logo_a" href="index.php"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
+                    <hr>
+                    <a href="tel:0388699498">03-8869 9498</a><br><br>
+                    <a href="mailto:myrestaurant@gmail.com">myrestaurant@gmail.com</a><br><br>
+                    <p>100 Bukit Jalil</p>
+                    <p>Kuala Lumpur, Kuala Lumpur, 57000</p>
+                </div>
+
+                <div class="col-3">
+                    <hr>
+                    <h5>Our Hours</h5>
+                    <hr>
+                    <p>Monday: 9am - 5pm</p>
+                    <p>Saturday: 10am - 4pm</p>
+                    <p>Sunday: closed</p>
+                </div>
+
+                <div class="col-3">
+                    <hr>
+                    <h5>Service Area</h5>
+                    <hr>
+                    <p>Kuala Lumpur</p>
+                    <p>Shah Alam</p>
+                    <p>Subang Jaya</p>
+                    <p>Batu Caves</p>
+                </div>
+
+                <div class="col-3">
+                    <hr>
+                    <h5>Admin</h5>
+                    <hr>
+                    <a href="./adminlogin.php">Login</a>
+                </div>
+
+                <div class="col-12">
+                    <hr>
+                    <a href="term.php">&copy; myrestaurant.com</a>
+                </div>
             </div>
         </div>
-	</div>
-
-	<div class="container-fluid padding">
-		<div class="row text-center">
-			<div class="col-3">
-                <a id="logo_a" href="index.php"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
-				<hr>
-                <a href="tel:0388699498">03-8869 9498</a><br><br>
-                <a href="mailto:myrestaurant@gmail.com">myrestaurant@gmail.com</a><br><br>
-				<p>100 Bukit Jalil</p>
-				<p>Kuala Lumpur, Kuala Lumpur, 57000</p>
-			</div>
-
-			<div class="col-3">
-				<hr>
-				<h5>Our Hours</h5>
-				<hr>
-				<p>Monday: 9am - 5pm</p>
-				<p>Saturday: 10am - 4pm</p>
-				<p>Sunday: closed</p>
-			</div>
-
-			<div class="col-3">
-				<hr>
-				<h5>Service Area</h5>
-				<hr>
-				<p>Kuala Lumpur</p>
-				<p>Shah Alam</p>
-				<p>Subang Jaya</p>
-				<p>Batu Caves</p>
-			</div>
-
-			<div class="col-3">
-				<hr>
-				<h5>Admin</h5>
-				<hr>
-				<a href="./adminlogin.php">Login</a>
-			</div>
-
-			<div class="col-12">
-				<hr>
-				<a href="term.php">&copy; myrestaurant.com</a>
-			</div>
-		</div>
-	</div>
-</footer>
+    </footer>
 </body>
+
 </html>

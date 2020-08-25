@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Aug 22, 2020 at 02:03 AM
+-- Generation Time: Aug 25, 2020 at 04:52 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.12
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `admin_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` varchar(255) NOT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`admin_id`)
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `cus_name` varchar(255) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `email` varchar(20) NOT NULL,
+  `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `contact` varchar(20) NOT NULL,
   `gender` varchar(10) NOT NULL,
   PRIMARY KEY (`cus_id`)
