@@ -47,7 +47,7 @@
     </div>
 </nav>
 
-<!-- Register Form -->
+<!-- Email Verification -->
 <div class="modal-dialog text-center">
     <div class="col-12 main-section">
         <div class="modal-content">
@@ -61,7 +61,7 @@
             </div>
 
             <form action="register.php" method="POST" class="col-12">
-                <div class="form-group">
+                <div class="form-group" id="register">
                     <input name="email" type="email" class="form-control" placeholder="Eg. name@example.com" required>
                     <span><?php echo $email_err; ?></span>
                 </div>

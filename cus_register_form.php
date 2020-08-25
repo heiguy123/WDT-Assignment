@@ -79,7 +79,7 @@
             echo '<script>window.location.href="register_form.php?email='.$email.'&err=2";</script>';
         } else {
             // Validation PASS
-            include("conn.php");
+            include_once("conn.php");
 
             $sql = "INSERT INTO customer (cus_name, username, password, email, contact, gender)
                     

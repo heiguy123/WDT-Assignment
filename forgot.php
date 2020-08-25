@@ -1,3 +1,19 @@
+<?php
+    if (!isset($_GET['err'])) {
+        $email_err = '';
+    } else {
+        $err = $_GET['err'];
+
+        if ($err == 0) {
+            $email_err = "Wrong Email Struture!";
+        } elseif ($err == 1) {
+            $email_err = "Email not existed!";
+        }
+    }
+
+    include_once("cus_forgot.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +27,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css">
-    <script src="./fontawesome-free-5.14.0-web/js/all.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/register.css">
 </head>
@@ -32,7 +47,7 @@
     </div>
 </nav>
 
-<!-- Register Form -->
+<!-- Email Verification -->
 <div class="modal-dialog text-center">
     <div class="col-12 main-section">
         <div class="modal-content">
@@ -45,8 +60,8 @@
                 <div class="col-12"><h2>Forgot Password</h2></div>
             </div>
 
-            <form action="register.php" method="POST" class="col-12">
-                <div class="form-group">
+            <form action="forgot.php" method="POST" class="col-12">
+                <div class="form-group" id="email">
                     <input name="email" type="email" class="form-control" placeholder="Eg. name@example.com" required>
                     <span><?php echo $email_err; ?></span>
                 </div>
@@ -115,5 +130,4 @@
 	</div>
 </footer>
 </body>
-
 </html>

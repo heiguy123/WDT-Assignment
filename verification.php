@@ -16,7 +16,6 @@
 </head>
 <body>
 <!-- Navigation -->
-<!-- Navigation -->
 <nav class="navbar navbar-expand navbar-light bg-light sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.php"><img src="img/res_logo.png" height=50>My Restaurant</a>
@@ -43,10 +42,19 @@
                 <br>
                 <h5>You're almost there! We sent an email to</h5>
                 <p><a href="https://www.gmail.com" target="_blank"><?php echo $_GET['email']; ?></a></p>
-                <h5>Just click on the link in that email to complete your sign up.
-                    If you don’t see it, you may need to check your spam folder.</h5>
-                    <!-- Just click on the link in that email to reset your password.
-                    If you don’t see it, you may need to check your spam folder. -->
+                <h5><?php
+                $register = "Just click on the link in that email to complete your sign up.
+                If you don’t see it, you may need to check your spam folder.";
+
+                $forgot = "Just click on the link in that email to reset your password.
+                If you don’t see it, you may need to check your spam folder.";
+                
+                $type = $_GET['type'];
+
+                if ($type == "register") {echo $register;}
+                elseif ($type == "forgot") {echo $forgot;}
+                
+                ?></h5>
                 <br><br>
                 <h5>Still can’t find the email?</h5>
                 <button class="btn" onclick="location.href='register.php';">Retry Again</button>

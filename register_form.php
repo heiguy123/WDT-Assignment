@@ -37,8 +37,8 @@
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-expand navbar-light bg-light sticky-top">
-<div class="container-fluid">
-    <a class="navbar-brand" href="index.php"><img src="img/res_logo.png" height=50>My Restaurant</a>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.php"><img src="img/res_logo.png" height=50>My Restaurant</a>
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a href="login.php" class="nav-link active">Login</a>
@@ -49,6 +49,7 @@
         </ul>
     </div>
 </nav>
+
 
 <!-- Register Form -->
 <div class="modal-dialog text-center">
@@ -66,7 +67,7 @@
             </div>
             <form action="cus_register_form.php" method="POST" class="col-12">
                 <div class="form-group" id="email">
-                    <input type="email" name="email" value="<?php echo $_GET['email']; ?>" class="form-control" placeholder="Email Address (Auto Fill)" readonly>
+                    <input type="email" name="email" value="<?php echo $_GET['email']; ?>" class="form-control" readonly>
                 </div>
                 <div class="form-group" id="userid">
                     <input type="text" name="username" class="form-control" placeholder="Username" required>
