@@ -1,0 +1,11 @@
+@import "_admin_nav.scss";
+@import "_footer.scss";
+
+div#alert-box{
+    position: fixed;
+    top:0;
+    left:50%;
+    display: none;
+    transform: translate(-50%, 0);
+
+}
