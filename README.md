@@ -1,6 +1,20 @@
 # WDT-Assignment
 Food Delivery System (Website)
 
+<h4>Date: 2020/08/25</h4>
+<b>From: heiguy123</b><br>
+1. Add phpmailer wrapper in cus_register.php (To send email from smtp server to <b>SMTP SERVER</b>).To note that please turn off the two-step authotification and allow lower apps.<br>
+2. Update verification.php UI<br>
+3. Add verification.scss<br>
+4. Add cus_register_form.php<br>
+5. Update cus_register.php<br>
+6. add register_form.scss<br>
+7. <b>Note: The length of email in MySQL should changed to 30 (both customer and admin).</b><br>
+8. <b>Note: The .sql file haven't update the above changes.</b><br>
+9. Create Gmail for myrestaurant:<br><br>
+Email: wdtmyrestaurant2020@gmail.com<br>
+Password: WDTmyrestaurant@2020<br>
+
 <h4>Date: 2020/08/23</h4>
 <b>From: heiguy123</b><br>
 1. Fully functionable register.php<br>

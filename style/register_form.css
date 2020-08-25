@@ -57,6 +57,16 @@ footer hr, .main-section > .modal-content hr {
   width: 100%;
 }
 
+#email::before, #userid::before, #cus_name::before, #password::before, #re-password::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  font-size: 22px;
+  color: #555e60;
+  left: 18px;
+  padding-top: 7px;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -96,16 +106,6 @@ html, body {
   margin: 5px 0 25px;
 }
 
-.forgot {
-  padding-top: 30px;
-  text-align: right;
-  font-size: 110%;
-}
-
-.forgot > a {
-  color: #d5d5d5;
-}
-
 .user-img {
   margin-top: -50px;
   margin-bottom: 35px;
@@ -142,23 +142,56 @@ html, body {
   font-size: 14px;
 }
 
-.password {
+#gender {
+  padding: 0 18px;
+}
+
+#gender > div {
+  color: #d5d5d5;
+  font-size: 20px;
+}
+
+.female {
+  padding-left: 20px;
+}
+
+#email, #userid, #gender, #password {
+  margin-bottom: 15px;
+}
+
+#email::before {
+  content: "\f0e0";
+}
+
+#userid::before {
+  content: "\f007";
+}
+
+#cus_name::before {
+  content: "\f007";
+}
+
+#tel select {
+  height: 50px;
+  border-radius: 5px;
+  border: 0;
+  font-size: 20px;
+}
+
+#contact input {
+  padding-left: 15px;
+}
+
+#password::before {
+  content: "\f09c";
+}
+
+#re-password {
   margin-bottom: 40px;
 }
 
-.form-group::before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
+#re-password::before {
   content: "\f09c";
-  position: absolute;
-  font-size: 22px;
-  color: #555e60;
-  left: 18px;
-  padding-top: 7px;
-}
-
-.form-group:first-of-type::before {
-  content: "\f007";
 }
 
 .checkbox {
