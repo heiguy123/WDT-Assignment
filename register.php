@@ -1,4 +1,16 @@
 <?php
+    if (!isset($_GET['err'])) {
+        $email_err = '';
+    } else {
+        $err = $_GET['err'];
+
+        if ($err == 0) {
+            $email_err = "Wrong Email Struture!";
+        } elseif ($err == 1) {
+            $email_err = "Email existed!";
+        }
+    }
+    
     include("cus_register.php");
 ?>
 
@@ -51,6 +63,7 @@
             <form action="register.php" method="POST" class="col-12">
                 <div class="form-group">
                     <input name="email" type="email" class="form-control" placeholder="Eg. name@example.com" required>
+                    <span><?php echo $email_err; ?></span>
                 </div>
                 <button class="btn col-12" type="submit" name="submit">Create New Account</button>
                 <div class="separator">Creare New Account</div>

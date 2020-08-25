@@ -1,3 +1,7 @@
+<?php 
+    include_once('cus_register_form.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +73,7 @@
                 </div>  
                 <div class="form-group" id="cus_name">
                     <input type="text" name="cus_name" class="form-control" placeholder="Nickname" required>
-                    <span></span>
+                    <span><?php echo $username_err; ?></span>
                 </div>
                 <div class="row" id="gender">
                     <div class="form-check">
@@ -96,7 +100,7 @@
                     </div>
                     <div class="col-8 form-group" id="contact">
                         <input type="tel" name="tel" class="form-control" placeholder="Contact No." required>
-                        <span></span>
+                        <span><?php echo $contact_err; ?></span>
                     </div>
                 </div>
                 <br>
@@ -105,7 +109,7 @@
                 </div>
                 <div class="form-group" id="re-password">
                     <input type="password" name="re_password" id="re_pass" class="form-control" placeholder="Re-Enter Password" required>
-                    <span></span>
+                    <span><?php echo $password_err; ?></span>
                 </div>
                 <div class="col-12 checkbox">
                     <input type="checkbox" onclick="showpass()">
