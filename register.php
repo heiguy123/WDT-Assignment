@@ -1,17 +1,17 @@
 <?php
-    if (!isset($_GET['err'])) {
-        $email_err = '';
-    } else {
-        $err = $_GET['err'];
+if (!isset($_GET['err'])) {
+    $email_err = '';
+} else {
+    $err = $_GET['err'];
 
-        if ($err == 0) {
-            $email_err = "Wrong Email Struture!";
-        } elseif ($err == 1) {
-            $email_err = "Email existed!";
-        }
+    if ($err == 0) {
+        $email_err = "Wrong Email Struture!";
+    } elseif ($err == 1) {
+        $email_err = "Email existed!";
     }
-    
-    include("cus_register.php");
+}
+
+include("cus_register.php");
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +66,7 @@
                     <span><?php echo $email_err; ?></span>
                 </div>
                 <button class="btn col-12" type="submit" name="submit">Create New Account</button>
-                <div class="separator">Creare New Account</div>
+                <div class="separator">Create New Account</div>
             </form>
 
             <div class="row text-center padding">
@@ -92,51 +92,51 @@
                 <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
-	</div>
+    </div>
 
-	<div class="container-fluid padding">
-		<div class="row text-center">
-			<div class="col-3">
+    <div class="container-fluid padding">
+        <div class="row text-center">
+            <div class="col-3">
                 <a id="logo_a" href="index.php"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
-				<hr>
+                <hr>
                 <a href="tel:0388699498">03-8869 9498</a><br><br>
                 <a href="mailto:myrestaurant@gmail.com">myrestaurant@gmail.com</a><br><br>
-				<p>100 Bukit Jalil</p>
-				<p>Kuala Lumpur, Kuala Lumpur, 57000</p>
-			</div>
+                <p>100 Bukit Jalil</p>
+                <p>Kuala Lumpur, Kuala Lumpur, 57000</p>
+            </div>
 
-			<div class="col-3">
-				<hr>
-				<h5>Our Hours</h5>
-				<hr>
-				<p>Monday: 9am - 5pm</p>
-				<p>Saturday: 10am - 4pm</p>
-				<p>Sunday: closed</p>
-			</div>
+            <div class="col-3">
+                <hr>
+                <h5>Our Hours</h5>
+                <hr>
+                <p>Monday: 9am - 5pm</p>
+                <p>Saturday: 10am - 4pm</p>
+                <p>Sunday: closed</p>
+            </div>
 
-			<div class="col-3">
-				<hr>
-				<h5>Service Area</h5>
-				<hr>
-				<p>Kuala Lumpur</p>
-				<p>Shah Alam</p>
-				<p>Subang Jaya</p>
-				<p>Batu Caves</p>
-			</div>
+            <div class="col-3">
+                <hr>
+                <h5>Service Area</h5>
+                <hr>
+                <p>Kuala Lumpur</p>
+                <p>Shah Alam</p>
+                <p>Subang Jaya</p>
+                <p>Batu Caves</p>
+            </div>
 
-			<div class="col-3">
-				<hr>
-				<h5>Admin</h5>
-				<hr>
-				<a href="./adminlogin.php">Login</a>
-			</div>
+            <div class="col-3">
+                <hr>
+                <h5>Admin</h5>
+                <hr>
+                <a href="./adminlogin.php">Login</a>
+            </div>
 
-			<div class="col-12">
-				<hr>
-				<a href="term.php">&copy; myrestaurant.com</a>
-			</div>
-		</div>
-	</div>
+            <div class="col-12">
+                <hr>
+                <a href="term.php">&copy; myrestaurant.com</a>
+            </div>
+        </div>
+    </div>
 </footer>
 </body>
 </html>
