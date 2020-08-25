@@ -22,12 +22,7 @@ checksession();
 </head>
 
 <body>
-    <!-- alert box for success login -->
-    <div class="container" id="alert-box">
-        <div class="alert alert-success" role="alert" id="login-alert">
-            This is a success alert—check it out!
-        </div>
-    </div>
+
 
     <!-- 
     1. dashboard : word
@@ -102,7 +97,17 @@ checksession();
 
 
     </nav>
-
+    <div class="container" id="maincontent">
+        <!-- alert box for success login -->
+        <div class="container" id="alert-box">
+            <div class="alert alert-success" role="alert" id="login-alert">
+                Successfully logged in as <b><?php echo $_SESSION['admin_row']['name'] ?></b>!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
     <!--- Footer -->
     <footer>
         <div class="container-fluid padding">
@@ -161,11 +166,11 @@ checksession();
 
 <!-- javascript go here -->
 <script>
-    function showAlert() {
+    $(document).ready(function() {
         $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
-            $("#alert-box").slideUp(500);
+            $("#alert-box").slideUp(600);
         });
-    }
+    });
 </script>
 
 </html>
