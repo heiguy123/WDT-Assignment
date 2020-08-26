@@ -1,9 +1,7 @@
 <?php
 include_once('_admin.function.php');
 checksession();
-if (isset($_GET['logout'])) {
-    logout();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +85,7 @@ if (isset($_GET['logout'])) {
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item account-list" href="#"><i class="fas fa-key"></i>Manage Password</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item account-list" href="?logout=1"><i class="fas fa-sign-out-alt"></i>Sign Out</a>
+                        <a class="dropdown-item account-list" href="logout.php"><i class="fas fa-sign-out-alt"></i>Sign Out</a>
                         <!-- 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a> 
