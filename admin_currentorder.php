@@ -1,7 +1,7 @@
 <?php
 include_once('_admin.function.php');
 checksession();
-setdashboardnumber();
+
 
 ?>
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ setdashboardnumber();
     <link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style/admindashboard.css">
+    <link rel="stylesheet" href="./style/admin_currentorder.css">
 </head>
 
 <body>
@@ -57,7 +57,7 @@ setdashboardnumber();
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="admin_currentorder.php">Current Order</a>
-                        <a class="dropdown-item" href="admin_closedorder.php">Closed Order</a>
+                        <a class="dropdown-item" href="admin_closedorder.php">All Order</a>
                         <!-- 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a> 
@@ -103,116 +103,7 @@ setdashboardnumber();
 
 
     </nav>
-    <!-- main body container -->
-    <div class="container-fluid" id="maincontent">
-        <!-- alert box for success login -->
-        <div class="container" id="alert-box">
-            <div class="alert alert-success" role="alert" id="login-alert">
-                Successfully logged in as <b><?php echo $_SESSION['admin_row']['name'] ?></b>!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
 
-        <!-- banner -->
-        <div class="jumbotron jumbotron-fluid" id="welcome-banner">
-            <div class="container">
-                <h1 class="display-4" id="welcome-word">Welcome!</h1>
-                <h3 class="display-5">Admin <?php echo $_SESSION['admin_row']['name'] ?></h3>
-            </div>
-        </div>
-
-        <!-- Details display-->
-        <div class="container detail-box">
-            <div class="row">
-
-                <!-- Total Orders
-                        Confirmed
-                        Food being prepared
-                        Delivering
-                        Completed
-                        Cancelled -->
-                <div class="col-lg-4 col-xs-12 text-center">
-                    <div class="box">
-                        <i class="fas fa-history"></i>
-                        <div class="box-title">
-                            <h3>Total Orders</h3>
-                        </div>
-                        <div class="box-text">
-                            <span class="ordercount"><?php echo $totalorder ?></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-xs-12  text-center">
-                    <div class="box">
-                        <i class="far fa-file"></i>
-                        <div class="box-title">
-                            <h3>Confirmed</h3>
-                        </div>
-                        <div class="box-text">
-                            <span class="ordercount"><?php echo $confirmedorder ?></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-xs-12 text-center">
-                    <div class="box">
-                        <i class="fas fa-sync"></i>
-                        <div class="box-title">
-                            <h3>Being Prepared</h3>
-                        </div>
-                        <div class="box-text">
-                            <span class="ordercount"><?php echo $preparedorder ?></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-xs-12 text-center">
-                    <div class="box">
-                        <i class="fas fa-truck"></i>
-                        <div class="box-title">
-                            <h3>Delivering</h3>
-                        </div>
-                        <div class="box-text">
-                            <span class="ordercount"><?php echo $deliveringorder ?></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-xs-12 text-center">
-                    <div class="box">
-                        <i class="far fa-check-circle"></i>
-                        <div class="box-title">
-                            <h3>Completed</h3>
-                        </div>
-                        <div class="box-text">
-                            <span class="ordercount"><?php echo $completedorder ?></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-xs-12 text-center">
-                    <div class="box">
-                        <i class="fas fa-ban"></i>
-                        <div class="box-title">
-                            <h3>Cancelled</h3>
-                        </div>
-                        <div class="box-text">
-                            <span class="ordercount"><?php echo $cancelledorder ?></span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-    <br><br><br>
-
-    <!--- Footer -->
     <footer>
         <div class="container-fluid padding">
             <div class="row text-center">

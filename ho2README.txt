@@ -45,3 +45,5 @@ adjusted css in admin login
     RECORD UPDATED:
     - RIDER with id 1 become STATUS: Out for delivery
      
+#23
+1. completed admin dashboard
