@@ -47,3 +47,5 @@ adjusted css in admin login
      
 #23
 1. completed admin dashboard
+
+#24 fixed sql file location
