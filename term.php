@@ -34,7 +34,7 @@
 <div class="container-fluid padding">
     <div class="row welcome text-center">
         <div class="col-12">
-            <h2>Terms and Conditions</h2>
+            <h1>Terms and Conditions</h1>
         </div>
         <div class="col-12">
             <h4>Last updated March 11th, 2019</h4>
