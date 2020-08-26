@@ -1,4 +1,6 @@
 <?php
+    include_once("_cus.function.php");
+
     if (!isset($_GET['err'])) {
         $username_err = '';
         $contact_err = '';
@@ -33,53 +35,18 @@
         $password = $_POST["password"];
         $re_pasword = $_POST["re_password"];
 
-        // Validate Username
-        function validate_username($username) {
-            include_once("conn.php");
-
-            $sql = "SELECT * FROM customer WHERE (username='$username')";
-
-            $result = mysqli_query($con, $sql);
-
-
-            if (mysqli_num_rows($result) == 1) {
-                //if there is a record in database
-                mysqli_close($con);
-                return FALSE;
-            } else {
-                //if there is no record in database
-                mysqli_close($con);
-                return TRUE;
-            }
-        }
-
-
         $phone_num = $telcode.$tel;
-        // Validate Phone Number
-        function validate_mobile($phone_num) {
-            return preg_match('/^[0-9]{10}+$/', $phone_num)
-            ? FALSE : TRUE; 
-        }
-
-        // Validate Password
-        function validate_password($password,$re_pasword) {
-            if ($password == $re_pasword) {
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        }
 
         // Function call
-        if (!validate_username("$username")) {
+        if (!validate_username($username)) {
             echo '<script>window.location.href="register_form.php?email='.$email.'&err=0";</script>';
-        } elseif (!validate_mobile("$phone_num")) {
+        } elseif (!validate_mobile($telcode,$tel)) {
             echo '<script>window.location.href="register_form.php?email='.$email.'&err=1";</script>';
-        } elseif (!validate_password("$password","$re_pasword")) {
+        } elseif (!validate_password($password,$re_pasword)) {
             echo '<script>window.location.href="register_form.php?email='.$email.'&err=2";</script>';
         } else {
             // Validation PASS
-            include_once("conn.php");
+            include("conn.php");
 
             $sql = "INSERT INTO customer (cus_name, username, password, email, contact, gender)
                     

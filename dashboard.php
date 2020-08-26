@@ -1,3 +1,11 @@
+<?php
+include_once('_cus.function.php');
+checksession();
+if (isset($_GET['logout'])) {
+    logout();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,39 +20,100 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/dashboard.css">
+
+    <script>
+        function toggler() {
+            var v = document.getElementById("submenu");
+            var x = document.getElementById("toggler_icon");
+
+            var setwidth = window.innerWidth;
+
+            if (v.style.visibility === "visible") {
+                v.style.visibility = "hidden";
+                x.style.visibility = "visible";
+                document.body.style.width = String(setwidth + 200).concat("px");
+            } else {
+                v.style.visibility = "visible";
+                x.style.visibility = "hidden";
+                document.body.style.width = '1000px';
+            }
+        }
+    </script>
 </head>
 
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-xl navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand navbar-light bg-light sticky-top">
     <div class="container-fluid">
-        <button><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarlist">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="dashboard.php" class="nav-link"><img src="img/res_logo.png" height=30>Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><img src="img/res_logo.png" height=30>Help</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><img src="img/res_logo.png" height=30>Order</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><img src="img/res_logo.png" height=30>Account Setting</a>
-                </li>
-                <li class="nav-item">
-                    <a href="logout.php" class="nav-link">Logout</a>
-                </li>
-            </ul>
+        <div class="menu-wrap">
+            <span class="navbar-toggler-icon" id="toggler_icon"></span>
+            <input type="checkbox" class="toggler" onclick="toggler()">
         </div>
+        
+        <!-- <button onclick="toggler()">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
     </div>
 </nav>
 
+<div id="submenu">
+    <div>
+        <div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#"><i class="fas fa-key"></i>Contact</a></li>
+                <li><a href="?logout=1"><i class="fas fa-key"></i>Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <button class="nav-item dropdown dropdown-toggler" type="button" data-target="#dropdownlist">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="dropdownlist">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="dashboard.php" class="nav-link"><i class="fas fa-key"></i>Dashboard</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-key"></i>Help</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-key"></i>My Order</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-key"></i>Account Setting</a></li>
+                <li class="nav-item"><a href="?logout=1" class="nav-link"><i class="fas fa-key"></i>Logout</a></li>
+            </ul>
+        </div> -->
+
+        <!-- <li class="nav-item dropdown">
+            <button class="nav-link dropdown-toggle navbar-toggler-icon" id="dropdownlist" type="button"></button>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownlist">
+                <li class="dropdown-item"><a href="dashboard.php"><i class="fas fa-key"></i>Dashboard</a></li>
+                <li class="dropdown-item"><a href="#"><i class="fas fa-key"></i>Help</a></li>
+                <li class="dropdown-item"><a href="#"><i class="fas fa-key"></i>My Order</a></li>
+                <li class="dropdown-item"><a href="#"><i class="fas fa-key"></i>Account Setting</a></li>
+                <li class="dropdown-item"><a href="?logout=1"><i class="fas fa-key"></i>Logout</a></li>
+            </div>
+        </li>
+
+        <a class="navbar-brand" href="dashboard.php"><img src="img/res_logo.png" height=50>My Restaurant</a>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="#" class="nav-link">Username</a>
+            </li>
+            <li class="nav-item">
+                <button class="dropdown-toggler" type="button" data-target="#cartlist">
+                    <i class="fas fa-user-cog"></i>
+                </button>
+            </li>
+        </ul> -->
+
     
 <!--- Image Slider -->
-<div class="carousel slide" id="slides" data-ride="carousel">
+<!-- <div class="carousel slide" id="slides" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <div class="row">
@@ -72,7 +141,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
-</div>
+</div> -->
 
 <br>
 
