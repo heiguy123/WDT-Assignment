@@ -243,3 +243,15 @@ function resetpassword($email, $password, $re_pasword)
         mysqli_close($con);
     }
 }
+
+
+
+//display for current order
+function displaycurrent()
+{
+}
+
+//display for completed order
+function displayclosed()
+{
+}

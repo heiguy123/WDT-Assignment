@@ -1,0 +1,58 @@
+.navbar {
+  padding: .6rem;
+}
+
+.navbar .navbar-nav > li {
+  padding-top: 0rem;
+  padding-right: 20px;
+}
+
+.navbar .nav-link {
+  font-size: 18px;
+}
+
+.navbar-right {
+  position: absolute;
+  right: 0;
+}
+
+footer hr {
+  border-top: 1px solid #d5d5d5;
+  width: 100%;
+}
+
+.social > a {
+  font-size: 3.5em;
+  padding: 3rem;
+}
+
+.social > a > i {
+  color: #ffffff;
+}
+
+.social > a > i:hover {
+  color: #d5d5d5;
+}
+
+footer {
+  background-color: #3f3f3f;
+  color: #d5d5d5;
+  padding-top: 2rem;
+}
+
+footer a {
+  color: #d5d5d5;
+  font-size: 1.15;
+}
+
+footer a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+footer #logo_a {
+  font-size: 1.5;
+  color: #d5d5d5;
+  font-size: 130%;
+  line-height: 52px;
+}
