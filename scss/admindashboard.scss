@@ -1,6 +1,8 @@
 @import "_admin_nav.scss";
 @import "_footer.scss";
 
+$shadowcolor : #848484;
+
 div#maincontent{
     position: relative;
     padding: 0 0;
@@ -13,6 +15,7 @@ div#alert-box{
     display: none;
     transform: translate(-50%, 0);
     z-index: 1000;
+    
 
 }
 
@@ -82,12 +85,12 @@ div{
         border-radius: 10px;
         padding: 40px 10px;
         margin: 20px 0px;
-        cursor: pointer;
+        // cursor: pointer;
         transition: all 0.5s ease-out;
-        box-shadow: 0 0 6px #4183d7;
+        box-shadow: 0 0 6px $shadowcolor;
         
       .box-text {
-        margin: 20px 0px;
+        margin: 20px 0px 0px;
         font-size: 15px;
         line-height: 30px;
       }
@@ -99,10 +102,16 @@ div{
       }
     }
 
+    i{
+        font-size: 50px;
+        padding-bottom: 30px;
+    }
+
   }
   
   
-  .fa {
-    color: #4183d7;
+  .ordercount{
+    font-size: 3rem;
+    font-weight: 500;
+    line-height: 1.5;
   }
-  

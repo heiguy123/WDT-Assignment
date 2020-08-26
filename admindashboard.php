@@ -1,6 +1,7 @@
 <?php
 include_once('_admin.function.php');
 checksession();
+setdashboardnumber();
 
 ?>
 <!DOCTYPE html>
@@ -67,6 +68,10 @@ checksession();
                 <li class="nav-item">
                     <a class="nav-link" href="#">View Menu</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">View Delivery</a>
+                </li>
             </ul>
 
             <!-- navigation bar at the right side -->
@@ -122,92 +127,80 @@ checksession();
         <div class="container detail-box">
             <div class="row">
 
+                <!-- Total Orders
+                        Confirmed
+                        Food being prepared
+                        Delivering
+                        Completed
+                        Cancelled -->
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
-                        <i class="fa fa-behance fa-3x" aria-hidden="true"></i>
+                        <i class="fas fa-history"></i>
                         <div class="box-title">
-                            <h3>Behance</h3>
+                            <h3>Total Orders</h3>
                         </div>
                         <div class="box-text">
-                            <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                        </div>
-                        <div class="box-btn">
-                            <a href="#">Learn More</a>
+                            <span class="ordercount"><?php echo $totalorder ?></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-xs-12  text-center">
                     <div class="box">
-                        <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+                        <i class="far fa-file"></i>
                         <div class="box-title">
-                            <h3>Twitter</h3>
+                            <h3>Confirmed</h3>
                         </div>
                         <div class="box-text">
-                            <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                        </div>
-                        <div class="box-btn">
-                            <a href="#">Learn More</a>
+                            <span class="ordercount"><?php echo $confirmedorder ?></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
-                        <i class="fa fa-facebook fa-3x" aria-hidden="true"></i>
+                        <i class="fas fa-sync"></i>
                         <div class="box-title">
-                            <h3>Facebook</h3>
+                            <h3>Being Prepared</h3>
                         </div>
                         <div class="box-text">
-                            <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                        </div>
-                        <div class="box-btn">
-                            <a href="#">Learn More</a>
+                            <span class="ordercount"><?php echo $preparedorder ?></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
-                        <i class="fa fa-pinterest-p fa-3x" aria-hidden="true"></i>
+                        <i class="fas fa-truck"></i>
                         <div class="box-title">
-                            <h3>Pinterest</h3>
+                            <h3>Delivering</h3>
                         </div>
                         <div class="box-text">
-                            <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                        </div>
-                        <div class="box-btn">
-                            <a href="#">Learn More</a>
+                            <span class="ordercount"><?php echo $deliveringorder ?></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
-                        <i class="fa fa-google-plus fa-3x" aria-hidden="true"></i>
+                        <i class="far fa-check-circle"></i>
                         <div class="box-title">
-                            <h3>Google</h3>
+                            <h3>Completed</h3>
                         </div>
                         <div class="box-text">
-                            <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                        </div>
-                        <div class="box-btn">
-                            <a href="#">Learn More</a>
+                            <span class="ordercount"><?php echo $completedorder ?></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
-                        <i class="fa fa-github fa-3x" aria-hidden="true"></i>
+                        <i class="fas fa-ban"></i>
                         <div class="box-title">
-                            <h3>Github</h3>
+                            <h3>Cancelled</h3>
                         </div>
                         <div class="box-text">
-                            <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
-                        </div>
-                        <div class="box-btn">
-                            <a href="#">Learn More</a>
+                            <span class="ordercount"><?php echo $cancelledorder ?></span>
                         </div>
                     </div>
                 </div>
@@ -217,6 +210,7 @@ checksession();
 
     </div>
 
+    <br><br><br>
 
     <!--- Footer -->
     <footer>

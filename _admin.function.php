@@ -5,6 +5,72 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+$totalorder = -1;
+$confirmedorder  = -1;
+$preparedorder = -1;
+$deliveringorder = -1;
+$completedorder  = -1;
+$cancelledorder  = -1;
+
+
+function setdashboardnumber()
+{
+    include('conn.php');
+    //completed order
+    $sql = 'SELECT COUNT(order_id) FROM `order` WHERE `order_status` LIKE "Delivered";';
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) { //if there is no record
+        $row = mysqli_fetch_array($result);
+        global $completedorder;
+        $completedorder = $row[0];
+    }
+    //total order
+    $sql = 'SELECT COUNT(order_id) FROM `order`;';
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) { //if there is no record
+        $row = mysqli_fetch_array($result);
+        global $totalorder;
+        $totalorder = $row[0];
+    }
+
+    //confirmed order
+    $sql = 'SELECT COUNT(order_id) FROM `order` WHERE `order_status` LIKE "Confirmed";';
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) { //if there is no record
+        $row = mysqli_fetch_array($result);
+        global $confirmedorder;
+        $confirmedorder = $row[0];
+    }
+    //prepared order
+    $sql = 'SELECT COUNT(order_id) FROM `order` WHERE `order_status` LIKE "Food Being Prepared";';
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) { //if there is no record
+        $row = mysqli_fetch_array($result);
+        global $preparedorder;
+        $preparedorder = $row[0];
+    }
+    //delivering order
+    $sql = 'SELECT COUNT(order_id) FROM `order` WHERE `order_status` LIKE "Picked Up";';
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) { //if there is no record
+        $row = mysqli_fetch_array($result);
+        global $deliveringorder;
+        $deliveringorder = $row[0];
+    }
+    //cancelled order
+    $sql = 'SELECT COUNT(order_id) FROM `order` WHERE `order_status` LIKE "Cancelled";';
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) { //if there is no record
+        $row = mysqli_fetch_array($result);
+        global $cancelledorder;
+        $cancelledorder = $row[0];
+    }
+
+
+    mysqli_close($con);
+}
+
+
 function havesession()
 {
     session_start();
@@ -140,6 +206,7 @@ function sendforgotemail($email)
         } catch (Exception $e) {
             echo 'Message could not be sent.';
             echo 'Mailer Error: ' . $mail->ErrorInfo;
+            echo '<br>Please try again!';
         }
     }
 }
