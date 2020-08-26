@@ -2,7 +2,7 @@
 function havesession()
 {
     session_start();
-    if (!isset($_SESSION['cus_id']))        // check if session is set
+    if (!isset($_SESSION['cus_row']))        // check if session is set
     {
         if (empty($_COOKIE['cus_username']) || empty($_COOKIE['cus_password'])) { //session not found
             //if cookie is empty return false
@@ -49,4 +49,3 @@ function getcusrow($uname, $pword)
         return "";
     }
 }
-?>
