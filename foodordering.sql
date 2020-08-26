@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Aug 22, 2020 at 02:03 AM
+-- Generation Time: Aug 26, 2020 at 09:21 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.12
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `admin_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` varchar(255) NOT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`admin_id`)
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `username`, `name`, `email`, `password`, `last_login`) VALUES
-(2, 'admin1', 'Jerry Sung', 'jerry1@mail.com', 'admin', NULL),
+(2, 'admin1', 'Jerry Sung', 'howard_bb@hotmail.com', 'admin', NULL),
 (3, 'admin2', 'Jerry Two', 'jerry2@mail.com', 'admin', NULL);
 
 -- --------------------------------------------------------
@@ -58,8 +58,17 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `cart_id` int(11) NOT NULL AUTO_INCREMENT,
   `cus_id` int(11) NOT NULL,
   `add_id` int(11) NOT NULL,
+  `total` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cart_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `cus_id`, `add_id`, `total`) VALUES
+(1, 1, 1, '21.00'),
+(2, 2, 3, '21.00');
 
 -- --------------------------------------------------------
 
@@ -75,9 +84,18 @@ CREATE TABLE IF NOT EXISTS `cart_detail` (
   `quantity` int(11) NOT NULL,
   `remark` varchar(255) NOT NULL,
   `option` varchar(255) NOT NULL,
-  `subtotal` int(11) NOT NULL,
+  `subtotal` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cartdetail_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `cart_detail`
+--
+
+INSERT INTO `cart_detail` (`cartdetail_id`, `cart_id`, `food_id`, `quantity`, `remark`, `option`, `subtotal`) VALUES
+(1, 1, 3, 2, 'Less Tauge', '', '21.00'),
+(2, 2, 3, 1, 'Nothing', '', '10.50'),
+(3, 2, 5, 1, 'Nope', '&Spicy: Yes', '10.50');
 
 -- --------------------------------------------------------
 
@@ -91,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `cus_name` varchar(255) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `email` varchar(20) NOT NULL,
+  `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `contact` varchar(20) NOT NULL,
   `gender` varchar(10) NOT NULL,
   PRIMARY KEY (`cus_id`)
@@ -525,7 +543,16 @@ CREATE TABLE IF NOT EXISTS `delivery_task` (
   `rider_id` int(11) NOT NULL,
   `delivery_status` varchar(255) NOT NULL,
   PRIMARY KEY (`delivery_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `delivery_task`
+--
+
+INSERT INTO `delivery_task` (`delivery_id`, `order_id`, `rider_id`, `delivery_status`) VALUES
+(1, 1, 1, 'Delivered'),
+(2, 2, 1, 'Delivered'),
+(3, 3, 1, 'Delivering');
 
 -- --------------------------------------------------------
 
@@ -602,7 +629,6 @@ INSERT INTO `food_category` (`cate_id`, `category_name`, `description`) VALUES
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE IF NOT EXISTS `order` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cart_id` int(11) NOT NULL,
   `cus_id` int(11) NOT NULL,
   `delivery_cost` decimal(10,2) NOT NULL,
   `food_cost` decimal(10,2) NOT NULL,
@@ -610,8 +636,22 @@ CREATE TABLE IF NOT EXISTS `order` (
   `order_status` varchar(255) NOT NULL,
   `payment_id` int(11) NOT NULL,
   `time` datetime NOT NULL,
+  `add_id` int(11) NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`order_id`, `cus_id`, `delivery_cost`, `food_cost`, `total_cost`, `order_status`, `payment_id`, `time`, `add_id`) VALUES
+(1, 1, '5.00', '21.00', '26.00', 'Delivered', 1, '2020-08-23 10:07:23', 1),
+(2, 2, '0.00', '31.50', '31.50', 'Delivered', 2, '2020-08-23 13:00:00', 2),
+(3, 1, '0.00', '42.00', '42.00', 'Cancelled', 3, '2020-08-23 15:00:00', 1),
+(4, 2, '5.00', '21.00', '26.00', 'Picked Up', 4, '2020-08-24 08:00:00', 3),
+(5, 1, '5.00', '10.50', '15.50', 'Food Being Prepared', 5, '2020-08-24 10:00:00', 1),
+(6, 2, '5.00', '10.50', '15.50', 'Confirmed', 6, '2020-08-24 10:24:00', 3),
+(7, 1, '5.00', '10.50', '15.50', 'Confirmed', 7, '2020-08-24 15:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -627,7 +667,16 @@ CREATE TABLE IF NOT EXISTS `order_cancel_request` (
   `time` datetime NOT NULL,
   `admin_id` int(11) NOT NULL,
   PRIMARY KEY (`request_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `order_cancel_request`
+--
+
+INSERT INTO `order_cancel_request` (`request_id`, `order_id`, `request_status`, `time`, `admin_id`) VALUES
+(1, 1, 'Rejected', '2020-08-23 16:00:00', 1),
+(2, 3, 'Accepted', '2020-08-24 00:00:00', 1),
+(3, 7, 'Pending', '2020-08-25 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -645,7 +694,22 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   `option` varchar(255) NOT NULL,
   `subtotal` decimal(10,2) NOT NULL,
   PRIMARY KEY (`orderdetail_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `order_detail`
+--
+
+INSERT INTO `order_detail` (`orderdetail_id`, `order_id`, `food_id`, `quantity`, `remark`, `option`, `subtotal`) VALUES
+(1, 1, 6, 2, '', '&Green Pea: No', '21.00'),
+(2, 2, 3, 2, 'Lebih Sugar', '', '21.00'),
+(3, 2, 9, 1, '', '', '10.50'),
+(4, 3, 3, 2, '', '', '21.00'),
+(5, 3, 4, 2, '', '', '21.00'),
+(6, 4, 8, 2, '', '', '21.00'),
+(7, 5, 5, 1, '', '&Spicy: Yes', '10.50'),
+(8, 6, 7, 1, '', '', '10.50'),
+(9, 7, 4, 1, '', '', '10.50');
 
 -- --------------------------------------------------------
 
@@ -685,6 +749,27 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `payment_status` varchar(255) NOT NULL,
   PRIMARY KEY (`payment_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_method`
+--
+
+DROP TABLE IF EXISTS `payment_method`;
+CREATE TABLE IF NOT EXISTS `payment_method` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `payment_method` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `payment_method`
+--
+
+INSERT INTO `payment_method` (`id`, `payment_method`) VALUES
+(1, 'Online Banking'),
+(2, 'Credit / Debit Card');
 
 -- --------------------------------------------------------
 
@@ -730,7 +815,7 @@ CREATE TABLE IF NOT EXISTS `rider` (
 --
 
 INSERT INTO `rider` (`rider_id`, `username`, `name`, `password`, `contact`, `rider_status`) VALUES
-(1, 'driver1', 'Driver Bong', 'driver', '011111111', 'Available'),
+(1, 'driver1', 'Driver Bong', 'driver', '011111111', 'Out for Delivery'),
 (2, 'driver2', 'Driver Bing', 'driver', '0112222222', 'Available'),
 (3, 'driver3', 'Driver Beng', 'driver', '0133333333', 'Available');
 
