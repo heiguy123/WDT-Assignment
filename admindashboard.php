@@ -98,7 +98,8 @@ checksession();
 
 
     </nav>
-    <div class="container" id="maincontent">
+    <!-- main body container -->
+    <div class="container-fluid" id="maincontent">
         <!-- alert box for success login -->
         <div class="container" id="alert-box">
             <div class="alert alert-success" role="alert" id="login-alert">
@@ -108,7 +109,18 @@ checksession();
                 </button>
             </div>
         </div>
+
+        <!-- banner -->
+        <div class="jumbotron jumbotron-fluid" id="welcome-banner">
+            <div class="container">
+                <h1 class="display-4" id="welcome-word">Welcome!</h1>
+                <h3 class="display-5">Admin <?php echo $_SESSION['admin_row']['name'] ?></h3>
+            </div>
+        </div>
     </div>
+
+
+
     <!--- Footer -->
     <footer>
         <div class="container-fluid padding">
