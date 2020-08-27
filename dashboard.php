@@ -26,7 +26,166 @@ if (isset($_GET['logout'])) {
 
 <body>
 <!-- navbar -->
-<nav class="navbar navbar-expand navbar-light bg-light sticky-top">
+<nav class="navbar navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hamburger" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="img/res_logo.png" height=35>My Restaurant</a>
+        <div>
+            <div class="nav-nav">
+                <li class="navbar-nav"><a href="#" class="nav-link">Username</a></li>
+            </div>
+            <div class="cart-btn" type="button" data-toggle="collapse" data-target="#cart">
+                <span class="nav-icon"><i class="fas fa-cart-plus"></i></span>
+                <div class="cart-items"><span>0</span></div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="collapse" id="hamburger">
+    <div class="bg-white p-2">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">My Order</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Account Setting</a></li>
+            <li class="nav-item"><a href="?logout=1" class="nav-link">Logout</a></li>
+            <hr>
+            <li class="nav-item"><a href="#" class="nav-link">Contact Us</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Terms and Condition</a></li>
+        </ul>
+    </div>
+</div>
+<div class="collapse" id="cart">
+    <div class="p-4 row">
+        <div class="jumbotron">
+            <h5>Shopping Cart</h5>
+            <hr>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-8">K1. Kolok Mee</div>
+                    <div class="col-4">MYR 6.00</div>
+                </div>
+                <h5>Small</h5>
+                <div class="row">
+                    <div class="col-8">
+                        <h5>+ Beam</h5>
+                        <h5>+ Rice</h5>
+                    </div>
+                    <div class="col-4">
+                        <input type="number">
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="jumbotron">
+            <h5>Shopping Cart</h5>
+            <hr>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-8">K1. Kolok Mee</div>
+                    <div class="col-4">MYR 6.00</div>
+                </div>
+                <h5>Small</h5>
+                <div class="row">
+                    <div class="col-8">
+                        <h5>+ Beam</h5>
+                        <h5>+ Rice</h5>
+                    </div>
+                    <div class="col-4">
+                        <input type="number">
+                    </div>
+                </div>
+            </div>
+        </div>
+               <!-- <div class="row">
+                    <div class="col-xs-8">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button type="button" class="btn btn-primary btn-sm btn-block">
+                                                <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h4 class="product-name"><strong>Product name</strong></h4><h4><small>Product description</small></h4>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="col-xs-6 text-right">
+                                            <h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control input-sm" value="1">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <button type="button" class="btn btn-link btn-xs">
+                                                <span class="glyphicon glyphicon-trash"> </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            
+
+
+
+            <!-- <h1 class="display-4"><em>You ordered My Restaurant</em></h1>
+            <p class="lead">There are links on this page on GitHub and Blogspot.</p>
+            <hr class="my-4">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Press <strong>button</strong> below to show links in Modal window.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <p class="lead">
+            Button trigger modal
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Show Modal Component with Links
+            </button>
+            </p>
+            Modal
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal Component title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <a href="https://sergeiki.github.io/bs0/" class="badge badge-danger">Visit this Bootstrap 4 Examples page on GitHub</a>
+                            <a href="http://sergeiki.blogspot.com/2017/12/bootstrap-v4-layout-content-components-utilities-examples.html" class="badge badge-warning">Visit this Bootstrap 4 Examples blog on Blogspot</a>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- <nav class="navbar navbar-expand navbar-light bg-light sticky-top">
     <div class="container-fluid">
         <span class="nav-icon"><i class="fas fa-bars"></i></span>
         <a class="navbar-brand" href="#"><img src="img/res_logo.png" height=50>My Restaurant</a>
@@ -40,7 +199,49 @@ if (isset($_GET['logout'])) {
             </div>
         </div>
     </div>
-</nav>
+</nav> -->
+
+<!-- alert box for success login -->
+<div class="container-fluid" id="main-content">
+    <div class="container" id="login-box">
+        <div class="alert alert-success" role="alert" id="login-alert">
+            Successfully logged in as <b><?php echo $_SESSION['cus_row']['cus_name'] ?></b>!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- alert box for entering delivery address -->
+<div class="container-fluid" id="main-content">
+    <div class="container" id="input-box">
+        <div class="alert alert-success" role="alert" id="input-alert">
+            Please enter the delivery address before adding item into cart!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Flexbox container for aligning the toasts -->
+<div aria-live="polite" aria-atomic="true" class="flexbox d-flex justify-content-center align-items-center" style="min-height: 200px;">
+    <!-- Then put toasts within -->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="./img/res_logo.png" class="rounded mr-2" wdith="10px">
+            <strong class="mr-auto">My Restaurant</strong>
+            <small>Warning</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Please enter the delivery address before adding item into cart!
+        </div>
+    </div>
+</div>
 
 <br>
 
@@ -242,19 +443,6 @@ if (isset($_GET['logout'])) {
     </div>
 </div>
 
-<!-- hamburger -->
-<div class="hamburger-overlay">
-    <div class="hamburger">
-        <ul class="hamburger-content">
-            <li class="hamburger-item"><i class="fa fab-facebook"><a href="#" class="hamburger-link">Home</a></i></li>
-            <li class="hamburger-item"><a href="#" class="hamburger-link">Help</a></li>
-            <li class="hamburger-item"><a href="#" class="hamburger-link">My Order</a></li>
-            <li class="hamburger-item"><a href="#" class="hamburger-link">Account Setting</a></li>
-            <li class="hamburger-item"><a href="?logout=1" class="hamburger-link">Logout</a></li>
-        </ul>
-    </div>
-</div>
-
 <br>
 
 <!--- Footer -->
@@ -309,14 +497,21 @@ if (isset($_GET['logout'])) {
     //only alert when the user is logged in through login page
     $(document).ready(function() {
         if (welcome === "welcome") {
-            showAlert();
+            showAlert(1);
         }
     });
 
-    function showAlert() {
-        $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
-            $("#alert-box").slideUp(500);
-        });
+    function showAlert(type) {
+        if (type == 0) {
+            $("#login-box").fadeTo(2000, 500).slideUp(500, function() {
+                $("#login-box").slideUp(500);
+            });
+        } else if (type == 1) {
+            document.getElementById('main-content').style.background = 'rgba(0,0,0,0.5)';
+            $("#input-box").fadeTo(2000, 500).slideUp(500, function() {
+                $("#input-box").slideUp(500);
+            });
+        }
     }
 </script>
 </body>

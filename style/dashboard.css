@@ -44,6 +44,14 @@ footer hr, hr {
   width: 100%;
 }
 
+#main-content #login-box, #main-content #input-box {
+  position: absolute;
+  display: none;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  z-index: 1000;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -75,15 +83,11 @@ html, body {
           align-items: center;
 }
 
-.navbar > div span {
-  cursor: pointer;
-  font-size: 1.5rem;
-}
-
 .navbar > div div .nav-nav {
   position: absolute;
-  top: .5rem;
-  right: 4rem;
+  top: 11px;
+  right: 88px;
+  font-size: 22px;
 }
 
 .navbar > div div .cart-btn {
@@ -93,18 +97,79 @@ html, body {
 
 .navbar > div div .cart-btn > span {
   position: absolute;
-  top: -1rem;
-  right: 0.8rem;
+  top: -14px;
+  right: 0px;
+  font-size: 26px;
 }
 
 .navbar > div div .cart-btn > div {
   position: absolute;
-  font-size: 12px;
-  top: -1.2rem;
-  right: 0.6rem;
-  padding: 0 3px;
-  background: white;
+  font-size: 22px;
+  line-height: 22px;
+  top: -22px;
+  right: -12px;
+  padding: 0 5px;
+  background: goldenrod;
   border-radius: 30%;
+}
+
+.navbar > div div .cart-btn > div > span {
+  position: relative;
+  top: 7px;
+}
+
+#cart {
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+#cart > div {
+  background: goldenrod;
+}
+
+#cart > div > div {
+  -ms-flex-line-pack: center;
+      align-content: center;
+  text-align: center;
+  margin-bottom: 0;
+  padding: 1rem .5rem;
+  width: 50%;
+}
+
+#main-content {
+  position: relative;
+  padding: 0;
+}
+
+#main-content #login-box {
+  top: 0;
+  left: 50%;
+}
+
+#main-content #input-box {
+  top: 30px;
+  left: 50%;
+}
+
+.flexbox {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.flexbox .toast {
+  max-width: 320px;
+  border-radius: 0.3;
+}
+
+.flexbox .toast > .toast-header {
+  background: lightgrey;
+}
+
+.flexbox .toast > .toast-header > img {
+  width: 30px;
+}
+
+.flexbox .toast > .toast-body {
+  background: grey;
 }
 
 .search {

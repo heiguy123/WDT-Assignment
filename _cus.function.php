@@ -67,7 +67,7 @@ function validate_structure($email)
 }
 
 // Validate Email with database
-function validate_email($email,$type="register")
+function validate_email($email, $type=0)
 {
     include_once("conn.php");
 
@@ -78,17 +78,17 @@ function validate_email($email,$type="register")
     if (mysqli_num_rows($result) == 0) {
         // if there is no record in database
         mysqli_close($con);
-        if ($type="register") {
+        if ($type=0) {
             return TRUE;
-        } elseif ($type="reset") {
+        } elseif ($type=1) {
             return FALSE;
         }
     } else {
         // if there is a record matched in database
         mysqli_close($con);
-        if ($type="register") {
+        if ($type=0) {
             return FALSE;
-        } elseif ($type="reset") {
+        } elseif ($type=1) {
             return TRUE;
         }
     }
@@ -100,7 +100,7 @@ function sendregisteremail($email)
     // Function call 
     if (!validate_structure($email)) { 
         echo '<script>window.location.href="register.php?err=0";</script>';
-    } elseif (!validate_email($email,"register")) {
+    } elseif (!validate_email($email)) {
         echo '<script>window.location.href="register.php?err=1";</script>';
     } else { 
         // Send email to from company website to recipient
@@ -152,7 +152,7 @@ function sendresetemail($email)
     // Function call 
     if (!validate_structure($email)) { 
         echo '<script>window.location.href="forgot.php?err=0";</script>';
-    } elseif (!validate_email($email,"reset")) {
+    } elseif (!validate_email($email,1)) {
         echo '<script>window.location.href="forgot.php?err=1";</script>';
     } else { 
         // Send email to from company website to recipient
