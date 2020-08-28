@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
             }
 
             mysqli_close($con);
-            header("Location:dashboard.php");
+            header("Location:dashboard.php?welcome=welcome");
         }
     }
 }
