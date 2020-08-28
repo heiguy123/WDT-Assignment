@@ -1,6 +1,7 @@
 <?php
 include_once('_cus.function.php');
 checksession();
+getfoodlist();
 if (isset($_GET['logout'])) {
     logout();
 }
@@ -46,14 +47,14 @@ if (isset($_GET['logout'])) {
 <div class="collapse" id="hamburger">
     <div class="bg-white p-2">
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="dashboard.php" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
             <li class="nav-item"><a href="#" class="nav-link">My Order</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Account Setting</a></li>
             <li class="nav-item"><a href="?logout=1" class="nav-link">Logout</a></li>
             <hr>
-            <li class="nav-item"><a href="#" class="nav-link">Contact Us</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Terms and Condition</a></li>
+            <li class="nav-item"><a href="tel:0388699498" class="nav-link">Contact Us</a></li>
+            <li class="nav-item"><a href="term.php" class="nav-link">Terms and Condition</a></li>
         </ul>
     </div>
 </div>
@@ -79,127 +80,8 @@ if (isset($_GET['logout'])) {
                 </div>
             </div>
         </div> 
-        <div class="jumbotron">
-            <h5>Shopping Cart</h5>
-            <hr>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-8">K1. Kolok Mee</div>
-                    <div class="col-4">MYR 6.00</div>
-                </div>
-                <h5>Small</h5>
-                <div class="row">
-                    <div class="col-8">
-                        <h5>+ Beam</h5>
-                        <h5>+ Rice</h5>
-                    </div>
-                    <div class="col-4">
-                        <input type="number">
-                    </div>
-                </div>
-            </div>
-        </div>
-               <!-- <div class="row">
-                    <div class="col-xs-8">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <div class="panel-title">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <button type="button" class="btn btn-primary btn-sm btn-block">
-                                                <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <h4 class="product-name"><strong>Product name</strong></h4><h4><small>Product description</small></h4>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="col-xs-6 text-right">
-                                            <h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <input type="text" class="form-control input-sm" value="1">
-                                        </div>
-                                        <div class="col-xs-2">
-                                            <button type="button" class="btn btn-link btn-xs">
-                                                <span class="glyphicon glyphicon-trash"> </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            
-
-
-
-            <!-- <h1 class="display-4"><em>You ordered My Restaurant</em></h1>
-            <p class="lead">There are links on this page on GitHub and Blogspot.</p>
-            <hr class="my-4">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Press <strong>button</strong> below to show links in Modal window.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <p class="lead">
-            Button trigger modal
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            Show Modal Component with Links
-            </button>
-            </p>
-            Modal
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal Component title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <a href="https://sergeiki.github.io/bs0/" class="badge badge-danger">Visit this Bootstrap 4 Examples page on GitHub</a>
-                            <a href="http://sergeiki.blogspot.com/2017/12/bootstrap-v4-layout-content-components-utilities-examples.html" class="badge badge-warning">Visit this Bootstrap 4 Examples blog on Blogspot</a>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-        </div>
     </div>
 </div>
-
-<!-- <nav class="navbar navbar-expand navbar-light bg-light sticky-top">
-    <div class="container-fluid">
-        <span class="nav-icon"><i class="fas fa-bars"></i></span>
-        <a class="navbar-brand" href="#"><img src="img/res_logo.png" height=50>My Restaurant</a>
-        <div>
-            <div class="nav-nav">
-                <li class="navbar-nav"><a href="#" class="nav-link">Username</a></li>
-            </div>
-            <div class="cart-btn">
-                <span class="nav-icon"><i class="fas fa-cart-plus"></i></span>
-                <div class="cart-items">0</div>
-            </div>
-        </div>
-    </div>
-</nav> -->
 
 <!-- alert box for success login -->
 <div class="container-fluid" id="main-content">
@@ -221,24 +103,6 @@ if (isset($_GET['logout'])) {
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-        </div>
-    </div>
-</div>
-
-<!-- Flexbox container for aligning the toasts -->
-<div aria-live="polite" aria-atomic="true" class="flexbox d-flex justify-content-center align-items-center" style="min-height: 200px;">
-    <!-- Then put toasts within -->
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <img src="./img/res_logo.png" class="rounded mr-2" wdith="10px">
-            <strong class="mr-auto">My Restaurant</strong>
-            <small>Warning</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="toast-body">
-            Please enter the delivery address before adding item into cart!
         </div>
     </div>
 </div>
@@ -294,19 +158,15 @@ if (isset($_GET['logout'])) {
         <h2>Category</h2>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="#1" class="nav-link active">Noodles</a>
+                <a href="#link1" class="nav-link active"><?php echo $category_name[0][1]; ?></a>
             </li>
             <span> | </span>
             <li class="nav-item">
-                <a href="#" class="nav-link">Rice</a>
+                <a href="#link2" class="nav-link"><?php echo $category_name[1][2]; ?></a>
             </li>
             <span> | </span>
             <li class="nav-item">
-                <a href="#1" class="nav-link">Soup</a>
-            </li>
-            <span> | </span>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Drink and Beverage</a>
+                <a href="#link3" class="nav-link"><?php echo $category_name[2][3]; ?></a>
             </li>
         </ul>
     </div>
@@ -318,128 +178,165 @@ if (isset($_GET['logout'])) {
 <div class="container-fluid products">
     <br>
     <!-- Section -->
+    <a name="link1"></a>
     <div class="section-title">
-            <h2>Noodle</h2>
+        <h2><?php echo $category_name[0][1]; ?></h2>
     </div>
 
     <!-- products -->
     <div class="row padding" id="card">
         <!-- single product -->
         <div class="products-center col-2">
-            <div class="card" data-toggle="modal" data-target="#pic1">
-                <img class="card-img-top product-image" src="img/noodle/蒜香虾油意面.jpg">
+            <div class="card">
+                <?php echo $food_list[0][4] ?>
                 <div class="card-body">
-                    <h6 class="card-title col-12">K1. Curry Beef Udon</h6>
+                    <h6 class="card-title col-12"><?php echo $food_list[0][2] ?></h6>
                     <div class="row">
-                        <p class="card-text product-price col-8">Start from RM10.50</p>
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[0][3] ?></p>
                         <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
                     </div>
                 </div>
             </div>
-        </div>  
-    </div>
+        </div>
 
-    <br>
-    <!-- Section -->
-    <div class="section-title">
-            <h2>Rice</h2>
-    </div>
-
-    <!-- products -->
-    <div class="row padding" id="card">
-        <!-- single product -->
         <div class="products-center col-2">
-            <div class="card" data-toggle="modal" data-target="#pic1">
-                <img class="card-img-top product-image" src="img/noodle/蒜香虾油意面.jpg">
+            <div class="card">
+                <?php echo $food_list[1][5] ?>
                 <div class="card-body">
-                    <h6 class="card-title col-12">K1. Curry Beef Udon</h6>
+                    <h6 class="card-title col-12"><?php echo $food_list[1][3] ?></h6>
                     <div class="row">
-                        <p class="card-text product-price col-8">Start from RM10.50</p>
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[1][4] ?></p>
                         <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
                     </div>
                 </div>
             </div>
-        </div>  
-    </div>
+        </div>
 
-    <br>
-    <!-- Section -->
-    <div class="section-title">
-            <h2>Soup</h2>
-    </div>
-
-    <!-- products -->
-    <div class="row padding" id="card">
-        <!-- single product -->
         <div class="products-center col-2">
-            <div class="card" data-toggle="modal" data-target="#pic1">
-                <img class="card-img-top product-image" src="img/noodle/蒜香虾油意面.jpg">
+            <div class="card">
+                <?php echo $food_list[2][6] ?>
                 <div class="card-body">
-                    <h6 class="card-title col-12">K1. Curry Beef Udon</h6>
+                    <h6 class="card-title col-12"><?php echo $food_list[2][4] ?></h6>
                     <div class="row">
-                        <p class="card-text product-price col-8">Start from RM10.50</p>
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[2][5] ?></p>
                         <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
                     </div>
                 </div>
             </div>
-        </div>  
-    </div>
+        </div>
 
-    <br>
-    <!-- Section -->
-    <div class="section-title">
-        <h2>Drink and Beverages</h2>
-    </div>
-
-    <!-- products -->
-    <div class="row padding" id="card">
-        <!-- single product -->
         <div class="products-center col-2">
-            <div class="card" data-toggle="modal" data-target="#pic1">
+            <div class="card">
+                <?php echo $food_list[3][7] ?>
                 <div class="card-body">
-                    <h6 class="card-title col-12">K1. Curry Beef Udon</h6>
+                    <h6 class="card-title col-12"><?php echo $food_list[3][5] ?></h6>
                     <div class="row">
-                        <p class="card-text product-price col-8">Start from RM10.50</p>
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[3][6] ?></p>
                         <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
                     </div>
                 </div>
             </div>
         </div> 
     </div>
-</div>
 
-<!-- cart -->
-<div class="cart-overlay">
-    <div class="cart">
-        <span class="close-cart">
-            <i class="fas fa-window-close"></i>
-        </span>
-        <h2>You ordered My Restaurant</h2>
-        <div class="cart-content">
-            <div class="cart-item">
-                <img src="./img/noodle/蒜香虾油意面.jpg">
-                <div>
-                    <h4>K1. Curry Beef Udon</h4>
-                    <h5>MYR 10.50</h5>
-                    <span class="remove-item" data-id=1>remove</span>
-                </div>
-                <div>
-                    <i class="fas fa-chevron-up" data-id=1></i>
-                    <p class="item-amount">1</p>
-                    <i class="fas fa-chevron-down" data-id=1></i>
+    <br>
+    <!-- Section -->
+    <a name="link2"></a>
+    <div class="section-title">
+        <h2><?php echo $category_name[1][2]; ?></h2>
+    </div>
+
+    <!-- products -->
+    <div class="row padding" id="card">
+        <!-- single product -->
+        <div class="products-center col-2">
+            <div class="card">
+                <?php echo $food_list[4][8] ?>
+                <div class="card-body">
+                    <h6 class="card-title col-12"><?php echo $food_list[4][6] ?></h6>
+                    <div class="row">
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[4][7] ?></p>
+                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
+                    </div>
                 </div>
             </div>
-            
         </div>
 
-        <div class="cart-footer">
-            <h3>subtotal : MYR <span class="cart-total">0</span></h3>
-            <h3>Delivery Fee : MYR <span class="cart-total">0</span></h3>
-            <h3>Including Service Tax : MYR <span class="cart-total">0</span></h3>
-            <h3>Total (Incl. Service Tax) : MYR <span class="cart-total">0</span></h3>
-            <button class="clear-cart banner-btn">clear cart</button>
-            <button class="checkout banner-btn">Checkout</button>
+        <div class="products-center col-2">
+            <div class="card">
+                <?php echo $food_list[5][9] ?>
+                <div class="card-body">
+                    <h6 class="card-title col-12"><?php echo $food_list[5][7] ?></h6>
+                    <div class="row">
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[5][8] ?></p>
+                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="products-center col-2">
+            <div class="card">
+                <?php echo $food_list[6][10] ?>
+                <div class="card-body">
+                    <h6 class="card-title col-12"><?php echo $food_list[6][8] ?></h6>
+                    <div class="row">
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[6][9] ?></p>
+                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <!-- Section -->
+    <a name="link3"></a>
+    <div class="section-title">
+        <h2><?php echo $category_name[2][3]; ?></h2>
+    </div>
+
+    <!-- products -->
+    <div class="row padding" id="card">
+        <!-- single product -->
+        <div class="products-center col-2">
+            <div class="card">
+                <?php echo $food_list[7][11] ?>
+                <div class="card-body">
+                    <h6 class="card-title col-12"><?php echo $food_list[7][9] ?></h6>
+                    <div class="row">
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[7][10] ?></p>
+                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>   
+
+        <div class="products-center col-2">
+            <div class="card">
+                <?php echo $food_list[8][12] ?>
+                <div class="card-body">
+                    <h6 class="card-title col-12"><?php echo $food_list[8][10] ?></h6>
+                    <div class="row">
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[8][11] ?></p>
+                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div class="products-center col-2">
+            <div class="card">
+                <?php echo $food_list[9][13] ?>
+                <div class="card-body">
+                    <h6 class="card-title col-12"><?php echo $food_list[9][11] ?></h6>
+                    <div class="row">
+                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[9][12] ?></p>
+                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div> 
     </div>
 </div>
 
@@ -496,8 +393,8 @@ if (isset($_GET['logout'])) {
 
     //only alert when the user is logged in through login page
     $(document).ready(function() {
-        if (welcome === "welcome") {
-            showAlert(1);
+        if (welcome === "welcome") {s
+            showAlert(0);
         }
     });
 

@@ -1,6 +1,14 @@
 # WDT-Assignment
 Food Delivery System (Website)
 
+<h4>Date: 2020/08/28</h4>
+<b>From: heiguy123</b><br>
+1. Change BLOB file size in food/picture in .sql<br>
+2. Improve dashboard.php functionality.<br>
+3. Merge functions into _cus.function.php<br>
+4. Remove cus_register.php<br>
+5. Remove cus_forgot.php <br>
+
 <h4>Date: 2020/08/25</h4>
 <b>From: heiguy123</b><br>
 1. Add phpmailer wrapper in cus_register.php (To send email from smtp server to <b>SMTP SERVER</b>).To note that please turn off the two-step authotification and allow lower apps.<br>
