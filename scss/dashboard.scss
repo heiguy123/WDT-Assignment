@@ -1,5 +1,4 @@
-// @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
-@import "_footer.scss";
+@import "_cus_nav.scss";
 
 $primaryColor: grey;
 $mainWhite: #fff;
@@ -33,61 +32,7 @@ html, body {
     color: #262823;
 }
 
-.navbar {
-    height: 60px;
-    align-items: center;
-    > div {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        div {
-            .nav-nav {
-                position: absolute;
-                top: 11px;
-                right: 88px;
-                font-size: 22px;
-            }
-            .cart-btn {
-                cursor: pointer;
-                position: absolute;
-                > span {
-                    position: absolute;
-                    top: -14px;
-                    right: 0px;
-                    font-size: 26px;
-                }
-                > div {
-                    position: absolute;
-                    font-size: 22px;
-                    line-height: 22px;
-                    top: -22px;
-                    right: -12px;
-                    padding: 0 5px;
-                    background: goldenrod;
-                    border-radius: 30%;
-                    > span {
-                        position: relative;
-                        top: 7px;
-                    }
-                }
-            }
-        }
-    }
-}
 
-#cart {
-    align-content: center;
-    > div {
-        background: goldenrod;
-        > div {
-            align-content: center;
-            text-align: center;
-            margin-bottom: 0;
-            padding: 1rem .5rem;
-            width: 50%;
-        }
-    }
-}
 
 #main-content {
     position: relative;

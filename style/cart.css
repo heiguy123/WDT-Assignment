@@ -179,19 +179,6 @@ footer a:hover {
   text-decoration: none;
 }
 
-hr {
-  border-top: 1px solid #d5d5d5;
-  width: 100%;
-}
-
-#main-content #login-box, #main-content #input-box {
-  position: absolute;
-  display: none;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-  z-index: 1000;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -200,125 +187,114 @@ hr {
 }
 
 html, body {
-  color: #222;
-  background: #fff;
   font-family: 'Baloo Tammudu 2', cursive;
   color: #262823;
 }
 
-#main-content {
-  position: relative;
-  padding: 0;
+.shopping-cart .card-header {
+  padding-top: 18px;
 }
 
-#main-content #login-box {
-  top: 0;
-  left: 50%;
-}
-
-#main-content #input-box {
-  top: 30px;
-  left: 50%;
-}
-
-.search {
-  width: 30%;
-  padding-left: 30px;
-}
-
-.carousel-inner img {
-  height: 350px;
-}
-
-.directory {
-  padding: 20px 0;
-  height: 60px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.directory > div {
-  width: 100%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.directory > div > h2 {
+.shopping-cart .card-header .continue {
+  padding-top: 10px;
   position: absolute;
-  font-size: 200%;
-  display: block;
-  padding-left: 50px;
+  top: 10px;
+  right: 15px;
 }
 
-.directory > div > ul {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin: 0 auto;
+.shopping-cart .card-body > div h4 {
+  padding-top: 12px;
 }
 
-.directory > div > ul > li {
+.shopping-cart .card-body > div .image {
+  padding-top: 6px;
+}
+
+.shopping-cart .card-body > div .right .price {
+  padding-top: 5px;
+}
+
+.shopping-cart .card-body > div .right .price > h6 {
+  padding-top: 32px;
+}
+
+.shopping-cart .card-body > div .right .number {
+  padding-top: 26px;
+}
+
+.shopping-cart .card-body > div .right .number .plus, .shopping-cart .card-body > div .right .number .minus {
+  padding-top: 10px;
+}
+
+.shopping-cart .card-body > div .right .delete {
+  padding-top: 24px;
+}
+
+.shopping-cart .card-body > div .right .delete > button {
+  padding-top: 10px;
+}
+
+.quantity {
+  float: left;
+  margin-right: 15px;
+  background-color: #eee;
+  position: relative;
+  width: 80px;
+  overflow: hidden;
+}
+
+.quantity input {
+  margin: 0;
   text-align: center;
-  padding: 10px;
-}
-
-.directory > div > ul > li > a {
-  color: black;
-}
-
-.directory > div > ul > li > a:hover {
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.582);
-}
-
-hr {
-  margin: 0 auto;
-  width: 90%;
-}
-
-.products {
-  padding: 0 50px;
-}
-
-.products > .section-title {
-  -ms-flex-line-pack: center;
-      align-content: center;
-}
-
-.products > .section-title > h2 {
-  font-size: 250%;
-  font-weight: 600;
-  line-height: 35px;
-}
-
-#card > div {
-  padding: 10px 20px;
-}
-
-#card > div > div {
-  width: 100%;
-}
-
-#card > div > div > div {
+  width: 15px;
+  height: 15px;
   padding: 0;
+  float: right;
+  color: #000;
+  font-size: 20px;
+  border: 0;
+  outline: 0;
+  background-color: #F6F6F6;
 }
 
-#card > div > div > div > h6 {
-  padding: 2px 8px;
-  text-align: left;
-  margin-bottom: 0;
-  font-weight: 900;
+.quantity input.qty {
+  position: relative;
+  border: 0;
+  width: 100%;
+  height: 40px;
+  padding: 10px 25px 10px 10px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 15px;
+  border-radius: 0;
+  background-clip: padding-box;
 }
 
-#card > div > div > div > div {
-  margin-left: 0;
-  margin-right: -50px;
+.quantity .minus, .quantity .plus {
+  line-height: 0;
+  background-clip: padding-box;
+  border-radius: 0;
+  -webkit-background-size: 6px 30px;
+  -moz-background-size: 6px 30px;
+  color: #bbb;
+  font-size: 20px;
+  position: absolute;
+  height: 50%;
+  border: 0;
+  right: 0;
+  padding: 0;
+  width: 25px;
+  z-index: 3;
 }
 
-#card > div > div > div > div > p {
-  padding: 2px 8px;
-  text-align: left;
-  font-size: 75%;
+.quantity .minus:hover, .quantity .plus:hover {
+  background-color: #dad8da;
+}
+
+.quantity .minus {
+  bottom: 0;
+}
+
+.shopping-cart {
+  margin-top: 20px;
 }

@@ -1,0 +1,167 @@
+%icon {
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    position: absolute;
+    font-size: 22px;
+    color: #555e60;
+    left: 18px;
+    padding-top: 7px;
+}
+
+.navbar {
+    height: 60px;
+    align-items: center;
+    > div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        div {
+            .nav-nav {
+                position: absolute;
+                top: 11px;
+                right: 88px;
+                font-size: 22px;
+            }
+            .cart-btn {
+                cursor: pointer;
+                position: absolute;
+                > span {
+                    position: absolute;
+                    top: -14px;
+                    right: 0px;
+                    font-size: 26px;
+                }
+                > div {
+                    position: absolute;
+                    font-size: 22px;
+                    line-height: 22px;
+                    top: -22px;
+                    right: -12px;
+                    padding: 0 5px;
+                    background: goldenrod;
+                    border-radius: 30%;
+                    > span {
+                        position: relative;
+                        top: 7px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#cart {
+    align-content: center;
+    > div {
+        background: goldenrod;
+        > div {
+            align-content: center;
+            text-align: center;
+            margin-bottom: 0;
+            padding: 1rem .5rem;
+            width: 100%;
+            button {
+                position: absolute;
+                top: 88px;
+                right: 160px;
+                background-color: goldenrod;
+                color: white;
+                font-size: 20px;
+                height: 38px;
+                padding-top: 5px;
+                border-radius: 5px;
+                border-bottom: 4px solid rgb(180, 138, 31);   
+            }
+            button:hover, button:focus {
+                background-color: rgb(180, 138, 31) !important;
+                border-bottom: 4px solid rgb(180, 138, 31) !important;
+            }
+        }
+    }
+}
+
+.panel-body {
+    padding: 24px;
+    margin: 14px;
+    align-content: flex-end;
+    fieldset {
+        text-align: justify;
+        align-content: space-between;
+        // border: 2px solid grey;
+        // border-radius: 2px;
+        > h4 {
+            padding-top: 10px;
+        }
+        > input {
+            width: 25%;
+        }
+    }
+}
+
+#hamburger {
+    width: 15%;
+    > div {
+        > ul {
+            > li {
+                padding-left: 50px;
+                > a {
+                    padding-top: 11px;
+                    font-size: 22px;
+                    color: black;
+                }
+                > a:hover {
+                    color: rgba(0, 0, 0, 0.5);
+                }
+            }
+        }
+    }
+}
+
+.home::before {
+    @extend %icon;
+    content: "\f015";
+}
+
+.help::before {
+    @extend %icon;
+    content: "\f05a";
+}
+
+.order::before {
+    @extend %icon;
+    content: "\f1da";
+}
+
+.account::before {
+    @extend %icon;
+    content: "\f007";
+}
+
+.logout::before {
+    @extend %icon;
+    content: "\f2f5";
+}
+
+.tel::before {
+    @extend %icon;
+    content: "\f879";
+}
+
+.term::before {
+    @extend %icon;
+    content: "\f15c";
+}
+
+footer {
+    background-color: #3f3f3f;
+    color: #d5d5d5;
+    padding-top: 2rem;
+    a {
+        color: #d5d5d5;
+        font-size: 115%;
+    } 
+    a:hover {
+        color: white;
+        text-decoration: none;
+    }
+}
