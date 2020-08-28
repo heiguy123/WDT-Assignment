@@ -19,7 +19,7 @@ if (isset($_GET['logout'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
-    <!-- <link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css"> -->
+    <link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/dashboard.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
@@ -32,10 +32,10 @@ if (isset($_GET['logout'])) {
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hamburger" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#"><img src="img/res_logo.png" height=35>My Restaurant</a>
+        <a class="navbar-brand" href="dashboard.php"><img src="img/res_logo.png" height=35>My Restaurant</a>
         <div>
             <div class="nav-nav">
-                <li class="navbar-nav"><a href="#" class="nav-link">Username</a></li>
+                <li class="navbar-nav"><a href="account.php" class="nav-link"><?php echo $_SESSION['cus_row']['cus_name'] ?></a></li>
             </div>
             <div class="cart-btn" type="button" data-toggle="collapse" data-target="#cart">
                 <span class="nav-icon"><i class="fas fa-cart-plus"></i></span>
@@ -47,37 +47,42 @@ if (isset($_GET['logout'])) {
 <div class="collapse" id="hamburger">
     <div class="bg-white p-2">
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="dashboard.php" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">My Order</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Account Setting</a></li>
-            <li class="nav-item"><a href="?logout=1" class="nav-link">Logout</a></li>
+            <li class="nav-item home"><a href="dashboard.php" class="nav-link">Home</a></li>
+            <li class="nav-item help"><a href="#" class="nav-link">Help</a></li>
+            <li class="nav-item order"><a href="#" class="nav-link">My Order</a></li>
+            <li class="nav-item account"><a href="account.php" class="nav-link">Account Setting</a></li>
+            <li class="nav-item logout"><a href="?logout=1" class="nav-link">Logout</a></li>
             <hr>
-            <li class="nav-item"><a href="tel:0388699498" class="nav-link">Contact Us</a></li>
-            <li class="nav-item"><a href="term.php" class="nav-link">Terms and Condition</a></li>
+            <li class="nav-item tel"><a href="tel:0388699498" class="nav-link">Contact Us</a></li>
+            <li class="nav-item term"><a href="term.php" class="nav-link">Terms and Condition</a></li>
         </ul>
     </div>
 </div>
 <div class="collapse" id="cart">
     <div class="p-4 row">
         <div class="jumbotron">
-            <h5>Shopping Cart</h5>
+            <h4>Shopping Cart</h4>
+            <button class="btn btn-secondary-outline" type="button" onclick="location.href='cart.php';">More Details</button>
             <hr>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-8">K1. Kolok Mee</div>
-                    <div class="col-4">MYR 6.00</div>
-                </div>
-                <h5>Small</h5>
-                <div class="row">
-                    <div class="col-8">
-                        <h5>+ Beam</h5>
-                        <h5>+ Rice</h5>
-                    </div>
-                    <div class="col-4">
-                        <input type="number">
-                    </div>
-                </div>
+            <div class="panel-body row padding">
+                <fieldset>
+                    <img src="./img/noodle/蒜香虾油意面.jpg" style="max-height: 130px;">
+                    <h4>Curry Beef Udon</h4>
+                    <h6>MYR 10.50</h6>
+                    <input type="number">
+                </fieldset>
+                <fieldset>
+                    <img src="./img/noodle/蒜香虾油意面.jpg" style="max-height: 130px;">
+                    <h4>Curry Beef Udon</h4>
+                    <h6>MYR 10.50</h6>
+                    <input type="number">
+                </fieldset>
+                <fieldset>
+                    <img src="./img/noodle/蒜香虾油意面.jpg" style="max-height: 130px;">
+                    <h4>Curry Beef Udon</h4>
+                    <h6>MYR 10.50</h6>
+                    <input type="number">
+                </fieldset>
             </div>
         </div> 
     </div>
@@ -346,36 +351,7 @@ if (isset($_GET['logout'])) {
 <footer>
     <div class="container-fluid padding">
         <div class="row text-center">
-            <div class="col-4">
-                <a id="logo_a" href="index.php"><img src="img/res_logo_invert.png" width="65">My Restaurant</a>
-                <hr>
-                <a href="tel:0388699498">03-8869 9498</a><br><br>
-                <a href="mailto:myrestaurant@gmail.com">myrestaurant@gmail.com</a><br><br>
-                <p>100 Bukit Jalil</p>
-                <p>Kuala Lumpur, Kuala Lumpur, 57000</p>
-            </div>
-
-            <div class="col-4">
-                <hr>
-                <h5>Our Hours</h5>
-                <hr>
-                <p>Monday: 9am - 5pm</p>
-                <p>Saturday: 10am - 4pm</p>
-                <p>Sunday: closed</p>
-            </div>
-
-            <div class="col-4">
-                <hr>
-                <h5>Service Area</h5>
-                <hr>
-                <p>Kuala Lumpur</p>
-                <p>Shah Alam</p>
-                <p>Subang Jaya</p>
-                <p>Batu Caves</p>
-            </div>
-         
             <div class="col-12">
-                <hr>
                 <a href="term.php">&copy; myrestaurant.com</a>
             </div>
         </div>    
