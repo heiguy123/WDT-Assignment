@@ -37,16 +37,16 @@ html, body {
 #main-content {
     position: relative;
     padding: 0;
-    #login-box, #input-box {
-        @extend %alert-box;
-    }
-    #login-box {
-        top:0;
-        left:50%;
-    }
-    #input-box {
-        top: 30px;
-        left: 50%;
+    #alert-box {
+        > div {
+            @extend %alert-box;
+            top:0;
+            left:50%;
+            width: 40em;
+            text-align: center;
+            padding-top: 22px;
+        }
+        
     }
 }
 

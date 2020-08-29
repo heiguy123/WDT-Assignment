@@ -2,11 +2,8 @@
 include('_cus.function.php');
 checksession();
 getfoodlist();
-if (isset($_GET['logout'])) {
-    logout();
-}
 if (isset($_POST['add'])) {
-    addCart($_POST['food_id'],$_SESSION['cus_row']['username']);
+    addCart($_POST['food_id']);
 }
 ?>
 
@@ -42,7 +39,7 @@ if (isset($_POST['add'])) {
             </div>
             <div class="cart-btn" type="button" data-toggle="collapse" data-target="#cart">
                 <span class="nav-icon"><i class="fas fa-cart-plus"></i></span>
-                <div class="cart-items"><span><?php echo numCart($_SESSION['cus_row']['username']) ?></span></div>
+                <div class="cart-items"><span><?php echo numCart($_SESSION['cus_row']['cus_id']) ?></span></div>
             </div>
         </div>
     </div>
@@ -54,7 +51,7 @@ if (isset($_POST['add'])) {
             <li class="nav-item help"><a href="#" class="nav-link">Help</a></li>
             <li class="nav-item order"><a href="#" class="nav-link">My Order</a></li>
             <li class="nav-item account"><a href="account.php" class="nav-link">Account Setting</a></li>
-            <li class="nav-item logout"><a href="?logout=1" class="nav-link">Logout</a></li>
+            <li class="nav-item logout"><a href="logout.php" class="nav-link">Logout</a></li>
             <hr>
             <li class="nav-item tel"><a href="tel:0388699498" class="nav-link">Contact Us</a></li>
             <li class="nav-item term"><a href="term.php" class="nav-link">Terms and Condition</a></li>
@@ -93,21 +90,9 @@ if (isset($_POST['add'])) {
 
 <!-- alert box for success login -->
 <div class="container-fluid" id="main-content">
-    <div class="container" id="login-box">
+    <div class="container" id="alert-box">
         <div class="alert alert-success" role="alert" id="login-alert">
             Successfully logged in as <b><?php echo $_SESSION['cus_row']['cus_name'] ?></b>!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- alert box for entering delivery address -->
-<div class="container-fluid" id="main-content">
-    <div class="container" id="input-box">
-        <div class="alert alert-success" role="alert" id="input-alert">
-            Please enter the delivery address before adding item into cart!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -187,6 +172,7 @@ if (isset($_POST['add'])) {
         </div>    
     </div>
 </footer>
+</body>
 
 <!-- javascript go here -->
 <script>
@@ -199,23 +185,15 @@ if (isset($_POST['add'])) {
 
     //only alert when the user is logged in through login page
     $(document).ready(function() {
-        if (welcome === "welcome") {s
-            showAlert(0);
+        if (welcome === "welcome") {
+            showAlert();
         }
     });
 
-    function showAlert(type) {
-        if (type == 0) {
-            $("#login-box").fadeTo(2000, 500).slideUp(500, function() {
-                $("#login-box").slideUp(500);
-            });
-        } else if (type == 1) {
-            document.getElementById('main-content').style.background = 'rgba(0,0,0,0.5)';
-            $("#input-box").fadeTo(2000, 500).slideUp(500, function() {
-                $("#input-box").slideUp(500);
-            });
-        }
+    function showAlert() {
+        $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
+            $("#alert-box").slideUp(500);
+        });
     }
 </script>
-</body>
 </html>

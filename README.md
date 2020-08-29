@@ -10,6 +10,9 @@ Food Delivery System (Website)
 5. Add cart.scss <br>
 6. Improve dashboard.scss <br>
 7. Add file ref<br>
+----------------------------------------------------<br>
+8. Fix bugs in addCart() in dashboard.php<br>
+9. Fix minor bugs.<br>
 
 <h4>Date: 2020/08/28</h4>
 <b>From: heiguy123</b><br>
