@@ -56,6 +56,40 @@ function getcusrow($uname, $pword)
     }
 }
 
+// Fetch food list into dashboard
+$category_name = array();
+$food_list = array();
+
+function getfoodlist() {
+    include_once('conn.php');
+
+    // Category Name
+    $sql = "SELECT `cate_id`,`description` FROM `food_category`";                  
+    $result = mysqli_query($con,$sql);                                             
+    $num_of_cate=mysqli_num_rows($result);                                         
+    if (mysqli_num_rows($result) > 0) {                                            
+        global $category_name;
+        foreach ($result as $row) {
+            $category_name[] = array($row['cate_id'] => $row['description']);
+        }
+    }
+    // Food Name
+    for ($i=1;$i<=$num_of_cate;$i++) {
+        $sql = "SELECT * FROM `food` WHERE `cate_id` = $i";
+        $result = mysqli_query($con,$sql);
+        if (mysqli_num_rows($result) > 0) {
+            global $food_list;
+            header("Content-type: jpeg");
+            foreach ($result as $row) {
+                $food_list[] = array($row['food_id'] => $i,$row['name'],$row['price'],
+                '<img class="card-img-top product-image" style="max-height: 130px;" src="data:image/jpeg;base64,'.base64_encode( $row['picture'] ).'"/>');
+            }
+        }
+    }
+
+    mysqli_close($con);
+}
+
 // Validate email structure
 function validate_structure($email)
 {
@@ -67,7 +101,7 @@ function validate_structure($email)
 }
 
 // Validate Email with database
-function validate_email($email,$type="register")
+function validate_email($email, $type=0)
 {
     include_once("conn.php");
 
@@ -78,17 +112,17 @@ function validate_email($email,$type="register")
     if (mysqli_num_rows($result) == 0) {
         // if there is no record in database
         mysqli_close($con);
-        if ($type="register") {
+        if ($type=0) {
             return TRUE;
-        } elseif ($type="reset") {
+        } elseif ($type=1) {
             return FALSE;
         }
     } else {
         // if there is a record matched in database
         mysqli_close($con);
-        if ($type="register") {
+        if ($type=0) {
             return FALSE;
-        } elseif ($type="reset") {
+        } elseif ($type=1) {
             return TRUE;
         }
     }
@@ -100,7 +134,7 @@ function sendregisteremail($email)
     // Function call 
     if (!validate_structure($email)) { 
         echo '<script>window.location.href="register.php?err=0";</script>';
-    } elseif (!validate_email($email,"register")) {
+    } elseif (!validate_email($email)) {
         echo '<script>window.location.href="register.php?err=1";</script>';
     } else { 
         // Send email to from company website to recipient
@@ -152,7 +186,7 @@ function sendresetemail($email)
     // Function call 
     if (!validate_structure($email)) { 
         echo '<script>window.location.href="forgot.php?err=0";</script>';
-    } elseif (!validate_email($email,"reset")) {
+    } elseif (!validate_email($email,1)) {
         echo '<script>window.location.href="forgot.php?err=1";</script>';
     } else { 
         // Send email to from company website to recipient

@@ -1,4 +1,6 @@
 <?php
+include_once("_cus.function.php");
+
 if (!isset($_GET['err'])) {
     $email_err = '';
 } else {
@@ -11,7 +13,10 @@ if (!isset($_GET['err'])) {
     }
 }
 
-include_once("cus_forgot.php");
+if (isset($_POST["submit"])) //If all the field is filled
+{
+    sendresetemail($_POST['email']);
+}
 ?>
 
 <!DOCTYPE html>
