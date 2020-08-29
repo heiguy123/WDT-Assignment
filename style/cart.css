@@ -191,70 +191,84 @@ html, body {
   color: #262823;
 }
 
+.shopping-cart {
+  margin-top: 20px;
+}
+
 .shopping-cart .card-header {
   padding-top: 18px;
 }
 
-.shopping-cart .card-header .continue {
-  padding-top: 10px;
-  position: absolute;
-  top: 10px;
-  right: 15px;
-}
-
-.shopping-cart .card-body > div h4 {
+.shopping-cart .card-body form > div h4 {
   padding-top: 12px;
 }
 
-.shopping-cart .card-body > div .image {
+.shopping-cart .card-body form > div .image {
   padding-top: 6px;
 }
 
-.shopping-cart .card-body > div .right .price {
+.shopping-cart .card-body form > div .right .price {
   padding-top: 5px;
 }
 
-.shopping-cart .card-body > div .right .price > h6 {
+.shopping-cart .card-body form > div .right .price > h6 {
   padding-top: 32px;
 }
 
-.shopping-cart .card-body > div .right .number {
+.shopping-cart .card-body form > div .right .number {
   padding-top: 26px;
 }
 
-.shopping-cart .card-body > div .right .number .plus, .shopping-cart .card-body > div .right .number .minus {
-  padding-top: 10px;
-}
-
-.shopping-cart .card-body > div .right .delete {
-  padding-top: 24px;
-}
-
-.shopping-cart .card-body > div .right .delete > button {
-  padding-top: 10px;
-}
-
-.quantity {
+.shopping-cart .card-body form > div .right .number .quantity {
   float: left;
   margin-right: 15px;
   background-color: #eee;
   position: relative;
-  width: 80px;
+  width: 75px;
   overflow: hidden;
 }
 
-.quantity input {
+.shopping-cart .card-body form > div .right .number .quantity input {
   margin: 0;
   text-align: center;
-  width: 15px;
-  height: 15px;
-  padding: 0;
   float: right;
   color: #000;
   font-size: 20px;
   border: 0;
   outline: 0;
   background-color: #F6F6F6;
+  padding: 14px 0 10px 10px;
+}
+
+.shopping-cart .card-body form > div .right .delete {
+  padding-top: 24px;
+}
+
+.shopping-cart .card-body form > div .right .delete > button {
+  padding-top: 10px;
+}
+
+.shopping-cart .card-footer .pull-right {
+  padding-top: 10px;
+}
+
+.shopping-cart .card-footer .btn-success {
+  padding-top: 12px;
+}
+
+.continue {
+  padding-top: 10px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.update {
+  padding-top: 28px;
+}
+
+.update > button {
+  padding-top: 10px;
 }
 
 .quantity input.qty {
@@ -268,33 +282,4 @@ html, body {
   font-size: 15px;
   border-radius: 0;
   background-clip: padding-box;
-}
-
-.quantity .minus, .quantity .plus {
-  line-height: 0;
-  background-clip: padding-box;
-  border-radius: 0;
-  -webkit-background-size: 6px 30px;
-  -moz-background-size: 6px 30px;
-  color: #bbb;
-  font-size: 20px;
-  position: absolute;
-  height: 50%;
-  border: 0;
-  right: 0;
-  padding: 0;
-  width: 25px;
-  z-index: 3;
-}
-
-.quantity .minus:hover, .quantity .plus:hover {
-  background-color: #dad8da;
-}
-
-.quantity .minus {
-  bottom: 0;
-}
-
-.shopping-cart {
-  margin-top: 20px;
 }

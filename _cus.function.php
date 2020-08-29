@@ -56,9 +56,154 @@ function getcusrow($uname, $pword)
     }
 }
 
+// Update cart number
+function numCart($username) {
+    include('conn.php');
+
+    $sql =  "SELECT SUM(quantity) FROM `cart_detail` WHERE `cart_id` = 
+            (SELECT `cart_id` FROM `cart` WHERE `cus_id` = 
+            (SELECT `cus_id` FROM `customer` WHERE `username` = '$username'))";
+    $result = mysqli_query($con,$sql);
+    if (mysqli_num_rows($result)==1)
+    {
+        $row = mysqli_fetch_array($result);
+        return $row[0];
+    }
+}
+
+// Fetch card details into cart page
+$cart_detail = array();
+$num = 0;
+$food_item = array();
+$delivery_fee = 5;
+$service_tax = 0.06;
+$subtotal = 0;
+$total = 0;
+$cart_result = '';
+$food_result = '';
+
+function getcartdetail() {
+    include_once('conn.php');
+    // Get food item
+    $cus_name = $_SESSION['cus_row']['username'];
+    
+    $sql =  "SELECT * FROM `cart_detail` WHERE `cart_id` = 
+            (SELECT `cart_id` FROM `cart` WHERE `cus_id` = 
+            (SELECT `cus_id` FROM `customer` WHERE `username` = '$cus_name'))";
+    $result = mysqli_query($con,$sql);
+    global $num;
+    if (mysqli_num_rows($result) > 0) {  
+        $num = mysqli_num_rows($result);                                          
+        global $cart_detail;
+        foreach ($result as $row) {
+            $cart_detail[] = array($row['food_id'],$row['quantity'],$row['remark'],$row['subtotal'],$row['cartdetail_id']);
+        }
+    } else {
+        $cart_detail = array();
+    }
+
+    if (!empty($cart_detail)) // if there is cart detail
+    {
+        for ($i=0;$i<=$num-1;$i++) {
+            $food_id = $cart_detail[$i][0];
+            $sql = "SELECT * FROM `food` WHERE `food_id` = '$food_id'";
+            $result = mysqli_query($con,$sql);
+            if (mysqli_num_rows($result) == 1) {
+                global $food_item;
+                header("Content-type: jpeg");
+                foreach ($result as $row) {
+                    $food_item[] = array($row['name'],$row['description'],$row['price'],
+                    '<img class="img-reposnsive" style="max-height: 80px;" src="data:image/jpeg;base64,'.base64_encode( $row['picture'] ).'"/>');
+                }
+            }
+        }
+        // Calculation
+        global $delivery_fee;
+        global $service_tax;
+        global $subtotal;
+        global $total;
+
+        // get subtotal from cart
+        for ($i=0;$i<=$num-1;$i++) {
+            $subtotal += $cart_detail[$i][3];
+        }
+        
+        if ($subtotal >= 30) {
+            $delivery_fee = 0;
+        }
+
+        $service_tax *= ($subtotal + $delivery_fee);
+
+        $total = $subtotal + $delivery_fee + $service_tax;
+        
+    } else {  // cart is empty
+        global $delivery_fee;
+        global $service_tax;
+        global $subtotal;
+        global $total;
+
+        $delivery_fee = 0;
+        $service_tax = 0;
+        $subtotal = 0;
+        $total = 0;
+    }
+
+    global $cart_result;
+
+    if ($num > 0)
+    {
+        for ($i=0;$i<=$num-1;$i++) 
+        {        
+            $cart_result .=  '
+            <form action="cart.php" method="post">
+            <div class="row">
+                <input type="hidden" name="cartdetail_id" value="'.$cart_detail[$i][4].'">
+                <div class="col-12 col-md-2 text-center image">
+                    '.$food_item[$i][3].'
+                </div>
+                <div class="col-12 text-md-left col-md-4">
+                    <h4 class="product-name"><strong>'.$food_item[$i][0].'</strong></h4>
+                    <h4>
+                        <small>'.$food_item[$i][1].'</small>
+                    </h4>
+                </div>
+                <div class="right col-12 col-md-6 text-md-right row">
+                    <div class="price col-3 col-sm-3 col-md-4 text-md-right" style="padding-top: 5px">
+                        <h6><strong>'.$food_item[$i][2].' <span class="text-muted">x</span></strong></h6>
+                    </div>
+                    <div class="number col-4 col-md-2">
+                        <div class="quantity">
+                            <input name="food_quantity" type="number" step="1" max="99" min="1" value="'.$cart_detail[$i][1].'" title="Qty" class="qty"
+                                    size="4">
+                        </div>
+                    </div>
+                    <div class="delete col-2 col-md-2 text-right">
+                        <button name="delete" type="submit" class="btn btn-outline-danger btn-xs">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-2 col-md-4 text-center update">
+                        <button  name="update" type="submit" class="btn btn-outline-info btn-sm">
+                            Update Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <hr>
+            ';
+        }
+    }
+    
+
+    mysqli_close($con);
+}
+
 // Fetch food list into dashboard
 $category_name = array();
 $food_list = array();
+$food_result = '';
+$directory = '';
 
 function getfoodlist() {
     include_once('conn.php');
@@ -66,28 +211,296 @@ function getfoodlist() {
     // Category Name
     $sql = "SELECT `cate_id`,`description` FROM `food_category`";                  
     $result = mysqli_query($con,$sql);                                             
-    $num_of_cate=mysqli_num_rows($result);                                         
+    $num_of_cate = mysqli_num_rows($result);                                         
     if (mysqli_num_rows($result) > 0) {                                            
         global $category_name;
         foreach ($result as $row) {
-            $category_name[] = array($row['cate_id'] => $row['description']);
+            $category_name[] = array($row['cate_id'],$row['description']);
         }
     }
-    // Food Name
-    for ($i=1;$i<=$num_of_cate;$i++) {
-        $sql = "SELECT * FROM `food` WHERE `cate_id` = $i";
+
+    // After getting num_of_cate insert food_item one by one
+    global $directory;
+
+    for ($i=0;$i<=$num_of_cate-1;$i++) 
+    {   
+        $directory .= '
+            <li class="nav-item">
+                <a href="#link'.$category_name[$i][0].'" class="nav-link active">'.$category_name[$i][1].'</a>
+            </li>
+        ';
+
+        if($i != $num_of_cate-1){ 
+            $directory .= '
+            <span> | </span>
+            ';  
+        }
+    }
+
+    // After getting num_of_cate insert food_item one by one
+    global $food_result;
+    
+    for ($i=0;$i<=$num_of_cate-1;$i++) 
+    {   
+        $food_result .= '
+        <br>
+        <!-- Section -->
+        <a name="link'.($i+1).'"></a>
+        <div class="section-title">
+            <h2>'.$category_name[$i][1].'</h2>
+        </div>
+        
+        <!-- products -->
+        <div class="row padding" id="card">
+        ';
+        
+        // get food based on cate
+        $sql = "SELECT * FROM `food` WHERE `cate_id` = ($i+1)";
         $result = mysqli_query($con,$sql);
-        if (mysqli_num_rows($result) > 0) {
-            global $food_list;
+        $num_of_food = mysqli_num_rows($result);
+
+        global $food_list;
+
+        if (mysqli_num_rows($result) > 0) { // if there is food under this cate, 
+            
             header("Content-type: jpeg");
             foreach ($result as $row) {
-                $food_list[] = array($row['food_id'] => $i,$row['name'],$row['price'],
+                $food_list[] = array($row['food_id'],$i,$row['name'],$row['price'],
                 '<img class="card-img-top product-image" style="max-height: 130px;" src="data:image/jpeg;base64,'.base64_encode( $row['picture'] ).'"/>');
             }
+
+            for ($j=0;$j<=$num_of_food-1;$j++) {
+                
+                $food_result .= '
+                <!-- single product -->
+                <div class="products-center col-2">
+                    <form action="dashboard.php" method="POST">
+                        <input type="hidden" name="food_id" value="'.$food_list[$j][0].'">
+                        <div class="card">
+                            '.$food_list[$j][4].'
+                            <div class="card-body">
+                                <h6 class="card-title col-12">'.$food_list[$j][2].'</h6>
+                                <div class="row">
+                                    <p class="card-text product-price col-8">Start from RM'.$food_list[$j][3].'</p>
+                                    <button name="add" type="submit" class="btn col-2" text-right><i class="fas fa-plus-square"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form> 
+                </div>
+                ';
+            }
+
+            $food_result .= '
+            </div>
+            '; 
+            
+            // Reset array
+            $food_list = array();
         }
     }
 
     mysqli_close($con);
+}
+
+// category
+// Array(  [0] => Array (  [0] => 1
+//                         [1] => Noodle )
+//         [1] => Array (  [0] => 2
+//                         [1] => Rice )
+//         [2] => Array (  [0] => 3
+//                         [1] => Soup ))
+
+// food list
+// Array ( [0] => Array (  [0] => 1 // food_id
+//                         [1] => 1 // cate_id
+//                         [2] => Curry Beef Udon
+//                         [3] => 10.50
+//                         [4] => img
+//         [1] => Array (  [0] => 1
+//                         [1] => 1
+//                         [2] => Curry Beef Udon
+//                         [3] => 10.50
+//                         [4] => img
+
+// Add cart
+function addCart($food_id,$username) {
+    include('conn.php');
+
+    $price = 0;
+    $cart_id = 0;
+
+    $sql = "SELECT `cart_id` FROM `cart` WHERE `cus_id` = 
+    (SELECT `cus_id` FROM `customer` WHERE `username` = '$username')";
+    $result = mysqli_query($con,$sql);
+    if (mysqli_num_rows($result)==1)
+    {
+        $row = mysqli_fetch_array($result);
+        $cart_id = $row[0];
+    }
+
+    $sql = "SELECT `price` FROM `food` WHERE `food_id` = $food_id";
+    $result = mysqli_query($con,$sql);
+    if (mysqli_num_rows($result)==1)
+    {
+        $row = mysqli_fetch_array($result);
+        $price = $row[0];
+    }
+
+    // Check whether food exist in cart
+    $sql = "SELECT SUM(quantity) FROM `cart_detail` WHERE `food_id` = $food_id";
+
+    $result = mysqli_query($con,$sql);
+    if (mysqli_num_rows($result) >= 1) // perform update quantity
+    {
+        $quantity = 0;
+        $row = mysqli_fetch_array($result);
+        $quantity = $row[0];
+        $quantity += 1;
+
+        $price *= $quantity;
+
+        $sql = "UPDATE `cart_detail` SET `quantity` = $quantity, `subtotal` = $price WHERE `food_id` = $food_id";
+
+        if (mysqli_query($con,$sql)) {
+            mysqli_close($con);
+            echo '<script>alert("The item has been added.");
+            window.location.href="dashboard.php";</script>';
+        } else{
+            mysqli_close($con);
+            echo '<script>alert("Added failed.");
+            window.location.href="dashboard.php";</script>';
+        }
+
+
+    } else { // perform insert new item
+
+        $sql =  "INSERT INTO `cart_detail`
+            
+            (`cart_id`, `food_id`, `quantity`,`subtotal`)
+            
+             VALUES 
+             
+             ($cart_id, $food_id, 1 , $price)";
+
+        if (mysqli_query($con,$sql)) {
+            mysqli_close($con);
+            echo '<script>alert("The item has been added.");
+            window.location.href="dashboard.php";</script>';
+        } else{
+            mysqli_close($con);
+            echo '<script>alert("Added failed.");
+            window.location.href="dashboard.php";</script>';
+        }
+    }
+}
+
+// Update cart 
+function updateCart($cartdetail_id,$quantity) {
+    include('conn.php');
+
+    $sql = "SELECT `price` FROM `food` WHERE `food_id` =
+    (SELECT `food_id` FROM `cart_detail` WHERE `cartdetail_id` = $cartdetail_id)";
+
+    $result = (mysqli_query($con,$sql)); 
+    if (mysqli_num_rows($result) == 1) {
+        foreach ($result as $row) {
+            $food_price = $row['price'];
+        }
+    }
+
+    $food_price *= $quantity;
+    
+    // Update cart detail table
+    $sql = "UPDATE `cart_detail` SET `quantity` = $quantity, `subtotal` = $food_price WHERE `cartdetail_id` = $cartdetail_id";
+
+    if (!mysqli_query($con,$sql)) {
+        mysqli_close($con);
+        echo '<script>alert("Update failed.");
+        </script>';
+    }
+
+    // Update cart table
+    $cus_name = $_SESSION['cus_row']['username'];
+    $cus_id = 0;
+    $total_price = 0;
+
+    $sql = "SELECT * FROM `customer` WHERE `username` = '$cus_name'";
+    $result = mysqli_query($con,$sql);
+    if (mysqli_num_rows($result)==1)
+    {
+        $row = mysqli_fetch_array($result);
+        $cus_id = $row[0];
+    }
+
+    $sql = "SELECT a.subtotal FROM cart_detail a,cart b,customer c 
+            WHERE a.cart_id = b.cart_id AND
+            b.cus_id = c.cus_id AND
+            c.username = '$cus_name';";
+
+    $result = mysqli_query($con,$sql);
+    foreach ($result as $row) {
+        $total_price += $row['subtotal'];
+    }
+
+    $sql = "UPDATE `cart` SET `total` = $total_price WHERE `cus_id` = $cus_id";
+
+    if (mysqli_query($con,$sql)) {
+        mysqli_close($con);
+        echo '<script>alert("The item has been updated.");
+        window.location.href="cart.php";</script>';
+    } else{
+        mysqli_close($con);
+        echo '<script>alert("Update failed. type=1");
+        window.location.href="cart.php";</script>';
+    }
+}
+
+// Delete Cart
+function deleteCart($cartdetail_id) {
+    $cus_name = $_SESSION['cus_row']['username'];
+    $cus_id = 0;
+    $total_price = 0;
+
+    include('conn.php');
+
+    $sql = "SELECT * FROM `customer` WHERE `username` = '$cus_name'";
+    $result = mysqli_query($con,$sql);
+    if (mysqli_num_rows($result)==1)
+    {
+        $row = mysqli_fetch_array($result);
+        $cus_id = $row[0];
+    }
+
+    $sql = "DELETE FROM `cart_detail` WHERE `cartdetail_id` = $cartdetail_id";
+
+    if (!mysqli_query($con,$sql)) {
+        mysqli_close($con);
+        echo '<script>alert("Remove failed.");
+        </script>';
+    }
+
+    $sql = "SELECT a.subtotal FROM cart_detail a,cart b,customer c 
+            WHERE a.cart_id = b.cart_id AND
+            b.cus_id = c.cus_id AND
+            c.username = '$cus_name';";
+
+    $result = mysqli_query($con,$sql);
+    foreach ($result as $row) {
+        $total_price += $row['subtotal'];
+    }
+
+    $sql = "UPDATE `cart` SET `total` = $total_price WHERE `cus_id` = $cus_id";
+
+    if (mysqli_query($con,$sql)) {
+        mysqli_close($con);
+        echo '<script>alert("The item has been removed.");
+        window.location.href="cart.php";</script>';
+    } else{
+        mysqli_close($con);
+        echo '<script>alert("Remove failed. type=1(Cart)");
+        window.location.href="cart.php";</script>';
+    }
 }
 
 // Validate email structure

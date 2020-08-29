@@ -29,9 +29,8 @@ if (isset($_POST['submit'])) {
             mysqli_close($con);
         } else {
             //if password matches
-
-            $row = mysqli_fetch_array($result);
-            $_SESSION["cus_row"] = $row;
+            session_start();
+            $_SESSION['cus_row'] = $row;
 
             if (!empty($_POST["remember"])) { //if the user choose to "remember me", store the credential into cookie
                 setcookie("cus_username", $username, time() + 3600 * 24 * 365);

@@ -297,28 +297,36 @@ hr {
   padding: 10px 20px;
 }
 
-#card > div > div {
+#card > div > form > div {
   width: 100%;
 }
 
-#card > div > div > div {
+#card > div > form > div > div {
   padding: 0;
 }
 
-#card > div > div > div > h6 {
+#card > div > form > div > div > h6 {
   padding: 2px 8px;
   text-align: left;
   margin-bottom: 0;
   font-weight: 900;
 }
 
-#card > div > div > div > div {
+#card > div > form > div > div > div {
   margin-left: 0;
   margin-right: -50px;
 }
 
-#card > div > div > div > div > p {
+#card > div > form > div > div > div > p {
   padding: 2px 8px;
   text-align: left;
   font-size: 75%;
+}
+
+#card > div > form > div > div > div > button {
+  background: white;
+}
+
+#card > div > form > div > div > div > button > i {
+  font-size: 26px;
 }
