@@ -1,0 +1,33 @@
+
+.directory {
+    padding: 0px 0 35px;
+    height: 60px;
+    align-items: center;
+    > div {
+        width: 100%;
+        
+        align-items: center;
+        > h2 {
+            position: absolute;
+            font-size: 200%;
+            display: block;
+            padding-left: 50px;
+        }
+        > ul {
+            align-items: center;
+            margin: 0 auto;
+            > li {
+                
+                text-align: center;
+                padding: 10px;
+                > a {
+                    color: black;
+                }
+                > a:hover {
+                    text-decoration: none;
+                    color: rgba(0, 0, 0, 0.582);
+                }
+            }
+        }
+    }
+}
