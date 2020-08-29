@@ -57,12 +57,11 @@ function getcusrow($uname, $pword)
 }
 
 // Update cart number
-function numCart($username) {
+function numCart($cus_id) {
     include('conn.php');
 
     $sql =  "SELECT SUM(quantity) FROM `cart_detail` WHERE `cart_id` = 
-            (SELECT `cart_id` FROM `cart` WHERE `cus_id` = 
-            (SELECT `cus_id` FROM `customer` WHERE `username` = '$username'))";
+            (SELECT `cart_id` FROM `cart` WHERE `cus_id` = $cus_id)";
     $result = mysqli_query($con,$sql);
     if (mysqli_num_rows($result)==1)
     {
@@ -324,14 +323,15 @@ function getfoodlist() {
 //                         [4] => img
 
 // Add cart
-function addCart($food_id,$username) {
+function addCart($food_id) {
     include('conn.php');
 
+    $cus_id = $_SESSION['cus_row']['cus_id'];
+    $username = $_SESSION['cus_row']['username'];
     $price = 0;
     $cart_id = 0;
 
-    $sql = "SELECT `cart_id` FROM `cart` WHERE `cus_id` = 
-    (SELECT `cus_id` FROM `customer` WHERE `username` = '$username')";
+    $sql = "SELECT `cart_id` FROM `cart` WHERE `cus_id` = $cus_id";
     $result = mysqli_query($con,$sql);
     if (mysqli_num_rows($result)==1)
     {
@@ -348,23 +348,20 @@ function addCart($food_id,$username) {
     }
 
     // Check whether food exist in cart
-    $sql = "SELECT SUM(quantity) FROM `cart_detail` WHERE `food_id` = $food_id";
+    $sql = "SELECT SUM(quantity) FROM `cart_detail` WHERE `food_id` = $food_id AND `cart_id` = $cart_id";
 
     $result = mysqli_query($con,$sql);
-    if (mysqli_num_rows($result) >= 1) // perform update quantity
+    $row = mysqli_fetch_array($result);
+    if (!empty($row[0])) // perform update quantity
     {
-        $quantity = 0;
-        $row = mysqli_fetch_array($result);
-        $quantity = $row[0];
-        $quantity += 1;
-
+        $quantity = $row[0] + 1;
         $price *= $quantity;
 
         $sql = "UPDATE `cart_detail` SET `quantity` = $quantity, `subtotal` = $price WHERE `food_id` = $food_id";
 
         if (mysqli_query($con,$sql)) {
             mysqli_close($con);
-            echo '<script>alert("The item has been added.");
+            echo '<script>
             window.location.href="dashboard.php";</script>';
         } else{
             mysqli_close($con);
@@ -385,7 +382,7 @@ function addCart($food_id,$username) {
 
         if (mysqli_query($con,$sql)) {
             mysqli_close($con);
-            echo '<script>alert("The item has been added.");
+            echo '<script>
             window.location.href="dashboard.php";</script>';
         } else{
             mysqli_close($con);
@@ -703,16 +700,5 @@ function resetpassword($email, $password, $re_pasword)
 
         mysqli_close($con);
     }
-}
-
-function logout()
-{
-    session_start();
-    unset($_SESSION['cus_row']);
-    if (!empty($_COOKIE['cus_username']) || !empty($_COOKIE['cus_password'])) {
-        setcookie("cus_username", null, time() - 3600 * 24 * 365);
-        setcookie("cus_password", null, time() - 3600 * 24 * 365);
-    }
-    header("Location: index.php");
 }
 ?>

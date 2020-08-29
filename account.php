@@ -1,9 +1,6 @@
 <?php
 include_once('_cus.function.php');
 checksession();
-if (isset($_GET['logout'])) {
-    logout();
-}
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +32,7 @@ if (isset($_GET['logout'])) {
             </div>
             <div class="cart-btn" type="button" data-toggle="collapse" data-target="#cart">
                 <span class="nav-icon"><i class="fas fa-cart-plus"></i></span>
-                <div class="cart-items"><span>0</span></div>
+                <div class="cart-items"><span><?php echo numCart($_SESSION['cus_row']['cus_id']) ?></span></div>
             </div>
         </div>
     </div>
@@ -47,7 +44,7 @@ if (isset($_GET['logout'])) {
             <li class="nav-item help"><a href="#" class="nav-link">Help</a></li>
             <li class="nav-item order"><a href="#" class="nav-link">My Order</a></li>
             <li class="nav-item account"><a href="account.php" class="nav-link">Account Setting</a></li>
-            <li class="nav-item logout"><a href="?logout=1" class="nav-link">Logout</a></li>
+            <li class="nav-item logout"><a href="logout.php" class="nav-link">Logout</a></li>
             <hr>
             <li class="nav-item tel"><a href="tel:0388699498" class="nav-link">Contact Us</a></li>
             <li class="nav-item term"><a href="term.php" class="nav-link">Terms and Condition</a></li>

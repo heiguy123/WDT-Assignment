@@ -184,7 +184,7 @@ hr {
   width: 100%;
 }
 
-#main-content #login-box, #main-content #input-box {
+#main-content #alert-box > div {
   position: absolute;
   display: none;
   -webkit-transform: translate(-50%, 0);
@@ -211,14 +211,12 @@ html, body {
   padding: 0;
 }
 
-#main-content #login-box {
+#main-content #alert-box > div {
   top: 0;
   left: 50%;
-}
-
-#main-content #input-box {
-  top: 30px;
-  left: 50%;
+  width: 40em;
+  text-align: center;
+  padding-top: 22px;
 }
 
 .search {
