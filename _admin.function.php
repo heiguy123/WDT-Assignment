@@ -249,9 +249,141 @@ function resetpassword($email, $password, $re_pasword)
 //display for current order
 function displaycurrent()
 {
+    //                 <tr>
+    //                     <th scope="row">1</th>
+    //                     <td>Mark</td>
+    //                     <td>Otto</td>
+    //                     <td>@mdo</td>
+    //                 </tr>
+    //                 <tr>
+    //                     <th scope="row">2</th>
+    //                     <td>Jacob</td>
+    //                     <td>Thornton</td>
+    //                     <td>@fat</td>
+    //                 </tr>
+    //                 <tr>
+    //                     <th scope="row">3</th>
+    //                     <td>Larry</td>
+    //                     <td>the Bird</td>
+    //                     <td>@twitter</td>
+    //                 </tr>
+
+
+    // ===============BELOW WILL BE OPEN WHEN SEARCH FUNCTION IS AVAILABLE
+    // if (isset($_GET['searchname']) && $_GET['searchname'] != '') {  //this is run when the submit button is clicked and the search item isnt null
+
+    //     $sql = "SELECT * FROM contacts  WHERE contact_name LIKE '%" . $_GET['searchname'] . "%'";
+    // } elseif (!isset($_GET['searchname'])) {  //this will show all
+
+    //     $sql = "SELECT * FROM contacts";
+    // } elseif ($_GET['searchname'] == '') {  //this is run when the given name to search is blank
+
+    //     header('Location:new_view.php');
+    // }
+
+    $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+    WHERE ord.cus_id = cus.cus_id 
+    AND ord.payment_id = pay.payment_id 
+    AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up');   
+    ";
+
+    include('conn.php');
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+
+    if (mysqli_num_rows($result) == 0) { //if there is no record
+        echo '<script>alert("Sorrt something went wrong D:");
+                </script>';
+    } else {
+        //1st create a container
+        $i = 1;
+        while ($row = mysqli_fetch_array($result)) {
+
+            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $i . '">';
+            echo '<th scope="row">' . $i . '</th>';
+            echo '<td>' . $row['order_id'] . '</td>';
+            echo '<td>' . $row['cus_name'] . '</td>';
+            echo '<td>' . $row['payment_method'] . '</td>';
+            echo '<td>' . $row['time'] . '</td>';
+            echo '<td>' . $row['order_status'] . '</td>';
+            echo '<td>' . $row['total_cost'] . '</td>';
+            echo '</tr>';
+
+
+            echo '
+            <div class="modal fade" id="exampleModal' . $i . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $i . '" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel' . $i . '">Order Detail</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body container">';
+
+            echo '
+            <div class="row details">
+                <div class="col-6">
+                    <p>Order ID: ' . $row["order_id"] . '</p>
+                    <p>Name: ' . $row['cus_name'] . '</p>
+                    <p>Time: ' . $row['time'] . '</p>    
+                </div>
+                <div class="col-6">
+                    <span>Status: </span>
+                    ';
+
+
+
+            echo '   
+                </div>
+            
+            </div>
+            ';
+
+            echo '      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+
+            $i++;
+        };
+    }
 }
 
 //display for completed order
 function displayclosed()
 {
 }
+
+
+function orderstatusoption()
+{
+    $sql = 'SELECT DISTINCT(order_status) FROM `order_status`';
+    include('conn.php');
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+    echo '<select name="order_status" id="order_status">';
+    if (mysqli_num_rows($result) == 0) { //if there is no record
+
+        echo '<script>alert("Sorry, something went wrong!");
+                </script>';
+    } else {
+        echo '   <option value="' . $row['order_status'] . '">' . $row['order_status'] . '</option>
+                
+        ';
+    };
+
+
+    echo '</select>';
+}
+
+// <option value="volvo">Volvo</option>
+// <option value="saab">Saab</option>
+// <option value="mercedes">Mercedes</option>
+// <option value="audi">Audi</option>
