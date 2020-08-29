@@ -49,3 +49,7 @@ adjusted css in admin login
 1. completed admin dashboard
 
 #24 fixed sql file location
+
+2020/08/29
+#32
+1. basically updated view order

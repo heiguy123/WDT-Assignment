@@ -57,6 +57,70 @@ footer #logo_a {
   line-height: 52px;
 }
 
+table.showorder {
+  border: 1px solid #ccc;
+}
+
+.orderrow {
+  cursor: pointer;
+}
+
+tr.orderrow:hover {
+  background-color: #dadada;
+}
+
+div.items {
+  padding: 0 16px;
+}
+
+div.item-box {
+  padding: 0;
+  overflow: hidden;
+}
+
+.directory {
+  padding: 0px 0 35px;
+  height: 60px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.directory > div {
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.directory > div > h2 {
+  position: absolute;
+  font-size: 200%;
+  display: block;
+  padding-left: 50px;
+}
+
+.directory > div > ul {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto;
+}
+
+.directory > div > ul > li {
+  text-align: center;
+  padding: 10px;
+}
+
+.directory > div > ul > li > a {
+  color: black;
+}
+
+.directory > div > ul > li > a:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.582);
+}
+
 div#maincontent {
   position: relative;
   padding: 0 0;
@@ -91,10 +155,11 @@ div#maincontent {
   font-weight: 450;
 }
 
-table.showorder {
-  border: 1px solid #ccc;
+#seperator {
+  margin-top: -0.9rem;
+  margin-bottom: 0;
 }
 
-.orderrow {
-  cursor: pointer;
+.radio {
+  padding-right: 20px;
 }

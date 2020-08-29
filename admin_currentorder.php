@@ -1,6 +1,9 @@
 <?php
 include_once('_admin.function.php');
 checksession();
+if (isset($_POST['order_id'])) {
+    update_orderstatus($_POST['order_id'], $_POST['order_status']);
+}
 
 
 ?>
@@ -21,6 +24,7 @@ checksession();
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/admin_currentorder.css">
+    <script src="admin_sortcurrent.js"></script>
 </head>
 
 <body>
@@ -57,7 +61,7 @@ checksession();
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="admin_currentorder.php">Current Order</a>
-                        <a class="dropdown-item" href="admin_closedorder.php">All Order</a>
+                        <a class="dropdown-item" href="admin_closedorder.php">Closed Order</a>
                         <!-- 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a> 
@@ -69,9 +73,6 @@ checksession();
                     <a class="nav-link" href="#">View Menu</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">View Delivery</a>
-                </li>
             </ul>
 
             <!-- navigation bar at the right side -->
@@ -109,11 +110,51 @@ checksession();
     <!-- main body container -->
     <div class="container-fluid" id="maincontent">
 
+
         <!-- banner -->
         <div class="jumbotron jumbotron-fluid" id="welcome-banner">
             <div class="container">
                 <h1 class="display-4" id="welcome-word">My Restaurant</h1>
                 <h3 class="display-5">Food Ordering System</h3>
+            </div>
+        </div>
+
+        <!-- navigation bar -->
+        <nav class="directory navbar navbar-expand">
+            <div class="container">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item">
+                        <a href="admin_currentorder.php" class="nav-link active">Current Order</a>
+                    </li>
+                    <span> | </span>
+                    <li class="nav-item">
+                        <a href="admin_closedorder.php" class="nav-link">Closed Order</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- seperator -->
+        <div class="container">
+            <hr id="seperator">
+        </div>
+
+        <!-- filter -->
+        <div class="container filter">
+            <div class="row">
+                <div class="col float-right">
+                    <h4>Filter</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class=" col-md-5 ">
+                    <form id="sortbox">
+                        <span class="radio">Sort by:</span>
+                        <input type="radio" name="sortby" id="sdate" value="Time" checked> <span class="radio"> Time </span>
+                        <input type="radio" name="sortby" id="stotal" value="Total"> <span class="radio"> Total</span>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -138,9 +179,7 @@ checksession();
                     </tr>
                 </thead>
                 <tbody id="viewbody">
-                    <?php displaycurrent(); ?>
-
-
+                    <?php displaycurrent(0); ?>
                 </tbody>
             </table>
         </div>
@@ -166,9 +205,9 @@ checksession();
         </div>
         <!-- end of body -->
     </div>
+    <br><br>
 
-
-
+    <!-- footer -->
     <footer>
         <div class="container-fluid padding">
             <div class="row text-center">
@@ -223,27 +262,6 @@ checksession();
     </footer>
 </body>
 
-<!-- javascript go here -->
-<script>
-    // this is to get the parameter using javascript
-    const queryString = window.location.search;
 
-    const urlParams = new URLSearchParams(queryString);
-
-    const welcome = urlParams.get('welcome');
-
-    //only alert when the user is logged in through login page
-    $(document).ready(function() {
-        if (welcome === "welcome") {
-            showAlert();
-        }
-    });
-
-    function showAlert() {
-        $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
-            $("#alert-box").slideUp(500);
-        });
-    }
-</script>
 
 </html>

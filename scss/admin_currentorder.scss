@@ -1,5 +1,7 @@
 @import "_admin_nav.scss";
 @import "_footer.scss";
+@import "_admin_order.scss";
+@import "admin_directory";
 
 div#maincontent{
     position: relative;
@@ -37,10 +39,10 @@ div#maincontent{
     }
 }
 
-table.showorder{
-    border: 1px solid #ccc;
+#seperator{
+    margin-top: -0.9rem;
+    margin-bottom: 0;
 }
-
-.orderrow{
-    cursor: pointer;
-}
+ .radio{
+     padding-right:20px
+ }

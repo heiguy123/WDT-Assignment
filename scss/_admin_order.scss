@@ -1,0 +1,24 @@
+$hovercolor: #dadada;
+
+table.showorder{
+    border: 1px solid #ccc;
+}
+
+.orderrow{
+    cursor: pointer;
+}
+
+tr.orderrow:hover{
+    background-color:$hovercolor;
+}
+
+div.items{
+    padding: 0 16px;
+
+}
+
+div.item-box{
+    padding:0;
+    overflow: hidden;
+}
+

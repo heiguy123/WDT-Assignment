@@ -69,9 +69,7 @@ setdashboardnumber();
                     <a class="nav-link" href="#">View Menu</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">View Delivery</a>
-                </li>
+
             </ul>
 
             <!-- navigation bar at the right side -->
