@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Aug 26, 2020 at 09:21 AM
+-- Generation Time: Aug 28, 2020 at 02:47 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.12
 
@@ -748,7 +748,20 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `paid_amount` decimal(10,2) NOT NULL,
   `payment_status` varchar(255) NOT NULL,
   PRIMARY KEY (`payment_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`payment_id`, `payment_method`, `paid_amount`, `payment_status`) VALUES
+(1, 'Credit / Debit Card', '26.00', 'Success'),
+(2, 'Credit / Debit Card', '31.50', 'Success'),
+(3, 'Online Banking', '42.00', 'Success'),
+(4, 'Credit / Debit Card', '26.00', 'Success'),
+(5, 'Online Banking', '15.50', 'Success'),
+(6, 'Online Banking', '15.50', 'Success'),
+(7, 'Credit / Debit Card', '15.50', 'Success');
 
 -- --------------------------------------------------------
 

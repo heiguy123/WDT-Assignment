@@ -56,3 +56,45 @@ footer #logo_a {
   font-size: 130%;
   line-height: 52px;
 }
+
+div#maincontent {
+  position: relative;
+  padding: 0 0;
+}
+
+#welcome-banner {
+  display: block;
+  width: 100%;
+  position: relative;
+  background-image: url(../img/banner/banner4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  height: 34vh;
+  z-index: 9;
+}
+
+#welcome-banner ::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: block;
+  background: -webkit-gradient(linear, left top, right top, color-stop(20%, rgba(255, 255, 255, 0.65)), color-stop(60%, rgba(255, 255, 255, 0.1)), color-stop(95%, rgba(255, 255, 255, 0)));
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.65) 20%, rgba(255, 255, 255, 0.1) 60%, rgba(255, 255, 255, 0) 95%);
+  z-index: -1;
+}
+
+#welcome-banner #welcome-word {
+  font-weight: 450;
+}
+
+table.showorder {
+  border: 1px solid #ccc;
+}
+
+.orderrow {
+  cursor: pointer;
+}
