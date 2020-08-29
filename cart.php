@@ -1,9 +1,15 @@
 <?php
 include_once('_cus.function.php');
 checksession();
-getfoodlist();
+getcartdetail();
 if (isset($_GET['logout'])) {
     logout();
+}
+if (isset($_POST['update'])) {
+    updateCart($_POST['cartdetail_id'],$_POST['food_quantity']);
+}
+if (isset($_POST['delete'])) {
+    deleteCart($_POST['cartdetail_id']);
 }
 ?>
 
@@ -94,72 +100,46 @@ if (isset($_GET['logout'])) {
    <div class="card shopping-cart">
         <div class="card-header bg-dark text-light">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            Shipping cart
+            Shopping cart
             <a href="dashboard.php" class="btn btn-outline-info btn-sm text-right continue">Continue shopping</a>
             <div class="clearfix"></div>
         </div>
         <div class="card-body">
-                <!-- PRODUCT -->
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-2 text-center image">
-                            <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120" height="80">
-                    </div>
-                    <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
-                        <h4 class="product-name"><strong>Product Name</strong></h4>
-                        <h4>
-                            <small>Product description</small>
-                        </h4>
-                    </div>
-                    <div class="right col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
-                        <div class="price col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                            <h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
-                        </div>
-                        <div class="number col-4 col-sm-4 col-md-4">
-                            <div class="quantity">
-                                <input type="button" value="+" class="plus">
-                                <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"
-                                        size="4">
-                                <input type="button" value="-" class="minus">
-                            </div>
-                        </div>
-                        <div class="delete col-2 col-sm-2 col-md-2 text-right">
-                            <button type="button" class="btn btn-outline-danger btn-xs">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <!-- END PRODUCT -->
-            <div class="pull-right">
-                <a href="" class="btn btn-outline-secondary pull-right">
-                    Update shopping cart
-                </a>
-            </div>
+            <?php echo $cart_result; ?>
         </div>
         <div class="card-footer">
-            <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">
-                <div class="row">
-                    <div class="col-6">
-                        <input type="text" class="form-control" placeholder="cupone code">
-                    </div>
-                    <div class="col-6">
-                        <input type="submit" class="btn btn-default" value="Use cupone">
-                    </div>
-                </div>
-            </div>
             <div class="pull-right" style="margin: 10px">
-                <a href="" class="btn btn-success pull-right">Checkout</a>
-                <div class="pull-right" style="margin: 5px">
-                    Total price: <b>50.00€</b>
+                <div class="pull-right" style="margin: 5px; width: 40%; margin-bottom: 18px;">
+                    <div class="row padding">
+                        <div class="text-left col-6">Subtotal: </div>
+                        <div class="text-right col-3"><b>MYR </b></div>
+                        <div class="text-left col-3"><b><?php echo $subtotal; ?></b></div><br>
+                    </div>
+                    <div class="row padding">
+                        <div class="text-left col-6">Delivery Fee: </div>
+                        <div class="text-right col-3"><b>MYR </b></div>
+                        <div class="text-left col-3"><b><?php echo $delivery_fee; ?></b></div><br>
+                    </div>
+                    <div class="row padding">
+                        <div class="text-left col-6">Including Service Tax: </div>
+                        <div class="text-right col-3"><b>MYR </b></div>
+                        <div class="text-left col-3"><b><?php echo $service_tax; ?></b></div><br>
+                    </div>
+                    <div class="row padding">
+                        <div class="text-left col-6">Total (Incl. Service Tax): </div>
+                        <div class="text-right col-3"><b>MYR </b></div>
+                        <div class="text-left col-3"><b><?php echo $total; ?></b></div><br>
+                    </div>
                 </div>
+                <a href="" class="btn btn-success pull-right">Checkout</a>
             </div>
         </div>
     </div>
-</div>
+</div>    
 
-<br>
-<br>
+
+<br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
 
 <!--- Footer -->
 <footer>

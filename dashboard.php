@@ -1,9 +1,12 @@
 <?php
-include_once('_cus.function.php');
+include('_cus.function.php');
 checksession();
 getfoodlist();
 if (isset($_GET['logout'])) {
     logout();
+}
+if (isset($_POST['add'])) {
+    addCart($_POST['food_id'],$_SESSION['cus_row']['username']);
 }
 ?>
 
@@ -39,7 +42,7 @@ if (isset($_GET['logout'])) {
             </div>
             <div class="cart-btn" type="button" data-toggle="collapse" data-target="#cart">
                 <span class="nav-icon"><i class="fas fa-cart-plus"></i></span>
-                <div class="cart-items"><span>0</span></div>
+                <div class="cart-items"><span><?php echo numCart($_SESSION['cus_row']['username']) ?></span></div>
             </div>
         </div>
     </div>
@@ -162,17 +165,7 @@ if (isset($_GET['logout'])) {
     <div class="container-fluid">
         <h2>Category</h2>
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="#link1" class="nav-link active"><?php echo $category_name[0][1]; ?></a>
-            </li>
-            <span> | </span>
-            <li class="nav-item">
-                <a href="#link2" class="nav-link"><?php echo $category_name[1][2]; ?></a>
-            </li>
-            <span> | </span>
-            <li class="nav-item">
-                <a href="#link3" class="nav-link"><?php echo $category_name[2][3]; ?></a>
-            </li>
+            <?php echo $directory; ?>
         </ul>
     </div>
 </nav>
@@ -181,170 +174,7 @@ if (isset($_GET['logout'])) {
 
 <!-- products -->
 <div class="container-fluid products">
-    <br>
-    <!-- Section -->
-    <a name="link1"></a>
-    <div class="section-title">
-        <h2><?php echo $category_name[0][1]; ?></h2>
-    </div>
-
-    <!-- products -->
-    <div class="row padding" id="card">
-        <!-- single product -->
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[0][4] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[0][2] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[0][3] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[1][5] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[1][3] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[1][4] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[2][6] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[2][4] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[2][5] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[3][7] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[3][5] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[3][6] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div> 
-    </div>
-
-    <br>
-    <!-- Section -->
-    <a name="link2"></a>
-    <div class="section-title">
-        <h2><?php echo $category_name[1][2]; ?></h2>
-    </div>
-
-    <!-- products -->
-    <div class="row padding" id="card">
-        <!-- single product -->
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[4][8] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[4][6] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[4][7] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[5][9] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[5][7] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[5][8] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[6][10] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[6][8] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[6][9] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <br>
-    <!-- Section -->
-    <a name="link3"></a>
-    <div class="section-title">
-        <h2><?php echo $category_name[2][3]; ?></h2>
-    </div>
-
-    <!-- products -->
-    <div class="row padding" id="card">
-        <!-- single product -->
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[7][11] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[7][9] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[7][10] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>   
-
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[8][12] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[8][10] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[8][11] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div> 
-
-        <div class="products-center col-2">
-            <div class="card">
-                <?php echo $food_list[9][13] ?>
-                <div class="card-body">
-                    <h6 class="card-title col-12"><?php echo $food_list[9][11] ?></h6>
-                    <div class="row">
-                        <p class="card-text product-price col-8">Start from RM<?php echo $food_list[9][12] ?></p>
-                        <span class="btn col-1"><i class="fas fa-plus-square"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div> 
-    </div>
-</div>
-
+    <?php echo $food_result; ?>
 <br>
 
 <!--- Footer -->

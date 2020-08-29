@@ -116,23 +116,31 @@ hr {
 #card {
     > div {
         padding: 10px 20px;
-        > div {
-            width: 100%;
+        > form {
             > div {
-                padding: 0;
-                > h6 {
-                    padding: 2px 8px;
-                    text-align: left;
-                    margin-bottom: 0;
-                    font-weight: 900;
-                }
+                width: 100%;
                 > div {
-                    margin-left: 0;
-                    margin-right: -50px;
-                    > p {
+                    padding: 0;
+                    > h6 {
                         padding: 2px 8px;
                         text-align: left;
-                        font-size: 75%;
+                        margin-bottom: 0;
+                        font-weight: 900;
+                    }
+                    > div {
+                        margin-left: 0;
+                        margin-right: -50px;
+                        > p {
+                            padding: 2px 8px;
+                            text-align: left;
+                            font-size: 75%;
+                        }
+                        > button {
+                            background: white;
+                            > i {
+                                font-size: 26px;
+                            }
+                        }
                     }
                 }
             }

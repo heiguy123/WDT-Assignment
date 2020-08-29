@@ -1,6 +1,16 @@
 # WDT-Assignment
 Food Delivery System (Website)
 
+<h4>Date: 2020/08/2</h4>
+<b>From: heiguy123</b><br>
+1. Major updates in dashboard.php (Functionality)<br>
+2. Fixing bugs in cus_check.php<br>
+3. Add cart.php<br>
+4. Add function(s) into _cus.function.php<br>
+5. Add cart.scss <br>
+6. Improve dashboard.scss <br>
+7. Add file ref<br>
+
 <h4>Date: 2020/08/28</h4>
 <b>From: heiguy123</b><br>
 1. Change BLOB file size in food/picture in .sql<br>
