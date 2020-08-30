@@ -184,14 +184,6 @@ hr {
   width: 100%;
 }
 
-#main-content #alert-box > div {
-  position: absolute;
-  display: none;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-  z-index: 1000;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -204,19 +196,6 @@ html, body {
   background: #fff;
   font-family: 'Baloo Tammudu 2', cursive;
   color: #262823;
-}
-
-#main-content {
-  position: relative;
-  padding: 0;
-}
-
-#main-content #alert-box > div {
-  top: 0;
-  left: 50%;
-  width: 40em;
-  text-align: center;
-  padding-top: 22px;
 }
 
 .search {

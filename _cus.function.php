@@ -322,6 +322,80 @@ function getfoodlist() {
 //                         [3] => 10.50
 //                         [4] => img
 
+// postcode validation
+function extract_numbers($string) {
+   return preg_match_all('/(?<!\d)\d{5}(?!\d)/', $string, $match) ? $match[0] : [];
+}
+
+// Search address
+function searchAdd($address) {
+    $postcode_arr = extract_numbers($address);
+    if (!empty($postcode_arr)) {
+        // there is valid postcode
+        $add_arr = explode(",",$address);
+        $num_of_arr = count($add_arr);
+        $postcode = '';
+        $street_name = '';
+        $city = '';
+
+        for ($i=0;$i<=$num_of_arr-1;$i++) {
+            if ($postcode_arr[0] == $add_arr[$i]) 
+            {
+                // here is the postcode
+                $postcode = $add_arr[$i];
+                // remove last coma from the streetname
+                $street_name = rtrim($street_name, ",");
+                $city = $add_arr[($i+1)];
+                break;
+            } 
+
+            else 
+            {
+                $street_name .= $add_arr[$i].',';
+            }
+        }
+        
+    } else{
+        header("Location:dashboard.php?add=undefinedpostcode");
+    }
+
+    // check whether city got or not
+    if (empty($city)) {
+        header("Location:dashboard.php?add=undefinedcity");
+    } else {
+        // clear session 
+        unset($_SESSION['cus_row']['street_name']);
+        unset($_SESSION['cus_row']['city']);
+        unset($_SESSION['cus_row']['postcode']);
+        // store info in session
+        $_SESSION['cus_row']['street_name'] = $street_name;
+        $_SESSION['cus_row']['city'] = $city;
+        $_SESSION['cus_row']['postcode'] = $postcode;
+        header("Location:dashboard.php?address=".$address);
+    }
+}
+
+// Array
+// (
+//     [0] => lot1206
+//     [1] => jalan pujut4
+//     [2] =>  98000
+//     [3] =>  miri
+//     [4] =>  sarawak
+//     [5] =>  malaysia
+// )
+
+// Modal block address
+function blockAdd($address) {
+    if (!empty($address)) {
+        return TRUE;
+    } else {
+        // no add in session
+        header("Location:dashboard.php?add=block");
+        return FALSE;
+    }
+}
+
 // Add cart
 function addCart($food_id) {
     include('conn.php');

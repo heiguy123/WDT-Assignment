@@ -1,7 +1,23 @@
 # WDT-Assignment
 Food Delivery System (Website)
 
-<h4>Date: 2020/08/2</h4>
+<h4>Date: 2020/08/30</h4>
+<b>From: heiguy123</b><br>
+1. Updates dashboard.php functionality.<br>
+2. To note the block keep showing if there is no add in database for that customer when he try to add food item. Eg. customer3<br>
+3. Add $_SESSION['cus_row']['address'] <br>
+4. Add google autocomplete address api. Include this link in the page where wish to use this.<br>
+<**script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjfNwSIkZCl8DtDcjKlhSq_CUZLEtteSg&libraries=places"></**script><br>
+API Key = AIzaSyAjfNwSIkZCl8DtDcjKlhSq_CUZLEtteSg<br>
+5. Update search bar [DONE]<br>
+6. Note: use the cus_dashboard, kindly <br>
+        a. provide cus_add (make sure postcode(1st) city(2nd))<br>
+        b. add food item<br>
+        c. check cart in button 'more detail'<br>
+7. Fixing minor bugs. <br>
+
+
+<h4>Date: 2020/08/29</h4>
 <b>From: heiguy123</b><br>
 1. Major updates in dashboard.php (Functionality)<br>
 2. Fixing bugs in cus_check.php<br>

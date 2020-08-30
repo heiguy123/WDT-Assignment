@@ -2,8 +2,13 @@
 include('_cus.function.php');
 checksession();
 getfoodlist();
+if (isset($_POST['search'])) {
+    searchAdd($_POST['address']);
+}
 if (isset($_POST['add'])) {
-    addCart($_POST['food_id']);
+    if (blockAdd($_SESSION['cus_row']['address'])) {
+        addCart($_POST['food_id']);
+    }
 }
 ?>
 
@@ -23,6 +28,7 @@ if (isset($_POST['add'])) {
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/dashboard.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjfNwSIkZCl8DtDcjKlhSq_CUZLEtteSg&libraries=places"></script>
 </head>
 
 <body>
@@ -88,14 +94,20 @@ if (isset($_POST['add'])) {
     </div>
 </div>
 
-<!-- alert box for success login -->
-<div class="container-fluid" id="main-content">
-    <div class="container" id="alert-box">
-        <div class="alert alert-success" role="alert" id="login-alert">
-            Successfully logged in as <b><?php echo $_SESSION['cus_row']['cus_name'] ?></b>!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+<!-- Blook Content -->
+<div class="modal fade" id="blockAdd" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block !important;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">My Restaurant</h4>
+            </div>
+            <div class="modal-body">
+                <p style="padding: 20px 30px;">Please enter food delivery address before get your order.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -103,12 +115,15 @@ if (isset($_POST['add'])) {
 <br>
 
 <!-- Search Bar -->
-<div class="search input-group">
-    <input type="text" class="form-control" placeholder="Enter your delivery address">
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">Order Now</button>
+<form action="dashboard.php" method="post">
+    <div class="search input-group">
+        <input type="text" name="address" id="address" class="form-control" value="<?php if(!empty($_GET['address'])) {echo $_GET['address'];} ?>" placeholder="Enter your delivery address">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit" name="search">Order Now</button>
+        </div>
     </div>
-</div>
+    <span id="search_span" style="padding-left: 30px; line-height: 50px; font-size: 16px; color: rosybrown;"></span>
+</form>
 
 <br>
 
@@ -176,24 +191,24 @@ if (isset($_POST['add'])) {
 
 <!-- javascript go here -->
 <script>
-    // this is to get the parameter using javascript
     const queryString = window.location.search;
-
     const urlParams = new URLSearchParams(queryString);
-
-    const welcome = urlParams.get('welcome');
-
-    //only alert when the user is logged in through login page
-    $(document).ready(function() {
-        if (welcome === "welcome") {
-            showAlert();
-        }
-    });
-
-    function showAlert() {
-        $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
-            $("#alert-box").slideUp(500);
-        });
+    const add = urlParams.get("add");
+    if (add === "block") {
+        $('#blockAdd').modal('show');
+    } else if (add === 'undefinedcity') {
+        search_span = document.getElementById('search_span');
+        search_span.innerHTML = 'The address is undefined. Please ensure the CITY is inserted.';
+    } else if (add === 'undefinedpostcode') {
+        search_span = document.getElementById('search_span');
+        search_span.innerHTML = 'The address is undefined. Please ensure the POSTCODE is inserted.';
     }
+
+
+    function init() {
+        var input = document.getElementById('address');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+    }
+    google.maps.event.addDomListener(window, 'load', init);
 </script>
 </html>
