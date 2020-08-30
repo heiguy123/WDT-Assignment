@@ -247,20 +247,34 @@ function resetpassword($email, $password, $re_pasword)
 
 
 //display for current order
-function displaycurrent($sort)
+function displaycurrent($sort, $order)
 {
-    if ($sort == 0) {
+    if ($sort == 0 && $order == 0) {
         $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
         WHERE ord.cus_id = cus.cus_id 
         AND ord.payment_id = pay.payment_id 
         AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up');   
     ";
-    } elseif ($sort == 1) {
+    } elseif ($sort == 1 && $order == 0) {
         $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
         WHERE ord.cus_id = cus.cus_id 
         AND ord.payment_id = pay.payment_id 
         AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
         ORDER BY ord.total_cost
+    ";
+    } elseif ($sort == 0 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        ORDER BY ord.time DESC;   
+    ";
+    } elseif ($sort == 1 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        ORDER BY ord.total_cost DESC
     ";
     }
 
@@ -277,7 +291,7 @@ function displaycurrent($sort)
         $i = 1;
         while ($row = mysqli_fetch_array($result)) {
 
-            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $i . '">';
+            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
             echo '<th scope="row">' . $i . '</th>';
             echo '<td> ' . $row['order_id'] . '</td>';
             echo '<td>' . $row['cus_name'] . '</td>';
@@ -289,11 +303,11 @@ function displaycurrent($sort)
 
 
             echo '
-            <div class="modal fade" id="exampleModal' . $i . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $i . '" aria-hidden="true">
+            <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel' . $i . '">Order Detail</h5>
+                            <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -359,24 +373,39 @@ function displaycurrent($sort)
     }
 }
 
+
+
 //display for completed order
-function displayclosed($sort)
+function displayclosed($sort, $order)
 {
-    if ($sort == 0) {
+    if ($sort == 0 && $order == 0) {
         $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
         WHERE ord.cus_id = cus.cus_id 
         AND ord.payment_id = pay.payment_id 
         AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled');   
-        ";
-    } elseif ($sort == 1) {
+    ";
+    } elseif ($sort == 1 && $order == 0) {
         $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
         WHERE ord.cus_id = cus.cus_id 
         AND ord.payment_id = pay.payment_id 
         AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
         ORDER BY ord.total_cost 
     ";
+    } elseif ($sort == 0 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        ORDER BY ord.time DESC;   
+    ";
+    } elseif ($sort == 1 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        ORDER BY ord.total_cost DESC
+    ";
     }
-
 
     include('conn.php');
     $result = mysqli_query($con, $sql);
@@ -390,7 +419,7 @@ function displayclosed($sort)
         $i = 1;
         while ($row = mysqli_fetch_array($result)) {
 
-            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $i . '">';
+            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
             echo '<th scope="row">' . $i . '</th>';
             echo '<td> ' . $row['order_id'] . '</td>';
             echo '<td>' . $row['cus_name'] . '</td>';
@@ -401,11 +430,11 @@ function displayclosed($sort)
             echo '</tr>';
 
             echo '
-            <div class="modal fade" id="exampleModal' . $i . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $i . '" aria-hidden="true">
+            <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel' . $i . '">Order Detail</h5>
+                            <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

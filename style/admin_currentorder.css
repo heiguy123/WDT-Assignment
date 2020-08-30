@@ -163,3 +163,9 @@ div#maincontent {
 .radio {
   padding-right: 20px;
 }
+
+.searchbox input[type=text] {
+  float: left;
+  max-width: 160px;
+  padding: 1px 3px;
+}

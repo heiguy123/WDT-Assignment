@@ -12,24 +12,28 @@ $(document).ready(function () {
   }
   //if the radio button is changed, use ajax
   $("#sortbox").change(function () {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("viewbody").innerHTML = this.responseText;
+      }
+    };
     if (document.getElementById("sdate").checked) {
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("viewbody").innerHTML = this.responseText;
-        }
-      };
-      xmlhttp.open("GET", "admin_sort.php?sort=0", true);
-      xmlhttp.send();
+      if (document.getElementById("sasc").checked) {
+        xmlhttp.open("GET", "admin_sort.php?sort=0&order=0", true);
+        xmlhttp.send();
+      } else if (document.getElementById("sdesc").checked) {
+        xmlhttp.open("GET", "admin_sort.php?sort=0&order=1", true);
+        xmlhttp.send();
+      }
     } else if (document.getElementById("stotal").checked) {
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("viewbody").innerHTML = this.responseText;
-        }
-      };
-      xmlhttp.open("GET", "admin_sort.php?sort=1", true);
-      xmlhttp.send();
+      if (document.getElementById("sasc").checked) {
+        xmlhttp.open("GET", "admin_sort.php?sort=1&order=0", true);
+        xmlhttp.send();
+      } else if (document.getElementById("sdesc").checked) {
+        xmlhttp.open("GET", "admin_sort.php?sort=1&order=1", true);
+        xmlhttp.send();
+      }
     }
   });
 });
