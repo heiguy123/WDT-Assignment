@@ -66,7 +66,7 @@ setdashboardnumber();
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">View Menu</a>
+                    <a class="nav-link" href="admin_viewmenu.php">View Menu</a>
                 </li>
 
 
@@ -76,8 +76,8 @@ setdashboardnumber();
             <ul class="navbar-nav navbar-right mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-bell">
-                            <span id="notification-number"></span>
+                    <a class="nav-link" href="admin_viewrequest.php"><i class="fas fa-bell">
+                            <span id="notification-number"><?php showrequestnumber() ?></span>
                         </i></a>
                 </li>
 
@@ -86,7 +86,7 @@ setdashboardnumber();
                         <i class="fas fa-user-cog"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item account-list" href="#"><i class="fas fa-key"></i>Manage Password</a>
+                        <a class="dropdown-item account-list" href="admin_managepassword.php"><i class="fas fa-key"></i>Manage Password</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item account-list" href="logout.php"><i class="fas fa-sign-out-alt"></i>Sign Out</a>
                         <!-- 
@@ -278,6 +278,10 @@ setdashboardnumber();
     $(document).ready(function() {
         if (welcome === "welcome") {
             showAlert();
+        }
+        var x = document.getElementById("notification-number");
+        if (x.innerText != "") {
+            x.style.display = "inline";
         }
     });
 

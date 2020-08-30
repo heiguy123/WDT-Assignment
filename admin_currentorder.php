@@ -24,7 +24,7 @@ if (isset($_POST['order_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/admin_currentorder.css">
-    <script src="admin_sortcurrent.js"></script>
+    <script src="script/admin_sortcurrent.js"></script>
 </head>
 
 <body>
@@ -70,7 +70,7 @@ if (isset($_POST['order_id'])) {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">View Menu</a>
+                    <a class="nav-link" href="admin_viewmenu.php">View Menu</a>
                 </li>
 
             </ul>
@@ -79,8 +79,8 @@ if (isset($_POST['order_id'])) {
             <ul class="navbar-nav navbar-right mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-bell">
-                            <span id="notification-number"></span>
+                    <a class="nav-link" href="admin_viewrequest.php"><i class="fas fa-bell">
+                            <span id="notification-number"><?php showrequestnumber() ?></span>
                         </i></a>
                 </li>
 
@@ -89,7 +89,7 @@ if (isset($_POST['order_id'])) {
                         <i class="fas fa-user-cog"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item account-list" href="#"><i class="fas fa-key"></i>Manage Password</a>
+                        <a class="dropdown-item account-list" href="admin_managepassword.php"><i class="fas fa-key"></i>Manage Password</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item account-list" href="logout.php"><i class="fas fa-sign-out-alt"></i>Sign Out</a>
                         <!-- 

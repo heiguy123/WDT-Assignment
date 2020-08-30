@@ -277,12 +277,9 @@ function displaycurrent($sort, $order)
         ORDER BY ord.total_cost DESC
     ";
     }
-
-
     include('conn.php');
     $result = mysqli_query($con, $sql);
     mysqli_close($con);
-
     if (mysqli_num_rows($result) == 0) { //if there is no record
         echo '<script>alert("Sorrt something went wrong D:");
                 </script>';
@@ -290,7 +287,6 @@ function displaycurrent($sort, $order)
         //1st create a container
         $i = 1;
         while ($row = mysqli_fetch_array($result)) {
-
             echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
             echo '<th scope="row">' . $i . '</th>';
             echo '<td> ' . $row['order_id'] . '</td>';
@@ -300,8 +296,6 @@ function displaycurrent($sort, $order)
             echo '<td>' . $row['order_status'] . '</td>';
             echo '<td>' . $row['total_cost'] . '</td>';
             echo '</tr>';
-
-
             echo '
             <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -313,8 +307,6 @@ function displaycurrent($sort, $order)
                             </button>
                         </div>
                         <div class="modal-body container">';
-
-
             //=======================below is the body of modal===============================
             echo '
             <div class="row details">
@@ -329,9 +321,7 @@ function displaycurrent($sort, $order)
                
                     <span>Status:   </span>
                     ';
-
             orderstatusoption($row['order_status']); //display option
-
             echo '    
                 <br><br>   
                 </div>  
@@ -406,11 +396,9 @@ function displayclosed($sort, $order)
         ORDER BY ord.total_cost DESC
     ";
     }
-
     include('conn.php');
     $result = mysqli_query($con, $sql);
     mysqli_close($con);
-
     if (mysqli_num_rows($result) == 0) { //if there is no record
         echo '<script>alert("Sorrt something went wrong D:");
                 </script>';
@@ -418,7 +406,6 @@ function displayclosed($sort, $order)
         //1st create a container
         $i = 1;
         while ($row = mysqli_fetch_array($result)) {
-
             echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
             echo '<th scope="row">' . $i . '</th>';
             echo '<td> ' . $row['order_id'] . '</td>';
@@ -428,7 +415,6 @@ function displayclosed($sort, $order)
             echo '<td>' . $row['order_status'] . '</td>';
             echo '<td>' . $row['total_cost'] . '</td>';
             echo '</tr>';
-
             echo '
             <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -440,8 +426,6 @@ function displayclosed($sort, $order)
                             </button>
                         </div>
                         <div class="modal-body container">';
-
-
             //=======================below is the body of modal===============================
             echo '
             <div class="row details">
@@ -464,8 +448,6 @@ function displayclosed($sort, $order)
             <hr>
             ';
             display_items($row['order_id']);
-
-
             echo '
             <div class="container">
                 <div class="row justify-content-between" >
@@ -482,7 +464,6 @@ function displayclosed($sort, $order)
                 </div>
             </div>
             ';
-
             // ======================end of modal body===========================================
             echo '      </div>
                         <div class="modal-footer">
@@ -493,7 +474,6 @@ function displayclosed($sort, $order)
                 </div>
             </div>
             ';
-
             $i++;
         };
     }
@@ -543,7 +523,6 @@ function display_items($order_id)
             for ($i = 0; $i < count($option); $i++) {
                 $option[$i] = substr($option[$i], 1);
             }
-
             echo ' 
             <div class="row items" >
                     <div class="col-xs-3 col-md-3 item-box">
@@ -551,7 +530,6 @@ function display_items($order_id)
                     </div>
                     <div class="col-xs-3 col-md-5">
                         <h4 class="product-name"><strong>' . $row['name'] . '</strong></h4>';
-
             if (count($option) > 0 && $option[0] != "") {
                 for ($i = 0; $i < count($option); $i++) {
                     echo '<h4><small>' . $option[$i] . '</small></h4>';
@@ -588,5 +566,32 @@ function update_orderstatus($order_id, $order_status)
         mysqli_close($con);
         echo '<script>alert("Successfully updated!");</script>';
         header('Location: admin_currentorder.php');
+    }
+}
+
+//to display at the nav bar notification icon
+function showrequestnumber()
+{
+    $sql = "SELECT COUNT(request_id) AS count FROM `order_cancel_request` WHERE `request_status` LIKE 'Pending'
+    ";
+    $num = 0;
+    include('conn.php');
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+
+    if (mysqli_num_rows($result) == 0) { //if there is no record
+        echo '<script>alert("Sorry, something went wrong!");
+             </script>';
+    } else {
+        $row = mysqli_fetch_array($result);
+        $num = intval($row['count']);
+    }
+
+    if ($num > 9) {
+        echo "9+";
+    } else if ($num > 0) {
+        echo $num;
+    } else {
+        return;
     }
 }
