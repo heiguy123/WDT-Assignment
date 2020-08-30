@@ -28,11 +28,27 @@ if (isset($_POST['submit'])) {
             $password_err = "Invalid Password!";
             mysqli_close($con);
         } else {
-            //if password matches
-            session_start();
             $row = mysqli_fetch_array($result);
-            $_SESSION['cus_row'] = $row;
-            session_write_close();
+            // session_start();
+
+            // get address if there is
+            $sql = "SELECT `address`,`city`,`postcode` FROM `user_address` WHERE `cus_id` = $row[0] ORDER BY `add_id` DESC";
+            $result = mysqli_query($con,$sql);
+
+            if (mysqli_num_rows($result) > 0) {
+                //there is add(s) in database
+                $add_row = mysqli_fetch_array($result);
+                $add = $add_row['address'].','.$add_row['city'].','.$add_row['postcode'];
+                
+                $_SESSION['cus_row'] = $row;
+                $_SESSION['cus_row']['address'] = $add;
+                session_write_close();
+            } else {
+                //there is no add in database, set zero add into session
+                $_SESSION['cus_row'] = $row;
+                $_SESSION['cus_row']['address'] = "";
+                session_write_close();
+            }
 
             if (!empty($_POST["remember"])) { //if the user choose to "remember me", store the credential into cookie
                 setcookie("cus_username", $username, time() + 3600 * 24 * 365);
@@ -40,7 +56,7 @@ if (isset($_POST['submit'])) {
             }
 
             mysqli_close($con);
-            header("Location:dashboard.php?welcome=welcome");
+            header("Location:dashboard.php");
         }
     } else {
         echo "<script>

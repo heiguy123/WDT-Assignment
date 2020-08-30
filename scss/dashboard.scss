@@ -32,25 +32,6 @@ html, body {
     color: #262823;
 }
 
-
-
-#main-content {
-    position: relative;
-    padding: 0;
-    #alert-box {
-        > div {
-            @extend %alert-box;
-            top:0;
-            left:50%;
-            width: 40em;
-            text-align: center;
-            padding-top: 22px;
-        }
-        
-    }
-}
-
-
 .search {
     width: 30%;
     padding-left: 30px;
