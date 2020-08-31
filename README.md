@@ -1,6 +1,20 @@
 # WDT-Assignment
 Food Delivery System (Website)
 
+<h4>Date: 2020/08/31</h4>
+<b>From: heiguy123</b><br>
+1. Add payment.php<br>
+2. Add cus_payment.php<br>
+3. Add payment.scss <br>
+4. Add verify_payment.scss <br>
+5. Add receipt.php <br>
+6. Add order.php (prototype) <br>
+7. Updates functionality from checkout to track order. <br>
+8. Modify foodordering.sql (Add `cus_id` in `payment`)<br>
+9. Update _cus.function.php<br>
+10. Update cart.php<br>
+11. Update cus_check.php (Add $_SESSION['street_name'],$_SESSION['city'],$_SESSION['postcode'])<br>
+
 <h4>Date: 2020/08/30</h4>
 <b>From: heiguy123</b><br>
 1. Updates dashboard.php functionality.<br>

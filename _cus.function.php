@@ -716,6 +716,99 @@ function sendresetemail($email)
     } 
 }
 
+// to send E-RECEIPT eamil using phpmailer
+function sendreceipt($email) 
+{
+    // Send email to from company website to recipient
+    //Load composer's autoloader
+    require './phpmailer/vendor/autoload.php';
+
+    $mail = new PHPMailer(true);                                // Passing `true` enables exceptions
+    try {
+        //Server settings
+        $mail->isSMTP();                                        // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';                         // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                                 // Enable SMTP authentication
+        $mail->Username = 'wdtmyrestaurant2020@gmail.com';      // SMTP username
+        $mail->Password = 'WDTmyrestaurant@2020';               // SMTP password
+        $mail->SMTPSecure = 'tls';                              // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                      // TCP port to connect to
+
+        //Recipients
+        $mail->setFrom('wdtmyrestaurant2020@gmail.com', 'System');
+        $mail->addAddress($email);     // Add a recipient
+        $mail->addBCC('momolau2001@gmail.com');
+
+        //Content
+        $url = "http://localhost:8080/WDT-Assignment/order.php";
+
+        $subject = "[E-RECEIPT] Here is your e-receipt for your order";
+
+        $body = "<center>Thanks for ordering through My Restaurant!</center><br><br>
+        <center>Please <a href=".$url.">click here</a> to redirect back to track your order.</center><br><br>
+        <center>By myrestaurant</center>";
+
+        $mail->isHTML(true);                                     // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+
+        $mail->send();
+        echo '<script>window.location.href="receipt.php?email='.$email.'";</script>';
+    } catch (Exception $e) {
+        echo 'Message could not be sent.';
+        echo 'Mailer Error: '.$mail->ErrorInfo;
+    }
+
+
+
+    if (!validate_structure($email)) { 
+        echo '<script>window.location.href="forgot.php?err=0";</script>';
+    } elseif (!validate_email($email,1)) {
+        echo '<script>window.location.href="forgot.php?err=1";</script>';
+    } else { 
+        // Send email to from company website to recipient
+        //Load composer's autoloader
+        require './phpmailer/vendor/autoload.php';
+
+        $mail = new PHPMailer(true);                                // Passing `true` enables exceptions
+        try {
+            //Server settings
+            $mail->isSMTP();                                        // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';                         // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                                 // Enable SMTP authentication
+            $mail->Username = 'wdtmyrestaurant2020@gmail.com';      // SMTP username
+            $mail->Password = 'WDTmyrestaurant@2020';               // SMTP password
+            $mail->SMTPSecure = 'tls';                              // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 587;                                      // TCP port to connect to
+
+            //Recipients
+            $mail->setFrom('wdtmyrestaurant2020@gmail.com', 'Admin');
+            $mail->addAddress($email);     // Add a recipient
+            $mail->addBCC('momolau2001@gmail.com');
+
+            //Content
+            $url = "http://localhost:8080/WDT-Assignment/reset_password.php?email=".$email;
+
+            $subject = "[RESET PASSWORD] Please verify your email";
+
+            $body = "<center>You are almost there!</center><br><br>
+            <center>Please <a href=".$url.">click here</a> to redirect back to reset your password.</center><br><br>
+            <center>By myrestaurant</center>";
+
+            $mail->isHTML(true);                                     // Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body    = $body;
+
+            $mail->send();
+            echo '<script>window.location.href="verification.php?email='.$email.'&type=forgot";</script>';
+        } catch (Exception $e) {
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: '.$mail->ErrorInfo;
+        }
+        
+    } 
+}
+
 // Validate Username
 function validate_username($username) {
     include_once("conn.php");

@@ -183,7 +183,7 @@ footer a:hover {
   text-decoration: none;
 }
 
-hr {
+.main-section > .modal-content hr {
   border-top: 1px solid #d5d5d5;
   width: 100%;
 }
@@ -196,118 +196,76 @@ hr {
 }
 
 html, body {
-  color: #222;
-  background: #fff;
   font-family: 'Baloo Tammudu 2', cursive;
   color: #262823;
+  background: url(../img/wallpaper.jpg);
+  background-size: cover;
 }
 
-.search {
-  width: 30%;
-  padding-left: 30px;
-}
-
-.carousel-inner img {
-  height: 350px;
-}
-
-.directory {
-  padding: 20px 0;
-  height: 60px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.directory > div {
-  width: 100%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.directory > div > h2 {
-  position: absolute;
-  font-size: 200%;
-  display: block;
-  padding-left: 50px;
-}
-
-.directory > div > ul {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.main-section {
   margin: 0 auto;
-}
-
-.directory > div > ul > li {
-  text-align: center;
-  padding: 10px;
-}
-
-.directory > div > ul > li > a {
-  color: black;
-}
-
-.directory > div > ul > li > a:hover {
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.582);
-}
-
-hr {
-  margin: 0 auto;
-  width: 90%;
-}
-
-.products {
-  padding: 0 50px;
-}
-
-.products > .section-title {
-  -ms-flex-line-pack: center;
-      align-content: center;
-}
-
-.products > .section-title > h2 {
-  font-size: 250%;
-  font-weight: 600;
-  line-height: 35px;
-}
-
-#card > div {
-  padding: 10px 20px;
-}
-
-#card > div > form > div {
-  width: 100%;
-}
-
-#card > div > form > div > div {
   padding: 0;
+  padding-top: 150px;
 }
 
-#card > div > form > div > div > h6 {
-  padding: 2px 8px;
-  text-align: left;
-  margin-bottom: 0;
-  font-weight: 900;
+.main-section > .modal-content {
+  background-color: #3f3f3f;
+  opacity: .95;
+  padding: 0 18px;
+  -webkit-box-shadow: 0 0 3px #808080;
+          box-shadow: 0 0 3px #808080;
 }
 
-#card > div > form > div > div > div {
-  margin-left: 0;
-  margin-right: -50px;
+.main-section > .modal-content h2 {
+  padding-top: 20px;
+  font-size: 200%;
+  color: #ffffff;
 }
 
-#card > div > form > div > div > div > p {
-  padding: 2px 8px;
-  text-align: left;
-  font-size: 75%;
+.main-section > .modal-content h5 {
+  color: #d5d5d5;
 }
 
-#card > div > form > div > div > div > button {
-  background: white;
+.main-section > .modal-content p {
+  padding-top: 10px;
 }
 
-#card > div > form > div > div > div > button > i {
-  font-size: 26px;
+.main-section > .modal-content button {
+  margin: 5px 0 25px;
+}
+
+.main-section > .modal-content a {
+  font-size: 18px;
+}
+
+#verify-bottom {
+  font-size: 20px;
+}
+
+.user-img {
+  margin-top: -50px;
+  margin-bottom: 35px;
+}
+
+.user-img > img {
+  border-radius: 15px;
+  padding: 5px;
+  background: #d6d1d1d8;
+  -webkit-box-shadow: 0 0 2px #d6d1d1d8;
+          box-shadow: 0 0 2px #d6d1d1d8;
+}
+
+.btn {
+  background-color: #27c2a5;
+  color: #ffffff;
+  font-size: 20px;
+  height: 50px;
+  padding-top: 10px;
+  border-radius: 5px;
+  border-bottom: 4px solid #219882;
+}
+
+.btn .btn:hover, .btn .btn:focus {
+  background-color: #25a890 !important;
+  border-bottom: 4px solid #25a890 !important;
 }
