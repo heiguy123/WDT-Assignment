@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
             // session_start();
 
             // get address if there is
-            $sql = "SELECT `address`,`city`,`postcode` FROM `user_address` WHERE `cus_id` = $row[0] ORDER BY `add_id` DESC";
+            $sql = "SELECT `address`,`city`,`postcode` FROM `user_address` WHERE `cus_id` = $row[0] ORDER BY `add_id` DESC LIMIT 1";
             $result = mysqli_query($con,$sql);
 
             if (mysqli_num_rows($result) > 0) {
@@ -42,11 +42,17 @@ if (isset($_POST['submit'])) {
                 
                 $_SESSION['cus_row'] = $row;
                 $_SESSION['cus_row']['address'] = $add;
+                $_SESSION['cus_row']['street_name'] = '';
+                $_SESSION['cus_row']['city'] = '';
+                $_SESSION['cus_row']['postcode'] = '';
                 session_write_close();
             } else {
                 //there is no add in database, set zero add into session
                 $_SESSION['cus_row'] = $row;
                 $_SESSION['cus_row']['address'] = "";
+                $_SESSION['cus_row']['street_name'] = '';
+                $_SESSION['cus_row']['city'] = '';
+                $_SESSION['cus_row']['postcode'] = '';
                 session_write_close();
             }
 
@@ -65,3 +71,4 @@ if (isset($_POST['submit'])) {
         </script>";
     }
 }
+?>

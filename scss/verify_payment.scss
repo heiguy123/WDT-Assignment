@@ -1,0 +1,87 @@
+@import "_cus_nav.scss";
+
+$primary-color: #d5d5d5;
+$secondary-color: #ffffff;
+$third-color: #3f3f3f; 
+$fourth-color: #000000;
+$fifth-color: #808080;
+$sixth-color: #8f8f8f;
+
+%hr-line {
+    border-top: 1px solid $primary-color;
+    width: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Baloo Tammudu 2', cursive;
+    color: #262823;
+    background: url(../img/wallpaper.jpg);
+    background-size: cover;
+}
+
+.main-section {
+    margin: 0 auto;
+    padding: 0;
+    padding-top: 150px;
+    > .modal-content {
+        background-color: $third-color;
+        opacity: .95;
+        padding: 0 18px;
+        box-shadow: 0 0 3px $fifth-color;
+        h2 {
+            padding-top: 20px;
+            font-size: 200%;
+            color: $secondary-color; 
+        }
+        h5 {
+            color: $primary-color;
+        }
+        p {
+            padding-top: 10px;
+        }
+        hr {
+            @extend %hr-line;
+        }
+        button {
+            margin: 5px 0 25px;
+        }
+        a {
+            font-size: 18px;
+        }
+    }
+}
+
+#verify-bottom {
+    font-size: 20px;
+}
+
+.user-img {
+    margin-top: -50px;
+    margin-bottom: 35px;
+    > img {
+        border-radius: 15px;
+        padding: 5px;
+        background: #d6d1d1d8;
+        box-shadow: 0 0 2px #d6d1d1d8;
+    }
+}
+
+.btn {
+    background-color: #27c2a5;
+    color: $secondary-color;
+    font-size: 20px;
+    height: 50px;
+    padding-top: 10px;
+    border-radius: 5px;
+    border-bottom: 4px solid #219882;
+    .btn:hover, .btn:focus {
+        background-color: #25a890 !important;
+        border-bottom: 4px solid #25a890 !important;
+    }
+}

@@ -1,0 +1,38 @@
+@import "_cus_nav.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Baloo Tammudu 2', cursive;
+    color: #262823;
+}
+
+.box {
+    width: 100%;
+    border: #3f3f3f 1px solid;
+    padding: 10px 14px;
+    margin-bottom: 1rem;
+    > p {
+        margin-bottom: 0;
+    }
+}
+
+#payment {
+    > .card-body {
+        > ul {
+            > li {
+                > a {
+                    width: 100%;
+                    > i {
+                        padding-right: 10px;
+                    }
+                }
+                
+            }
+        }
+    }
+}

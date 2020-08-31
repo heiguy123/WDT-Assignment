@@ -1,4 +1,4 @@
-.home::before, .help::before, .order::before, .account::before, .logout::before, .tel::before, .term::before {
+.back::before, .home::before, .help::before, .order::before, .account::before, .logout::before, .tel::before, .term::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   position: absolute;
@@ -133,6 +133,10 @@
 
 #hamburger > div > ul > li > a:hover {
   color: rgba(0, 0, 0, 0.5);
+}
+
+.back::before {
+  content: "\f359";
 }
 
 .home::before {
