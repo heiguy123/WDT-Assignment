@@ -70,6 +70,22 @@ function numCart($cus_id) {
     }
 }
 
+// disable checkout when there is no item in cart
+function disableCheckout($cus_id) {
+    include('conn.php');
+
+    $sql = "SELECT * FROM `cart_detail` WHERE `cart_id` =
+    (SELECT `cart_id` FROM `cart` WHERE `cus_id` = $cus_id)";
+    
+    if (mysqli_num_rows(mysqli_query($con,$sql)) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+
+    mysqli_close($con);
+}
+
 // Fetch card details into cart page
 $cart_detail = array();
 $num = 0;
@@ -327,6 +343,29 @@ function extract_numbers($string) {
    return preg_match_all('/(?<!\d)\d{5}(?!\d)/', $string, $match) ? $match[0] : [];
 }
 
+// postcode validate in database
+function validatePostcode($postcode) {
+    $bool_check = false;
+
+    include('conn.php');
+
+    $sql = "SELECT `postcode` FROM `deliverable_postcode`";
+    
+    $result = mysqli_query($con,$sql);
+    foreach ($result as $row) {
+        $post_row = $row['postcode'];
+
+        if ($post_row == $postcode) {
+            // my restaurant can deliver this postcode
+            $bool_check = true;
+            break;
+        }
+    }
+
+    mysqli_close($con);
+    return $bool_check;
+}
+
 // Search address
 function searchAdd($address) {
     $postcode_arr = extract_numbers($address);
@@ -363,15 +402,20 @@ function searchAdd($address) {
     if (empty($city)) {
         header("Location:dashboard.php?add=undefinedcity");
     } else {
-        // clear session 
-        unset($_SESSION['cus_row']['street_name']);
-        unset($_SESSION['cus_row']['city']);
-        unset($_SESSION['cus_row']['postcode']);
-        // store info in session
-        $_SESSION['cus_row']['street_name'] = $street_name;
-        $_SESSION['cus_row']['city'] = $city;
-        $_SESSION['cus_row']['postcode'] = $postcode;
-        header("Location:dashboard.php?address=".$address);
+        // validate whether this address is deliverable
+        if (!validatePostcode($postcode)) { // if it is not deliverable
+            header("Location:dashboard.php?add=undeliverablepostcode");
+        } else {
+            // clear session 
+            unset($_SESSION['cus_row']['street_name']);
+            unset($_SESSION['cus_row']['city']);
+            unset($_SESSION['cus_row']['postcode']);
+            // store info in session
+            $_SESSION['cus_row']['street_name'] = $street_name;
+            $_SESSION['cus_row']['city'] = $city;
+            $_SESSION['cus_row']['postcode'] = $postcode;
+            header("Location:dashboard.php?address=".$address);
+        }
     }
 }
 
@@ -868,4 +912,611 @@ function resetpassword($email, $password, $re_pasword)
         mysqli_close($con);
     }
 }
+
+//display for current order
+function displaycurrent($sort, $order,$cus_id)
+{
+    if ($sort == 0 && $order == 0) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        AND cus.cus_id = $cus_id;   
+    ";
+    } elseif ($sort == 1 && $order == 0) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.total_cost;
+    ";
+    } elseif ($sort == 0 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.time DESC;   
+    ";
+    } elseif ($sort == 1 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.total_cost DESC;
+    ";
+    }
+    include('conn.php');
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+    if (mysqli_num_rows($result) == 0) { //if there is no record
+        echo '<script>alert("No order record exist in this account.");
+                </script>';
+    } else {
+        //1st create a container
+        $i = 1;
+        while ($row = mysqli_fetch_array($result)) {
+            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
+            echo '<th scope="row">' . $i . '</th>';
+            echo '<td> ' . $row['order_id'] . '</td>';
+            echo '<td>' . $row['payment_method'] . '</td>';
+            echo '<td>' . $row['time'] . '</td>';
+            echo '<td id="req"0>' . $row['order_status'] . '</td>';
+            echo '<td>' . $row['total_cost'] . '</td>';
+            echo '</tr>';
+            echo '
+            <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body container">';
+            //=======================below is the body of modal===============================
+            echo '
+            <div class="row details">
+            <form action="order.php" method="POST">
+                <div class="col-8">
+                    <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
+                    <p>Order ID:' . $row["order_id"] . '</p>
+                    <p>Name: ' . $row['cus_name'] . '</p>
+                    <p>Time: ' . $row['time'] . '</p>    
+                </div>
+                <div class="col-4">
+               
+                    <span id="req1">Status: '. $row['order_status'] .'</span>';
+            echo '    
+                <br><br>   
+                </div>  
+            </div>
+            <hr>
+            ';
+            display_items($row['order_id']);
+            echo '
+            <div class="container">
+                <div class="row justify-content-between" >
+                    <h6>Subtotal:</h6>
+                    <h6 class="cost">' . $row['food_cost'] . '</h6>
+                </div>
+                <div class="row justify-content-between" >
+                <h6>Delivery Cost:</h6>
+                <h6 class="cost">' . $row['delivery_cost'] . '</h6>
+                </div>
+                <div class="row justify-content-between" >
+                <b><h5>Total:</h5></b>
+                <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
+                </div>
+            </div>
+            ';
+
+            // ======================end of modal body===========================================
+            echo '      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="submit" id="cancelBtn" class="btn btn-primary float-right" onclick="return confirm(\'Are you sure to cancel this order?\')">Cancel Order</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+
+            $i++;
+        };
+    }
+}
+
+//display items
+function display_items($order_id)
+{
+    $sql = "SELECT * FROM `order_detail` ord, `food` fd WHERE ord.food_id = fd.food_id AND ord.order_id = $order_id";
+    include('conn.php');
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+    if (mysqli_num_rows($result) == 0) { //if there is no record
+
+        echo '<script>alert("Sorry, something went wrong!");
+                </script>';
+    } else {
+        while ($row = mysqli_fetch_array($result)) {
+
+            $option = explode(";", $row[5]);
+
+            for ($i = 0; $i < count($option); $i++) {
+                $option[$i] = substr($option[$i], 1);
+            }
+            echo ' 
+            <div class="row items" >
+                    <div class="col-xs-3 col-md-3 item-box">
+                        <img class="img-responsive" style="max-height: 130px;" src="data:image/jpeg;base64,' . base64_encode($row['picture']) . '" alt="food">
+                    </div>
+                    <div class="col-xs-3 col-md-5">
+                        <h4 class="product-name">' . $row['name'] . '</h4>';
+            if (count($option) > 0 && $option[0] != "") {
+                for ($i = 0; $i < count($option); $i++) {
+                    echo '<h4><small>' . $option[$i] . '</small></h4>';
+                }
+            }
+            echo '    </div>
+                    <div class="col-xs-6 col-md-4 row">
+                        <div class="col-xs-6 col-md-6 text-right" style="padding-top: 5px">
+                            <h6>' . $row['price'] . '<span class="text-muted">x</span></h6>
+                        </div>
+                        <div class="col-xs-4 col-md-4" style="padding-top: 4px">
+                            ' . $row['quantity'] . '
+                        </div>
+                        <div class="col-xs-2 col-md-2">
+                            <h5>' . $row['subtotal'] . '<h5>
+                        </div>
+                    </div>
+            </div>
+            <hr>
+            ';
+        }
+    };
+}
+
+//display for completed order
+function displayclosed($sort, $order,$cus_id)
+{
+    if ($sort == 0 && $order == 0) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        AND cus.cus_id = $cus_id;   
+    ";
+    } elseif ($sort == 1 && $order == 0) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.total_cost;
+    ";
+    } elseif ($sort == 0 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.time DESC;   
+    ";
+    } elseif ($sort == 1 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.total_cost DESC;
+    ";
+    }
+    include('conn.php');
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+    if (mysqli_num_rows($result) == 0) { //if there is no record
+        echo '<script>alert("No order record exist in this account.");
+                </script>';
+    } else {
+        //1st create a container
+        $i = 1;
+        while ($row = mysqli_fetch_array($result)) {
+            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
+            echo '<th scope="row">' . $i . '</th>';
+            echo '<td> ' . $row['order_id'] . '</td>';
+            echo '<td>' . $row['payment_method'] . '</td>';
+            echo '<td>' . $row['time'] . '</td>';
+            echo '<td>' . $row['order_status'] . '</td>';
+            echo '<td>' . $row['total_cost'] . '</td>';
+            echo '</tr>';
+            echo '
+            <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body container">';
+            //=======================below is the body of modal===============================
+            echo '
+            <div class="row details">
+            <form action="" method="POST">
+                <div class="col-8">
+                    <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
+                    <p>Order ID:' . $row["order_id"] . '</p>
+                    <p>Name: ' . $row['cus_name'] . '</p>
+                    <p>Time: ' . $row['time'] . '</p>    
+                </div>
+                <div class="col-4">
+               
+                    <span>Status: '. $row['order_status'] .'</span>';
+            echo '    
+                <br><br>   
+                </div>  
+            </div>
+            <hr>
+            ';
+            display_items($row['order_id']);
+            echo '
+            <div class="container">
+                <div class="row justify-content-between" >
+                    <h6>Subtotal:</h6>
+                    <h6 class="cost">' . $row['food_cost'] . '</h6>
+                </div>
+                <div class="row justify-content-between" >
+                <h6>Delivery Cost:</h6>
+                <h6 class="cost">' . $row['delivery_cost'] . '</h6>
+                </div>
+                <div class="row justify-content-between" >
+                <b><h5>Total:</h5></b>
+                <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
+                </div>
+            </div>
+            ';
+
+            // ======================end of modal body===========================================
+            echo '      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+
+            $i++;
+        };
+    }
+}
+
+//display for current order
+function displaycurrentsearch($sort, $order, $searchname,$cus_id)
+{
+    if ($sort == 0 && $order == 0) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND ord.time LIKE '%" . $searchname . "%'
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        AND cus.cus_id = $cus_id;   
+    ";
+    } elseif ($sort == 1 && $order == 0) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND ord.time LIKE '%" . $searchname . "%'
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.total_cost;
+    ";
+    } elseif ($sort == 0 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND ord.time LIKE '%" . $searchname . "%'
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.time DESC;   
+    ";
+    } elseif ($sort == 1 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND ord.time LIKE '%" . $searchname . "%'
+        AND (ord.order_status = 'Confirmed' OR ord.order_status = 'Food Being Prepared' OR ord.order_status = 'Picked Up')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.total_cost DESC;
+    ";
+    }
+    include('conn.php');
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+    if (mysqli_num_rows($result) == 0) { //if there is no record
+        echo '<script>alert("No order record exist in this account.");
+                </script>';
+    } else {
+        //1st create a container
+        $i = 1;
+        while ($row = mysqli_fetch_array($result)) {
+            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
+            echo '<th scope="row">' . $i . '</th>';
+            echo '<td> ' . $row['order_id'] . '</td>';
+            echo '<td>' . $row['payment_method'] . '</td>';
+            echo '<td>' . $row['time'] . '</td>';
+            echo '<td id="req0">' . $row['order_status'] . '</td>';
+            echo '<td>' . $row['total_cost'] . '</td>';
+            echo '</tr>';
+            echo '
+            <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body container">';
+            //=======================below is the body of modal===============================
+            echo '
+            <div class="row details">
+            <form action="order.php" method="POST">
+                <div class="col-8">
+                    <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
+                    <p>Order ID:' . $row["order_id"] . '</p>
+                    <p>Name: ' . $row['cus_name'] . '</p>
+                    <p>Time: ' . $row['time'] . '</p>    
+                </div>
+                <div class="col-4">
+               
+                    <span id="req1">Status: '. $row['order_status'] .'</span>';
+            echo '    
+                <br><br>   
+                </div>  
+            </div>
+            <hr>
+            ';
+            display_items($row['order_id']);
+            echo '
+            <div class="container">
+                <div class="row justify-content-between" >
+                    <h6>Subtotal:</h6>
+                    <h6 class="cost">' . $row['food_cost'] . '</h6>
+                </div>
+                <div class="row justify-content-between" >
+                <h6>Delivery Cost:</h6>
+                <h6 class="cost">' . $row['delivery_cost'] . '</h6>
+                </div>
+                <div class="row justify-content-between" >
+                <b><h5>Total:</h5></b>
+                <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
+                </div>
+            </div>
+            ';
+
+            // ======================end of modal body===========================================
+            echo '      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="submit" id="cancelBtn" class="btn btn-primary float-right" 
+                            onclick="return confirm(\'Are you sure to cancel this order?\')">Cancel Order</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+
+            $i++;
+        };
+    }
+}
+
+
+//display for order
+function displayclosedsearch($sort, $order, $searchname,$cus_id)
+{
+    if ($sort == 0 && $order == 0) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND ord.time LIKE '%" . $searchname . "%'
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        AND cus.cus_id = $cus_id;   
+    ";
+    } elseif ($sort == 1 && $order == 0) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND ord.time LIKE '%" . $searchname . "%'
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.total_cost; 
+    ";
+    } elseif ($sort == 0 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND ord.time LIKE '%" . $searchname . "%'
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.time DESC;   
+    ";
+    } elseif ($sort == 1 && $order == 1) {
+        $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
+        WHERE ord.cus_id = cus.cus_id 
+        AND ord.payment_id = pay.payment_id 
+        AND ord.time LIKE '%" . $searchname . "%'
+        AND (ord.order_status = 'Delivered' OR ord.order_status = 'Cancelled')
+        AND cus.cus_id = $cus_id
+        ORDER BY ord.total_cost DESC;
+    ";
+    }
+    include('conn.php');
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+    if (mysqli_num_rows($result) == 0) { //if there is no record
+        echo '<script>alert("No order record exist in this account.");
+                </script>';
+    } else {
+        //1st create a container
+        $i = 1;
+        while ($row = mysqli_fetch_array($result)) {
+            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
+            echo '<th scope="row">' . $i . '</th>';
+            echo '<td> ' . $row['order_id'] . '</td>';
+            echo '<td>' . $row['payment_method'] . '</td>';
+            echo '<td>' . $row['time'] . '</td>';
+            echo '<td>' . $row['order_status'] . '</td>';
+            echo '<td>' . $row['total_cost'] . '</td>';
+            echo '</tr>';
+            echo '
+            <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body container">';
+            //=======================below is the body of modal===============================
+            echo '
+            <div class="row details">
+            <form action="" method="POST">
+                <div class="col-8">
+                    <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
+                    <p>Order ID:' . $row["order_id"] . '</p>
+                    <p>Name: ' . $row['cus_name'] . '</p>
+                    <p>Time: ' . $row['time'] . '</p>    
+                </div>
+                <div class="col-4">
+               
+                    <span>Status: '. $row['order_status'] .'</span>';
+            echo '    
+                <br><br>   
+                </div>  
+            </div>
+            <hr>
+            ';
+            display_items($row['order_id']);
+            echo '
+            <div class="container">
+                <div class="row justify-content-between" >
+                    <h6>Subtotal:</h6>
+                    <h6 class="cost">' . $row['food_cost'] . '</h6>
+                </div>
+                <div class="row justify-content-between" >
+                <h6>Delivery Cost:</h6>
+                <h6 class="cost">' . $row['delivery_cost'] . '</h6>
+                </div>
+                <div class="row justify-content-between" >
+                <b><h5>Total:</h5></b>
+                <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
+                </div>
+            </div>
+            ';
+
+            // ======================end of modal body===========================================
+            echo '      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+
+            $i++;
+        };
+    }
+}
+
+// function cancelBtn() {
+    // $order_id =  $_POST['order_id'];
+    // $disableBtn = '';
+    // $req0 = '';
+    // $req1 = '';
+
+    // include('conn.php');
+
+    // $sql = "SELECT `request_status` FROM `order_cancel_request` WHERE `order_id` = $order_id";
+
+    // $result = mysqli_query($con,$sql);
+    // if (mysqli_num_rows($result) == 1) {
+    //     $row = mysqli_fetch_array($result);
+
+    //     if ($row[0] != 'Pending') {
+    //         global $disableBtn;
+    //         global $req0;
+    //         global $req1;
+
+    //         $disableBtn = "";      
+    //         mysqli_close($con);
+    //     }
+        
+    // } else {
+    //     mysqli_close($con);
+    // }
+
+//     if (!empty($_GET['cancel'])) {
+//         echo '<script>
+//         document.getElementById(\'cancelBtn\').setAttribute("disabled",true);</script>';
+//     }
+
+//     if (isset($_POST['submit'])) {
+//         include('conn.php');
+
+//         $order_id =  $_POST['order_id'];
+//         $time = date("Y-m-d H:i:s");
+//         $disableBtn = '';
+//         $req0 = '';
+//         $req1 = '';
+ 
+//         $sql = "INSERT INTO `order_cancel_request`
+                 
+//                  (`order_id`, `request_status`, `time`)
+ 
+//                  VALUES 
+                 
+//                  ($order_id, 'Pending', '$time')";
+ 
+//         if (mysqli_query($con,$sql)) {
+//             global $disableBtn;
+            
+//             $disableBtn = "<script>
+//             document.getElementById('cancelBtn').disabled = True;</script>"; // disabled all button until the request done (no matter is accepted or rejected)
+
+
+//             $sql = "SELECT `request_status` FROM `order_cancel_request` WHERE `order_id` = $order_id";
+
+//             $result = mysqli_query($con,$sql);
+//             if (mysqli_num_rows($result) == 1) {
+//                 $row = mysqli_fetch_array($result);
+//                 global $req0;
+//                 global $req1;
+
+//                 $req0 = "<script>
+//                 document.getElementById('req0').innerHTML = '".$row[0]."';</script>";
+//                 $req1 = "<script>
+//                 document.getElementById('req1').innerHTML = 'Status: ".$row[0]."';</script>"; 
+//             }
+//         }
+
+//         mysqli_close($con);
+//         header("Location:order.php?cancel=locked");
+//     }
+ 
+// }
 ?>

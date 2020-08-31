@@ -14,6 +14,11 @@ Food Delivery System (Website)
 9. Update _cus.function.php<br>
 10. Update cart.php<br>
 11. Update cus_check.php (Add $_SESSION['street_name'],$_SESSION['city'],$_SESSION['postcode'])<br>
+----------------------------------------------------<br>
+12. Fix UI bugs.<br>
+13. Validate postcode with the record in database [Functionality]<br>
+14. Disable checkout button if there is no food item in cart [Functionality]<br>
+15. Inherit order function from admin to customer. TQ HOWARD FOR CONTRIBUTION <br>
 
 <h4>Date: 2020/08/30</h4>
 <b>From: heiguy123</b><br>

@@ -43,7 +43,7 @@ if (isset($_POST['add'])) {
             <div class="nav-nav">
                 <li class="navbar-nav"><a href="account.php" class="nav-link"><?php echo $_SESSION['cus_row']['cus_name'] ?></a></li>
             </div>
-            <div class="cart-btn" type="button" data-toggle="collapse" data-target="#cart">
+            <div class="cart-btn" type="button" onclick='location.href="cart.php";'>
                 <span class="nav-icon"><i class="fas fa-cart-plus"></i></span>
                 <div class="cart-items"><span><?php echo numCart($_SESSION['cus_row']['cus_id']) ?></span></div>
             </div>
@@ -55,42 +55,13 @@ if (isset($_POST['add'])) {
         <ul class="navbar-nav">
             <li class="nav-item home"><a href="dashboard.php" class="nav-link">Home</a></li>
             <li class="nav-item help"><a href="#" class="nav-link">Help</a></li>
-            <li class="nav-item order"><a href="#" class="nav-link">My Order</a></li>
+            <li class="nav-item order"><a href="order.php" class="nav-link">My Order</a></li>
             <li class="nav-item account"><a href="account.php" class="nav-link">Account Setting</a></li>
             <li class="nav-item logout"><a href="logout.php" class="nav-link">Logout</a></li>
             <hr>
             <li class="nav-item tel"><a href="tel:0388699498" class="nav-link">Contact Us</a></li>
             <li class="nav-item term"><a href="term.php" class="nav-link">Terms and Condition</a></li>
         </ul>
-    </div>
-</div>
-<div class="collapse" id="cart">
-    <div class="p-4 row">
-        <div class="jumbotron">
-            <h4>Shopping Cart</h4>
-            <button class="btn btn-secondary-outline" type="button" onclick="location.href='cart.php';">More Details</button>
-            <hr>
-            <div class="panel-body row padding">
-                <fieldset>
-                    <img src="./img/noodle/蒜香虾油意面.jpg" style="max-height: 130px;">
-                    <h4>Curry Beef Udon</h4>
-                    <h6>MYR 10.50</h6>
-                    <input type="number">
-                </fieldset>
-                <fieldset>
-                    <img src="./img/noodle/蒜香虾油意面.jpg" style="max-height: 130px;">
-                    <h4>Curry Beef Udon</h4>
-                    <h6>MYR 10.50</h6>
-                    <input type="number">
-                </fieldset>
-                <fieldset>
-                    <img src="./img/noodle/蒜香虾油意面.jpg" style="max-height: 130px;">
-                    <h4>Curry Beef Udon</h4>
-                    <h6>MYR 10.50</h6>
-                    <input type="number">
-                </fieldset>
-            </div>
-        </div> 
     </div>
 </div>
 
@@ -202,8 +173,10 @@ if (isset($_POST['add'])) {
     } else if (add === 'undefinedpostcode') {
         search_span = document.getElementById('search_span');
         search_span.innerHTML = 'The address is undefined. Please ensure the POSTCODE is inserted.';
+    } else if (add === 'undeliverablepostcode') {
+        search_span = document.getElementById('search_span');
+        search_span.innerHTML = 'The address is undeliverable. We will improve our service to all areas as soon as possible.';
     }
-
 
     function init() {
         var input = document.getElementById('address');
