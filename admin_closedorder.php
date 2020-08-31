@@ -24,7 +24,7 @@ if (isset($_POST['order_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/admin_currentorder.css">
-    <script src="admin_sortclosed.js"></script>
+    <script src="script/admin_sortclosed.js"></script>
 </head>
 
 <body>
@@ -70,7 +70,7 @@ if (isset($_POST['order_id'])) {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">View Menu</a>
+                    <a class="nav-link" href="admin_viewmenu.php">View Menu</a>
                 </li>
 
 
@@ -80,8 +80,8 @@ if (isset($_POST['order_id'])) {
             <ul class="navbar-nav navbar-right mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-bell">
-                            <span id="notification-number"></span>
+                    <a class="nav-link" href="admin_viewrequest.php"><i class="fas fa-bell">
+                            <span id="notification-number"><?php showrequestnumber() ?></span>
                         </i></a>
                 </li>
 
@@ -90,7 +90,7 @@ if (isset($_POST['order_id'])) {
                         <i class="fas fa-user-cog"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item account-list" href="#"><i class="fas fa-key"></i>Manage Password</a>
+                        <a class="dropdown-item account-list" href="admin_managepassword.php"><i class="fas fa-key"></i>Manage Password</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item account-list" href="logout.php"><i class="fas fa-sign-out-alt"></i>Sign Out</a>
                         <!-- 
@@ -139,7 +139,7 @@ if (isset($_POST['order_id'])) {
         <div class="container">
             <hr id="seperator">
         </div>
-
+        <br>
         <!-- filter -->
         <div class="container filter">
             <div class="row">
@@ -148,24 +148,32 @@ if (isset($_POST['order_id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class=" col-md-5 ">
+                <div class=" col-md-9 ">
                     <form id="sortbox">
                         <span class="radio">Sort by:</span>
-                        <input type="radio" name="sortby" id="sdate" value="Time" checked> <span class="radio">Time </span>
+                        <input type="radio" name="sortby" id="sdate" value="Time" checked> <span class="radio"> Time </span>
                         <input type="radio" name="sortby" id="stotal" value="Total"> <span class="radio"> Total</span>
+                        <span class="radio">|</span>
+                        <span class="radio">Order:</span>
+                        <input type="radio" name="orderby" id="sasc" value="Acs" checked> <span class="radio"> Acs </span>
+                        <input type="radio" name="orderby" id="sdesc" value="Desc"> <span class="radio"> Desc</span>
                     </form>
                 </div>
+                <!-- below is search function yet to explore -->
+                <div class="col-md-3 ">
+
+                    <!-- <form class="searchbox" action="admin_search.php"> -->
+                    <div class="float-right">
+                        <input class="form-control searchbox" type="text" id="searchitem" placeholder="Search name..">
+                    </div>
+                    <!-- </form> -->
+
+                </div>
             </div>
+            <br>
         </div>
 
 
-        <!-- 1. orderid
-        2. Customer name
-        3. Payment method
-        4. Time
-        5. Order status
-        6. total
-        7. button -->
         <div class="container">
             <table class="table showorder">
                 <thead class="thead-light">
@@ -180,7 +188,7 @@ if (isset($_POST['order_id'])) {
                     </tr>
                 </thead>
                 <tbody id="viewbody">
-                    <?php displayclosed(0); ?>
+                    <?php displayclosed(0, 0); ?>
 
 
                 </tbody>

@@ -48,35 +48,8 @@ div#alert-box{
     }
 }
 
-div{
-    a.account-list{
-        i{
-        padding-right:5px
-        }
-    }
 
-    
-}
 
-#notification-number{
-    font-family: Roboto, sans-serif;
-    position: absolute;
-    top: 4px;
-    right: 0;
-    color: $default-background;
-    background-color: red;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    line-height: 18px;
-    font-size: 10px;
-    text-align: center;
-    cursor: pointer;
-    left: 17px;
-    padding-top: 0.5px;
-    display:none;
-    
-}
 
 
 .detail-box {

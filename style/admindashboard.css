@@ -16,6 +16,29 @@
   right: 0;
 }
 
+#notification-number {
+  font-family: Roboto, sans-serif;
+  position: absolute;
+  top: 4px;
+  right: 0;
+  color: #f8f9fa;
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  line-height: 18px;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
+  left: 17px;
+  padding-top: 0.5px;
+  display: none;
+}
+
+div a.account-list i {
+  padding-right: 5px;
+}
+
 footer hr {
   border-top: 1px solid #d5d5d5;
   width: 100%;
@@ -99,29 +122,6 @@ div#alert-box {
 
 #welcome-banner #welcome-word {
   font-weight: 450;
-}
-
-div a.account-list i {
-  padding-right: 5px;
-}
-
-#notification-number {
-  font-family: Roboto, sans-serif;
-  position: absolute;
-  top: 4px;
-  right: 0;
-  color: #f8f9fa;
-  background-color: red;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  line-height: 18px;
-  font-size: 10px;
-  text-align: center;
-  cursor: pointer;
-  left: 17px;
-  padding-top: 0.5px;
-  display: none;
 }
 
 .detail-box .box {
