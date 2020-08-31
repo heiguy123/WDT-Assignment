@@ -39,7 +39,7 @@ checksession();
         <ul class="navbar-nav">
             <li class="nav-item home"><a href="dashboard.php" class="nav-link">Home</a></li>
             <li class="nav-item help"><a href="#" class="nav-link">Help</a></li>
-            <li class="nav-item order"><a href="#" class="nav-link">My Order</a></li>
+            <li class="nav-item order"><a href="order.php" class="nav-link">My Order</a></li>
             <li class="nav-item account"><a href="account.php" class="nav-link">Account Setting</a></li>
             <li class="nav-item logout"><a href="logout.php" class="nav-link">Logout</a></li>
             <hr>
@@ -66,7 +66,6 @@ checksession();
 
                 <br><br>
 
-                <h5>Still can’t find the email?</h5>
                 <button class="btn" onclick="location.href='dashboard.php';">Back Home</button>
             </div>
             <br><br>
@@ -80,6 +79,8 @@ checksession();
         </div>
     </div>
 </div>
+
+<br><br>
 
 <!--- Footer -->
 <footer>

@@ -42,7 +42,7 @@ getcartdetail();
             <li class="nav-item back"><a href="cart.php" class="nav-link">Back</a></li>
             <li class="nav-item home"><a href="dashboard.php" class="nav-link">Home</a></li>
             <li class="nav-item help"><a href="#" class="nav-link">Help</a></li>
-            <li class="nav-item order"><a href="#" class="nav-link">My Order</a></li>
+            <li class="nav-item order"><a href="order.php" class="nav-link">My Order</a></li>
             <li class="nav-item account"><a href="account.php" class="nav-link">Account Setting</a></li>
             <li class="nav-item logout"><a href="logout.php" class="nav-link">Logout</a></li>
             <hr>

@@ -19,7 +19,7 @@ checksession();
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/order.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <script src="script/cus_sortcurrent.js"></script>
+    <script src="script/cus_sortclosed.js"></script>
 </head>
 
 <body>
@@ -132,7 +132,7 @@ checksession();
                 </tr>
             </thead>
             <tbody id="viewbody">
-                <?php displaycurrent(0, 0, $_SESSION['cus_row']['cus_id']); ?>
+                <?php displayclosed(0, 0,$_SESSION['cus_row']['cus_id']); ?>
             </tbody>
         </table>
     </div>
@@ -169,6 +169,6 @@ checksession();
         </div>    
     </div>
 </footer>
- <!-- if (!empty($disableBtn)) {echo $disableBtn; echo $req0; echo $req1;}  cancelBtn();?> -->
+ <!-- if (!empty($disableBtn)) {echo $disableBtn; echo $req0; echo $req1;} ?> -->
 </body>
 </html>
