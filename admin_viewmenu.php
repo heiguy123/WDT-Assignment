@@ -23,8 +23,8 @@ if (isset($_POST['order_id'])) {
     <link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style/admin_currentorder.css">
-    <script src="script/admin_sortcurrent.js"></script>
+    <link rel="stylesheet" href="./style/admin_viewmenu.css">
+    <script src="script/admin_viewmenu.js"></script>
 </head>
 
 <body>
@@ -122,16 +122,22 @@ if (isset($_POST['order_id'])) {
         <!-- navigation bar -->
         <nav class="directory navbar navbar-expand">
             <div class="container">
-                <ul class="navbar-nav">
-
-                    <li class="nav-item">
-                        <a href="admin_currentorder.php" class="nav-link active">Current Order</a>
-                    </li>
-                    <span> | </span>
-                    <li class="nav-item">
-                        <a href="admin_closedorder.php" class="nav-link">Closed Order</a>
-                    </li>
-                </ul>
+                <div class="col-md-3">
+                    <h4>Category </h4>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul class="navbar-nav float-right">
+                            <li class="nav-item">
+                                <a href="admin_currentorder.php" class="nav-link active">Current Order</a>
+                            </li>
+                            <span> | </span>
+                            <li class="nav-item">
+                                <a href="admin_closedorder.php" class="nav-link">Closed Order</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </nav>
 
@@ -142,26 +148,10 @@ if (isset($_POST['order_id'])) {
         <br>
         <!-- filter -->
         <div class="container filter">
-            <div class="row">
-                <div class="col float-right">
-                    <h4>Filter</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class=" col-md-9">
-                    <form id="sortbox">
-                        <span class="radio">Sort by:</span>
-                        <input type="radio" name="sortby" id="sdate" value="Time" checked> <span class="radio"> Time </span>
-                        <input type="radio" name="sortby" id="stotal" value="Total"> <span class="radio"> Total</span>
-                        <span class="radio">|</span>
-                        <span class="radio">Order:</span>
-                        <input type="radio" name="orderby" id="sasc" value="Acs" checked> <span class="radio"> Acs </span>
-                        <input type="radio" name="orderby" id="sdesc" value="Desc"> <span class="radio"> Desc</span>
-                    </form>
-                </div>
 
+            <div class="row">
                 <!-- below is search function yet to explore -->
-                <div class="col-md-3 ">
+                <div class="col-md-12 float-right">
 
                     <!-- <form class="searchbox" action="admin_search.php"> -->
                     <div class="float-right">
@@ -173,8 +163,12 @@ if (isset($_POST['order_id'])) {
             </div>
             <br>
         </div>
+        <!-- seperator -->
+        <div class="container">
+            <hr id="seperator">
+        </div>
 
-
+        <!-- to do here -->
         <div class="container">
             <table class="table showorder">
                 <thead class="thead-light">
@@ -194,25 +188,7 @@ if (isset($_POST['order_id'])) {
             </table>
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <!-- end of body -->
     </div>
     <br><br>

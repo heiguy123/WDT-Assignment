@@ -80,25 +80,38 @@ footer #logo_a {
   line-height: 52px;
 }
 
-table.showorder {
-  border: 1px solid #ccc;
+#welcome-banner {
+  display: block;
+  width: 100%;
+  position: relative;
+  background-image: url(../img/banner/banner4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  height: 34vh;
+  z-index: 9;
 }
 
-.orderrow {
-  cursor: pointer;
+#welcome-banner ::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: block;
+  background: -webkit-gradient(linear, left top, right top, color-stop(20%, rgba(255, 255, 255, 0.65)), color-stop(60%, rgba(255, 255, 255, 0.1)), color-stop(95%, rgba(255, 255, 255, 0)));
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.65) 20%, rgba(255, 255, 255, 0.1) 60%, rgba(255, 255, 255, 0) 95%);
+  z-index: -1;
 }
 
-tr.orderrow:hover {
-  background-color: #dadada;
+#welcome-banner #welcome-word {
+  font-weight: 450;
 }
 
-div.items {
-  padding: 0 16px;
-}
-
-div.item-box {
-  padding: 0;
-  overflow: hidden;
+div#maincontent {
+  position: relative;
+  padding: 0 0;
 }
 
 .directory {
@@ -147,48 +160,4 @@ div.item-box {
 #seperator {
   margin-top: -0.9rem;
   margin-bottom: 0;
-}
-
-#welcome-banner {
-  display: block;
-  width: 100%;
-  position: relative;
-  background-image: url(../img/banner/banner4.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50%;
-  height: 34vh;
-  z-index: 9;
-}
-
-#welcome-banner ::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  display: block;
-  background: -webkit-gradient(linear, left top, right top, color-stop(20%, rgba(255, 255, 255, 0.65)), color-stop(60%, rgba(255, 255, 255, 0.1)), color-stop(95%, rgba(255, 255, 255, 0)));
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.65) 20%, rgba(255, 255, 255, 0.1) 60%, rgba(255, 255, 255, 0) 95%);
-  z-index: -1;
-}
-
-#welcome-banner #welcome-word {
-  font-weight: 450;
-}
-
-div#maincontent {
-  position: relative;
-  padding: 0 0;
-}
-
-.radio {
-  padding-right: 20px;
-}
-
-input[type=text].searchbox {
-  float: left;
-  max-width: 160px;
-  padding: 1px 3px;
 }
