@@ -161,15 +161,15 @@ if (isset($_POST['order_id'])) {
                 </div>
 
                 <!-- below is search function yet to explore -->
-                <!-- <div class="col-md-3 ">
+                <div class="col-md-3 ">
 
-                    <form class="searchbox" action="">
-                        <div class="float-right">
-                            <input class="form-control" type="text" name="searchitem" placeholder="Search..">
-                        </div>
-                    </form>
+                    <!-- <form class="searchbox" action="admin_search.php"> -->
+                    <div class="float-right">
+                        <input class="form-control searchbox" type="text" id="searchitem" placeholder="Search name..">
+                    </div>
+                    <!-- </form> -->
 
-                </div> -->
+                </div>
             </div>
             <br>
         </div>
@@ -271,7 +271,6 @@ if (isset($_POST['order_id'])) {
         </div>
     </footer>
 </body>
-
 
 
 </html>
