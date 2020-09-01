@@ -68,7 +68,7 @@ function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$
                 echo '<script>
                     alert("Email format is incorrect!");
                     window.location.href="account.php";</script>';
-            } elseif (!validate_email($email)) {
+            } elseif (!validate_email($email,1)) {
                 echo '<script>
                     alert("Email format is incorrect!");
                     window.location.href="account.php";</script>';
@@ -117,7 +117,7 @@ function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$
                         echo '<script>
                             alert("Email format is incorrect!");
                             window.location.href="account.php";</script>';
-                    } elseif (!validate_email($email)) {
+                    } elseif (!validate_email($email,1)) {
                         echo '<script>
                             alert("Email format is incorrect!");
                             window.location.href="account.php";</script>';
@@ -521,6 +521,7 @@ function searchAdd($address) {
             $_SESSION['cus_row']['street_name'] = $street_name;
             $_SESSION['cus_row']['city'] = $city;
             $_SESSION['cus_row']['postcode'] = $postcode;
+            $_SESSION['cus_row']['address'] = $street_name.','.$city.','.$postcode;
             header("Location:dashboard.php?address=".$address);
         }
     }
@@ -740,14 +741,14 @@ function validate_email($email, $type=0)
 {
     include_once("conn.php");
 
-    $sql = "SELECT * FROM customer WHERE (email='$email')";
+    $sql = "SELECT * FROM `customer` WHERE email='$email'";
 
     $result = mysqli_query($con, $sql);
 
     if (mysqli_num_rows($result) == 0) {
         // if there is no record in database
         mysqli_close($con);
-        if ($type=0) {
+        if ($type==0) {
             return TRUE;
         } elseif ($type=1) {
             return FALSE;
@@ -755,7 +756,7 @@ function validate_email($email, $type=0)
     } else {
         // if there is a record matched in database
         mysqli_close($con);
-        if ($type=0) {
+        if ($type==0) {
             return FALSE;
         } elseif ($type=1) {
             return TRUE;
@@ -1760,7 +1761,7 @@ function cancelBtn() {
         }
 
         mysqli_close($con);
-        header("Location:order.php");
+        echo '<script>window.location.href="order.php";</script>';
     }
 }
 ?>

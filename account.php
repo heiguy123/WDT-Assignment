@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
 	<div class="bg-white p-2">
 		<ul class="navbar-nav">
 			<li class="nav-item home"><a href="dashboard.php" class="nav-link">Home</a></li>
-			<li class="nav-item help"><a href="#" class="nav-link">Help</a></li>
+			<li class="nav-item help"><a href="help.php" class="nav-link">Help</a></li>
 			<li class="nav-item order"><a href="order.php" class="nav-link">My Order</a></li>
 			<li class="nav-item account"><a href="account.php" class="nav-link">Account Setting</a></li>
 			<li class="nav-item logout"><a href="logout.php" class="nav-link">Logout</a></li>
@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="contact">Contact number</label>
-                                            <input type="number" id="contact" name="contact" class="form-control form-control-alternative" value="<?php echo $_SESSION['cus_row']['contact'] ?>" required>
+                                            <input type="text" id="contact" name="contact" class="form-control form-control-alternative" value="<?php echo $_SESSION['cus_row']['contact'] ?>" required>
                                         </div>
                                     </div>
                                 </div>

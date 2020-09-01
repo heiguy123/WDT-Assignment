@@ -58,12 +58,23 @@
             if (!mysqli_query($con,$sql))
             {
                 die ("Error: ".mysqli_error($con));
+            } else {
+                // insert cart for it
+                
+                $sql = "INSERT INTO cart (cus_id)
+                    
+                    VALUES
+                    
+                    ((SELECT `cus_id` FROM `customer` WHERE `username` = '$username'));";
+
+                if (mysqli_query($con,$sql))
+                {
+                    echo '<script>alert("Welcome '.$cus_name.',You have successfully registered!");
+                    window.location.href="login.php";</script>';
+                }
+            
+                mysqli_close($con);
             }
-
-            echo '<script>alert("Welcome '.$cus_name.',You have successfully registered!");
-            window.location.href="login.php";</script>';
-
-            mysqli_close($con);
         }
     }
 ?>
