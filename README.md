@@ -4,6 +4,8 @@ Food Delivery System (Website)
 <h4>Date: 2020/09/01</h4>
 <b>From: heiguy123</b><br>
 1. Add function in order.php (request_cancel)<br>
+2. Delete unnecessary files. <br>
+3. Add function in account.php (account_setting) <br>
 
 <h4>Date: 2020/08/31</h4>
 <b>From: heiguy123</b><br>

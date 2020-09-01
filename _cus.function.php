@@ -56,6 +56,113 @@ function getcusrow($uname, $pword)
     }
 }
 
+function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$conf_pass) {
+    if (empty($email)) { // means in user information is incompleted
+        echo '<script>
+        alert("Please complete all the field in User Information to update your profile!");
+        window.location.href="account.php";</script>';
+    } else {
+        if (empty($cur_pass)) { // means customer just want to update user information
+            
+            if (!validate_structure($email)) { 
+                echo '<script>
+                    alert("Email format is incorrect!");
+                    window.location.href="account.php";</script>';
+            } elseif (!validate_email($email)) {
+                echo '<script>
+                    alert("Email format is incorrect!");
+                    window.location.href="account.php";</script>';
+            } elseif (!validate_mobile('',$contact)) {
+                echo '<script>
+                    alert("Contact number format is incorrect!");
+                    window.location.href="account.php";</script>';
+            } else {
+                // Validation PASS
+                include("conn.php");
+    
+                $sql =  "UPDATE `customer` SET 
+                
+                        `cus_name` = '$nickname',
+                        `email` = '$email',
+                        `contact` = $contact
+                        
+                        WHERE `username` = '$username'";
+    
+                if (!mysqli_query($con,$sql))
+                {
+                    die ("Error: ".mysqli_error($con));
+                }
+    
+                echo '<script>alert("Update successfully! Please re-login to make changes");
+                window.location.href="account.php";</script>';
+    
+                mysqli_close($con);
+            }
+
+        } else { // means customer want to update user information and both password setting
+            
+            if (empty($cur_pass)) {
+                echo '<script>
+                alert("Please complete all the field in Password Setting to update your profile!");
+                window.location.href="account.php";</script>';
+            } else {
+                include("conn.php");
+
+                $sql = "SELECT * FROM `customer` WHERE `password` = '$cur_pass' AND `username` = '$username'";
+
+                if (mysqli_num_rows(mysqli_query($con,$sql)) == 1) { // he/she inserted correct password
+                    // pass
+
+                    if (!validate_structure($email)) { 
+                        echo '<script>
+                            alert("Email format is incorrect!");
+                            window.location.href="account.php";</script>';
+                    } elseif (!validate_email($email)) {
+                        echo '<script>
+                            alert("Email format is incorrect!");
+                            window.location.href="account.php";</script>';
+                    } elseif (!validate_mobile($contact)) {
+                        echo '<script>
+                            alert("Contact number format is incorrect!");
+                            window.location.href="account.php";</script>';
+                    }  elseif (!validate_password($new_pass,$conf_pass)) {
+                        echo '<script>
+                            alert("New password is incorrect!");
+                            window.location.href="account.php";</script>';
+                    }   else {
+                        // Validation PASS
+                        include("conn.php");
+            
+                        $sql =  "UPDATE `customer` SET 
+                        
+                                `cus_name` = '$nickname',
+                                `email` = '$email',
+                                `contact` = $contact,
+                                `password` = '$new_pass'
+                                
+                                WHERE `username` = '$username'";
+            
+                        if (!mysqli_query($con,$sql))
+                        {
+                            die ("Error: ".mysqli_error($con));
+                        }
+            
+                        echo '<script>alert("Update successfully! Please re-login to make changes");
+                        window.location.href="account.php";</script>';
+            
+                        mysqli_close($con);
+                    }
+
+                } else {
+                    echo '<script>
+                    alert("Current password is incorrect!");
+                    window.location.href="account.php";</script>';
+                }
+            }        
+        }
+    }
+}
+
 // Update cart number
 function numCart($cus_id) {
     include('conn.php');
