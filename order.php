@@ -169,6 +169,6 @@ checksession();
         </div>    
     </div>
 </footer>
- <!-- if (!empty($disableBtn)) {echo $disableBtn; echo $req0; echo $req1;}  cancelBtn();?> -->
+<?php cancelBtn();?>
 </body>
 </html>
