@@ -188,32 +188,13 @@ if (isset($_POST['order_id'])) {
                     </tr>
                 </thead>
                 <tbody id="viewbody">
-                    <?php displayclosed(0, 0); ?>
+                    <?php displayclosedsearch(0, 0, ""); ?>
 
 
                 </tbody>
             </table>
         </div>
 
-        <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <!-- end of body -->
     </div>
 
@@ -273,27 +254,6 @@ if (isset($_POST['order_id'])) {
     </footer>
 </body>
 
-<!-- javascript go here -->
-<script>
-    // this is to get the parameter using javascript
-    const queryString = window.location.search;
 
-    const urlParams = new URLSearchParams(queryString);
-
-    const welcome = urlParams.get('welcome');
-
-    //only alert when the user is logged in through login page
-    $(document).ready(function() {
-        if (welcome === "welcome") {
-            showAlert();
-        }
-    });
-
-    function showAlert() {
-        $("#alert-box").fadeTo(2000, 500).slideUp(500, function() {
-            $("#alert-box").slideUp(500);
-        });
-    }
-</script>
 
 </html>

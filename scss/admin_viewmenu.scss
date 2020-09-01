@@ -2,4 +2,43 @@
 @import "_footer.scss";
 @import "admin_welcomebanner";
 @import "admin_directory";
+@import "_admin_order.scss";
+
+div.foodimgcontainer{
+overflow: hidden;
+}
+
+
+//for form
+input[type=file].hidden{
+display:none;
+}
+
+label.uploadbutton{
+   
+        font-size: 15px;
+        text-decoration: none;
+        background-color: #EEEEEE;
+        color: #333333;
+        padding: 2px 6px 2px 6px;
+        border-top: 1px solid #CCCCCC;
+        border-right: 1px solid #333333;
+        border-bottom: 1px solid #333333;
+        border-left: 1px solid #CCCCCC;
+        margin-top: 4px;
+        cursor: pointer;
+    
+
+}
+
+
+.fooddetails{
+        input{
+                height:21.6px;
+        }
+
+        textarea{
+                width: 185.6px;
+        }
+}
 

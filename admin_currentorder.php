@@ -189,7 +189,7 @@ if (isset($_POST['order_id'])) {
                     </tr>
                 </thead>
                 <tbody id="viewbody">
-                    <?php displaycurrent(0, 0); ?>
+                    <?php displaycurrentsearch(0, 0, ""); ?>
                 </tbody>
             </table>
         </div>
