@@ -913,6 +913,23 @@ function resetpassword($email, $password, $re_pasword)
     }
 }
 
+function checkStatus($order_id) {
+    include('conn.php');
+    $status = '';
+
+    // check whether the order is under cancel pending
+    $sql = "SELECT * FROM `order_cancel_request` WHERE `order_id` = $order_id AND `request_status` = 'Pending'";
+
+    $result = mysqli_query($con,$sql);
+    if (mysqli_num_rows($result) == 1) // the order is under cancel pending 
+    {   
+        $status = mysqli_fetch_array($result)['request_status'];
+    } 
+
+    mysqli_close($con);
+    return $status;
+}
+
 //display for current order
 function displaycurrent($sort, $order,$cus_id)
 {
@@ -958,73 +975,149 @@ function displaycurrent($sort, $order,$cus_id)
         //1st create a container
         $i = 1;
         while ($row = mysqli_fetch_array($result)) {
-            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
-            echo '<th scope="row">' . $i . '</th>';
-            echo '<td> ' . $row['order_id'] . '</td>';
-            echo '<td>' . $row['payment_method'] . '</td>';
-            echo '<td>' . $row['time'] . '</td>';
-            echo '<td id="req"0>' . $row['order_status'] . '</td>';
-            echo '<td>' . $row['total_cost'] . '</td>';
-            echo '</tr>';
-            echo '
-            <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body container">';
-            //=======================below is the body of modal===============================
-            echo '
-            <div class="row details">
-            <form action="order.php" method="POST">
-                <div class="col-8">
-                    <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
-                    <p>Order ID:' . $row["order_id"] . '</p>
-                    <p>Name: ' . $row['cus_name'] . '</p>
-                    <p>Time: ' . $row['time'] . '</p>    
-                </div>
-                <div class="col-4">
-               
-                    <span id="req1">Status: '. $row['order_status'] .'</span>';
-            echo '    
-                <br><br>   
-                </div>  
-            </div>
-            <hr>
-            ';
-            display_items($row['order_id']);
-            echo '
-            <div class="container">
-                <div class="row justify-content-between" >
-                    <h6>Subtotal:</h6>
-                    <h6 class="cost">' . $row['food_cost'] . '</h6>
-                </div>
-                <div class="row justify-content-between" >
-                <h6>Delivery Cost:</h6>
-                <h6 class="cost">' . $row['delivery_cost'] . '</h6>
-                </div>
-                <div class="row justify-content-between" >
-                <b><h5>Total:</h5></b>
-                <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
-                </div>
-            </div>
-            ';
 
-            // ======================end of modal body===========================================
-            echo '      </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" name="submit" id="cancelBtn" class="btn btn-primary float-right" onclick="return confirm(\'Are you sure to cancel this order?\')">Cancel Order</button>
-                            </form>
+            if (!empty(checkStatus($row['order_id']))) // the order is under cancel pending 
+            {   
+                $status = checkStatus($row['order_id']);
+
+                echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
+                echo '<th scope="row">' . $i . '</th>';
+                echo '<td> ' . $row['order_id'] . '</td>';
+                echo '<td>' . $row['payment_method'] . '</td>';
+                echo '<td>' . $row['time'] . '</td>';
+                echo '<td id="req"0>' . $status . '</td>';
+                echo '<td>' . $row['total_cost'] . '</td>';
+                echo '</tr>';
+                echo '
+                <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body container">';
+                //=======================below is the body of modal===============================
+                echo '
+                <div class="row details">
+                <form action="order.php" method="POST">
+                    <div class="col-8">
+                        <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
+                        <p>Order ID:' . $row["order_id"] . '</p>
+                        <p>Name: ' . $row['cus_name'] . '</p>
+                        <p>Time: ' . $row['time'] . '</p>    
+                    </div>
+                    <div class="col-4">
+                
+                        <span id="req1">Status: '. $status .'</span>';
+                echo '    
+                    <br><br>   
+                    </div>  
+                </div>
+                <hr>
+                ';
+                display_items($row['order_id']);
+                echo '
+                <div class="container">
+                    <div class="row justify-content-between" >
+                        <h6>Subtotal:</h6>
+                        <h6 class="cost">' . $row['food_cost'] . '</h6>
+                    </div>
+                    <div class="row justify-content-between" >
+                    <h6>Delivery Cost:</h6>
+                    <h6 class="cost">' . $row['delivery_cost'] . '</h6>
+                    </div>
+                    <div class="row justify-content-between" >
+                    <b><h5>Total:</h5></b>
+                    <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
+                    </div>
+                </div>
+                ';
+
+                // ======================end of modal body===========================================
+                echo '      </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" id="cancelBtn" disabled class="btn btn-primary float-right" onclick="return confirm(\'Are you sure to cancel this order?\')">Cancel Order</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            ';
+                ';
+            } 
+            else // the order is just a normal order 
+            {
+                echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
+                echo '<th scope="row">' . $i . '</th>';
+                echo '<td> ' . $row['order_id'] . '</td>';
+                echo '<td>' . $row['payment_method'] . '</td>';
+                echo '<td>' . $row['time'] . '</td>';
+                echo '<td id="req"0>' . $row['order_status'] . '</td>';
+                echo '<td>' . $row['total_cost'] . '</td>';
+                echo '</tr>';
+                echo '
+                <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body container">';
+                //=======================below is the body of modal===============================
+                echo '
+                <div class="row details">
+                <form action="order.php" method="POST">
+                    <div class="col-8">
+                        <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
+                        <p>Order ID:' . $row["order_id"] . '</p>
+                        <p>Name: ' . $row['cus_name'] . '</p>
+                        <p>Time: ' . $row['time'] . '</p>    
+                    </div>
+                    <div class="col-4">
+                
+                        <span id="req1">Status: '. $row['order_status'] .'</span>';
+                echo '    
+                    <br><br>   
+                    </div>  
+                </div>
+                <hr>
+                ';
+                display_items($row['order_id']);
+                echo '
+                <div class="container">
+                    <div class="row justify-content-between" >
+                        <h6>Subtotal:</h6>
+                        <h6 class="cost">' . $row['food_cost'] . '</h6>
+                    </div>
+                    <div class="row justify-content-between" >
+                    <h6>Delivery Cost:</h6>
+                    <h6 class="cost">' . $row['delivery_cost'] . '</h6>
+                    </div>
+                    <div class="row justify-content-between" >
+                    <b><h5>Total:</h5></b>
+                    <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
+                    </div>
+                </div>
+                ';
+
+                // ======================end of modal body===========================================
+                echo '      </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" id="cancelBtn" class="btn btn-primary float-right" onclick="return confirm(\'Are you sure to cancel this order?\')">Cancel Order</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+            }
 
             $i++;
         };
@@ -1247,74 +1340,149 @@ function displaycurrentsearch($sort, $order, $searchname,$cus_id)
         //1st create a container
         $i = 1;
         while ($row = mysqli_fetch_array($result)) {
-            echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
-            echo '<th scope="row">' . $i . '</th>';
-            echo '<td> ' . $row['order_id'] . '</td>';
-            echo '<td>' . $row['payment_method'] . '</td>';
-            echo '<td>' . $row['time'] . '</td>';
-            echo '<td id="req0">' . $row['order_status'] . '</td>';
-            echo '<td>' . $row['total_cost'] . '</td>';
-            echo '</tr>';
-            echo '
-            <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body container">';
-            //=======================below is the body of modal===============================
-            echo '
-            <div class="row details">
-            <form action="order.php" method="POST">
-                <div class="col-8">
-                    <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
-                    <p>Order ID:' . $row["order_id"] . '</p>
-                    <p>Name: ' . $row['cus_name'] . '</p>
-                    <p>Time: ' . $row['time'] . '</p>    
-                </div>
-                <div class="col-4">
-               
-                    <span id="req1">Status: '. $row['order_status'] .'</span>';
-            echo '    
-                <br><br>   
-                </div>  
-            </div>
-            <hr>
-            ';
-            display_items($row['order_id']);
-            echo '
-            <div class="container">
-                <div class="row justify-content-between" >
-                    <h6>Subtotal:</h6>
-                    <h6 class="cost">' . $row['food_cost'] . '</h6>
-                </div>
-                <div class="row justify-content-between" >
-                <h6>Delivery Cost:</h6>
-                <h6 class="cost">' . $row['delivery_cost'] . '</h6>
-                </div>
-                <div class="row justify-content-between" >
-                <b><h5>Total:</h5></b>
-                <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
-                </div>
-            </div>
-            ';
 
-            // ======================end of modal body===========================================
-            echo '      </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" name="submit" id="cancelBtn" class="btn btn-primary float-right" 
-                            onclick="return confirm(\'Are you sure to cancel this order?\')">Cancel Order</button>
-                            </form>
+            if (!empty(checkStatus($row['order_id']))) // the order is under cancel pending 
+            {   
+                $status = checkStatus($row['order_id']);
+
+                echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
+                echo '<th scope="row">' . $i . '</th>';
+                echo '<td> ' . $row['order_id'] . '</td>';
+                echo '<td>' . $row['payment_method'] . '</td>';
+                echo '<td>' . $row['time'] . '</td>';
+                echo '<td id="req"0>' . $status . '</td>';
+                echo '<td>' . $row['total_cost'] . '</td>';
+                echo '</tr>';
+                echo '
+                <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body container">';
+                //=======================below is the body of modal===============================
+                echo '
+                <div class="row details">
+                <form action="order.php" method="POST">
+                    <div class="col-8">
+                        <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
+                        <p>Order ID:' . $row["order_id"] . '</p>
+                        <p>Name: ' . $row['cus_name'] . '</p>
+                        <p>Time: ' . $row['time'] . '</p>    
+                    </div>
+                    <div class="col-4">
+                
+                        <span id="req1">Status: '. $status .'</span>';
+                echo '    
+                    <br><br>   
+                    </div>  
+                </div>
+                <hr>
+                ';
+                display_items($row['order_id']);
+                echo '
+                <div class="container">
+                    <div class="row justify-content-between" >
+                        <h6>Subtotal:</h6>
+                        <h6 class="cost">' . $row['food_cost'] . '</h6>
+                    </div>
+                    <div class="row justify-content-between" >
+                    <h6>Delivery Cost:</h6>
+                    <h6 class="cost">' . $row['delivery_cost'] . '</h6>
+                    </div>
+                    <div class="row justify-content-between" >
+                    <b><h5>Total:</h5></b>
+                    <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
+                    </div>
+                </div>
+                ';
+
+                // ======================end of modal body===========================================
+                echo '      </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" id="cancelBtn" disabled class="btn btn-primary float-right" onclick="return confirm(\'Are you sure to cancel this order?\')">Cancel Order</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            ';
+                ';
+            } 
+            else // the order is just a normal order 
+            {
+                echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
+                echo '<th scope="row">' . $i . '</th>';
+                echo '<td> ' . $row['order_id'] . '</td>';
+                echo '<td>' . $row['payment_method'] . '</td>';
+                echo '<td>' . $row['time'] . '</td>';
+                echo '<td id="req"0>' . $row['order_status'] . '</td>';
+                echo '<td>' . $row['total_cost'] . '</td>';
+                echo '</tr>';
+                echo '
+                <div class="modal fade" id="exampleModal' . $row['order_id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel' . $row['order_id'] . '" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel' . $row['order_id'] . '">Order Detail</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body container">';
+                //=======================below is the body of modal===============================
+                echo '
+                <div class="row details">
+                <form action="order.php" method="POST">
+                    <div class="col-8">
+                        <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
+                        <p>Order ID:' . $row["order_id"] . '</p>
+                        <p>Name: ' . $row['cus_name'] . '</p>
+                        <p>Time: ' . $row['time'] . '</p>    
+                    </div>
+                    <div class="col-4">
+                
+                        <span id="req1">Status: '. $row['order_status'] .'</span>';
+                echo '    
+                    <br><br>   
+                    </div>  
+                </div>
+                <hr>
+                ';
+                display_items($row['order_id']);
+                echo '
+                <div class="container">
+                    <div class="row justify-content-between" >
+                        <h6>Subtotal:</h6>
+                        <h6 class="cost">' . $row['food_cost'] . '</h6>
+                    </div>
+                    <div class="row justify-content-between" >
+                    <h6>Delivery Cost:</h6>
+                    <h6 class="cost">' . $row['delivery_cost'] . '</h6>
+                    </div>
+                    <div class="row justify-content-between" >
+                    <b><h5>Total:</h5></b>
+                    <b><h5 class="cost">' . $row['total_cost'] . '</h5></b>
+                    </div>
+                </div>
+                ';
+
+                // ======================end of modal body===========================================
+                echo '      </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" id="cancelBtn" class="btn btn-primary float-right" onclick="return confirm(\'Are you sure to cancel this order?\')">Cancel Order</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+            }
 
             $i++;
         };
@@ -1443,80 +1611,49 @@ function displayclosedsearch($sort, $order, $searchname,$cus_id)
     }
 }
 
-// function cancelBtn() {
-    // $order_id =  $_POST['order_id'];
-    // $disableBtn = '';
-    // $req0 = '';
-    // $req1 = '';
+function cancelBtn() {
 
-    // include('conn.php');
+    if (isset($_POST['submit'])) {
+        include('conn.php');
 
-    // $sql = "SELECT `request_status` FROM `order_cancel_request` WHERE `order_id` = $order_id";
-
-    // $result = mysqli_query($con,$sql);
-    // if (mysqli_num_rows($result) == 1) {
-    //     $row = mysqli_fetch_array($result);
-
-    //     if ($row[0] != 'Pending') {
-    //         global $disableBtn;
-    //         global $req0;
-    //         global $req1;
-
-    //         $disableBtn = "";      
-    //         mysqli_close($con);
-    //     }
-        
-    // } else {
-    //     mysqli_close($con);
-    // }
-
-//     if (!empty($_GET['cancel'])) {
-//         echo '<script>
-//         document.getElementById(\'cancelBtn\').setAttribute("disabled",true);</script>';
-//     }
-
-//     if (isset($_POST['submit'])) {
-//         include('conn.php');
-
-//         $order_id =  $_POST['order_id'];
-//         $time = date("Y-m-d H:i:s");
-//         $disableBtn = '';
-//         $req0 = '';
-//         $req1 = '';
+        $order_id =  $_POST['order_id'];
+        $time = date("Y-m-d H:i:s");
+        $disableBtn = '';
+        $req0 = '';
+        $req1 = '';
  
-//         $sql = "INSERT INTO `order_cancel_request`
+        $sql = "INSERT INTO `order_cancel_request`
                  
-//                  (`order_id`, `request_status`, `time`)
+                 (`order_id`, `request_status`, `time`)
  
-//                  VALUES 
+                 VALUES 
                  
-//                  ($order_id, 'Pending', '$time')";
+                 ($order_id, 'Pending', '$time')";
  
-//         if (mysqli_query($con,$sql)) {
-//             global $disableBtn;
+        if (mysqli_query($con,$sql)) {
+            global $disableBtn;
             
-//             $disableBtn = "<script>
-//             document.getElementById('cancelBtn').disabled = True;</script>"; // disabled all button until the request done (no matter is accepted or rejected)
+            $disableBtn = "<script>
+            document.getElementById('cancelBtn').disabled = True;</script>"; // disabled all button until the request done (no matter is accepted or rejected)
 
 
-//             $sql = "SELECT `request_status` FROM `order_cancel_request` WHERE `order_id` = $order_id";
+            $sql = "SELECT `request_status` FROM `order_cancel_request` WHERE `order_id` = $order_id";
 
-//             $result = mysqli_query($con,$sql);
-//             if (mysqli_num_rows($result) == 1) {
-//                 $row = mysqli_fetch_array($result);
-//                 global $req0;
-//                 global $req1;
+            $result = mysqli_query($con,$sql);
+            if (mysqli_num_rows($result) == 1) {
+                $row = mysqli_fetch_array($result);
+                global $req0;
+                global $req1;
 
-//                 $req0 = "<script>
-//                 document.getElementById('req0').innerHTML = '".$row[0]."';</script>";
-//                 $req1 = "<script>
-//                 document.getElementById('req1').innerHTML = 'Status: ".$row[0]."';</script>"; 
-//             }
-//         }
+                $req0 = "<script>
+                document.getElementById('req0').innerHTML = '".$row[0]."';</script>";
+                $req1 = "<script>
+                document.getElementById('req1').innerHTML = 'Status: ".$row[0]."';</script>"; 
+            }
+        }
 
-//         mysqli_close($con);
-//         header("Location:order.php?cancel=locked");
-//     }
- 
-// }
+        mysqli_close($con);
+        header("Location:order.php");
+    }
+}
 ?>
