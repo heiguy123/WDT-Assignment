@@ -1,11 +1,12 @@
 <?php
 include_once('_admin.function.php');
 checksession();
-if (isset($_POST['order_id'])) {
-    update_orderstatus($_POST['order_id'], $_POST['order_status']);
+if (isset($_GET['del'])) {
+    deletefood($_GET['del']);
 }
-
-
+if (isset($_POST['food_id'])) {
+    updatefood();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,7 @@ if (isset($_POST['order_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | Current Order</title>
+    <title>Admin | View Menu</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -42,7 +43,7 @@ if (isset($_POST['order_id'])) {
     5. sign out :icon -->
 
     <!-- navigation bar for admin-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
         <a class="navbar-brand" href="admindashboard.php"><img src="img/res_logo.png" alt="restaurant logo" height=36></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,13 +129,7 @@ if (isset($_POST['order_id'])) {
                 <div class="row">
                     <div class="col">
                         <ul class="navbar-nav float-right">
-                            <li class="nav-item">
-                                <a href="admin_currentorder.php" class="nav-link active">Current Order</a>
-                            </li>
-                            <span> | </span>
-                            <li class="nav-item">
-                                <a href="admin_closedorder.php" class="nav-link">Closed Order</a>
-                            </li>
+                            <?php displaycate(); ?>
                         </ul>
                     </div>
                 </div>
@@ -169,21 +164,18 @@ if (isset($_POST['order_id'])) {
         </div>
 
         <!-- to do here -->
-        <div class="container">
+        <div class="container" id="viewcontent">
             <table class="table showorder">
                 <thead class="thead-light">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Customer Name</th>
-                        <th scope="col">Payment Method</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Order Status</th>
-                        <th scope="col">Total</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Price</th>
                     </tr>
                 </thead>
                 <tbody id="viewbody">
-                    <?php displaycurrent(0, 0); ?>
+                    <?php displaymenulist(); ?>
                 </tbody>
             </table>
         </div>
