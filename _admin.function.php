@@ -620,15 +620,16 @@ function searchmenu($searchitem)
     } else {
         $sql = "SELECT * FROM `food` fd, `food_category` fc 
         WHERE fd.cate_id = fc.cate_id
-        AND fd.name LIKE '% " . $searchitem . "%'
+        AND fd.name LIKE '%" . $searchitem . "%'
         ORDER BY fc.category_name;   
     ";
     }
+
     include('conn.php');
     $result = mysqli_query($con, $sql);
     mysqli_close($con);
     if (mysqli_num_rows($result) == 0) { //if there is no record
-        echo '<script>alert("Sorrt something went wrong D:");
+        echo '<script>alert("Sorrt something went wrong! caller: searchmenu");
                 </script>';
     } else {
         $i = 1;
@@ -712,7 +713,6 @@ function searchmenu($searchitem)
                 <br><br>   
                 </div>  
             </div>
-            <hr>
             ';
 
             // ======================end of modal body===========================================
@@ -938,5 +938,39 @@ function imagevalidation($file)
         return false;
     } else {
         return true;
+    }
+}
+
+function insertfood()
+{
+    include("connpdo.php");
+    $food_name = $_POST['newfood_name'];
+    $cate_name = $_POST['newcategory'];
+    $description = $_POST['newfood_desc'];
+    $price = $_POST['newfood_price'];
+    //check if cate exist, if not create new category, and return cate_id
+    $cate_id = getcateid($cate_name);
+
+    if ($_FILES['newfoodimg']['name'] != "") {
+        //check validation for file type
+        imagevalidation($_FILES['newfoodimg']);
+        //set the $picture
+        $picture = file_get_contents($_FILES['newfoodimg']['tmp_name']);
+        //set sql
+
+    } else { //else no need to change picture, set sql
+        $picture = file_get_contents("img/default.jpg");
+    }
+    $sql = "INSERT INTO `food` (`name`, `cate_id`, `description`, `picture`, `price`, `option`) VALUES (:name, :cate_id, :description, :picture, :price, '');
+        ";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':name', $food_name);
+    $stmt->bindParam(':cate_id', $cate_id);
+    $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':price', $price);
+    $stmt->bindParam(':picture', $picture);
+    if ($stmt->execute()) {
+        echo '<script>alert("Successfully created a new food!");
+        window.location.href = "admin_viewmenu.php"</script>';
     }
 }
