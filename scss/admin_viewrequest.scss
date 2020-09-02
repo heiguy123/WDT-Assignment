@@ -1,0 +1,22 @@
+@import "_admin_nav.scss";
+@import "_footer.scss";
+@import "admin_welcomebanner";
+@import "admin_directory";
+@import "_admin_order.scss";
+
+span#backbtn{
+    margin-right: 15px;
+    font-size: 27px;
+    display: none;
+    cursor: pointer;
+}
+
+span#backbtn:hover{
+    
+    color: $hovercolor;
+}
+
+#viewhis{
+    color: inherit;
+    text-decoration: none;
+}

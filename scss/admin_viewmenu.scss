@@ -4,6 +4,22 @@
 @import "admin_directory";
 @import "_admin_order.scss";
 
+%hr-line {
+        border-top: 1px solid $primary-color;
+        width: 100%;
+    }
+    
+    %icon {
+        font-family: "Font Awesome 5 Free"; 
+        font-weight: 900; 
+        position: absolute;
+        font-size: 22px;
+        color: #555e60;
+        left: 18px;
+        padding-top: 7px;
+    }
+    
+
 div.foodimgcontainer{
 overflow: hidden;
 }

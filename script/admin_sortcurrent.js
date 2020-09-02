@@ -16,6 +16,7 @@ $(document).ready(function () {
   if (welcome === "welcome") {
     showAlert();
   }
+  //to show the number
   var x = document.getElementById("notification-number");
   if (x.innerText != "") {
     x.style.display = "inline";

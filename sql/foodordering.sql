@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Aug 31, 2020 at 11:44 AM
+-- Generation Time: Sep 02, 2020 at 10:33 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.12
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `username` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` char(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`admin_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `username`, `name`, `email`, `password`, `last_login`) VALUES
-(2, 'admin1', 'Jerry Sung', 'howard_bb@hotmail.com', 'admin', NULL),
-(3, 'admin2', 'Jerry Two', 'jerry2@mail.com', 'admin', NULL);
+(2, 'admin1', 'Jerry Sung', 'howard_bb@hotmail.com', '$2y$10$sdYH2h2kik/BHFwYXTdKaeXtwBuObMD.CzPViSwY2YN32y3IKgDR.', NULL),
+(3, 'admin2', 'Jerry Two', 'jerry2@mail.com', '$2y$10$sk3.6iF6nXtMEzV/ClwA4uYMJ7iTwe93H/zJ9qONEnNsyGtWcHYh.', NULL);
 
 -- --------------------------------------------------------
 
