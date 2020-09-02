@@ -7,6 +7,9 @@ if (isset($_GET['del'])) {
 if (isset($_POST['food_id'])) {
     updatefood();
 }
+if (isset($_POST['newfood_name'])) {
+    insertfood();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,6 +114,72 @@ if (isset($_POST['food_id'])) {
     <!-- main body container -->
     <div class="container-fluid" id="maincontent">
 
+        <!-- modal for new food -->
+        <div class="modal fade" id="exampleModal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelnew" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form action="" method="POST" id="formnew" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabelnew">Food Detail</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body container">
+
+                            <div class="row">
+
+                                <div class="col-2">
+
+                                    <span>Name : </span>
+                                    <br><br>
+                                    <span>Category: </span>
+                                    <br><br>
+                                    <span>Price: </span>
+                                    <br><br>
+                                    <span>Description: </span>
+                                </div>
+
+                                <div class="col-5 fooddetails">
+
+                                    <input type="text" name="newfood_name" required>
+                                    <br><br>
+                                    <input list="cate" name="newcategory" required>
+                                    <datalist id="cate">
+                                        <?php insertcatelist() ?>
+                                    </datalist>
+                                    <br><br>
+                                    <input type="number" step="0.01" name="newfood_price" required=>
+                                    <br><br>
+                                    <textarea name="newfood_desc" required=""></textarea>
+                                </div>
+
+                                <div class="col-5">
+
+                                    <span>Picture: </span>
+                                    <div class="foodimgcontainer row">
+                                        <div class="col">
+                                            <img id="img-1" class="foodimg" style="max-width:300px; max-height:200px" src="img/default.jpg" alt="food">
+                                            <br>
+                                            <input name="newfoodimg" class="hidden" id="uploadimg-1" type="file" onchange="readURL(this,'img-1');">
+                                            <label for="uploadimg-1" class="uploadbutton">Select file</label>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="resetbutton-1" type="reset" class="btn btn-success" onclick="resetimg(-1)">Reset</button>
+                            <button name="newsubmit" type="submit" id="-1" class="btn btn-primary float-right" onclick="return validateform(this)">Add New</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <!-- banner -->
         <div class="jumbotron jumbotron-fluid" id="welcome-banner">
@@ -147,7 +216,7 @@ if (isset($_POST['food_id'])) {
             <div class="row">
                 <!-- below is search function yet to explore -->
                 <div class="col-md-12 float-right">
-
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal-1">New Food</button>
                     <!-- <form class="searchbox" action="admin_search.php"> -->
                     <div class="float-right">
                         <input class="form-control searchbox" type="text" id="searchitem" placeholder="Search name..">
