@@ -29,7 +29,7 @@ checksession();
         <a class="navbar-brand" href="dashboard.php"><img src="img/res_logo.png" height=35>My Restaurant</a>
         <div>
             <div class="nav-nav" style="right: 20px;">
-                <li class="navbar-nav"><a href="account.php" class="nav-link"><?php echo $_SESSION['cus_row']['cus_name'] ?></a></li>
+                <li class="navbar-nav"><a href="acc_setting.php" class="nav-link"><?php echo $_SESSION['cus_row']['cus_name'] ?></a></li>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@ checksession();
             <li class="nav-item home"><a href="dashboard.php" class="nav-link">Home</a></li>
             <li class="nav-item help"><a href="help.php" class="nav-link">Help</a></li>
             <li class="nav-item order"><a href="order.php" class="nav-link">My Order</a></li>
-            <li class="nav-item account"><a href="account.php" class="nav-link">Account Setting</a></li>
+            <li class="nav-item account"><a href="acc_setting.php" class="nav-link">Account Setting</a></li>
             <li class="nav-item logout"><a href="logout.php" class="nav-link">Logout</a></li>
             <hr>
             <li class="nav-item tel"><a href="tel:0388699498" class="nav-link">Contact Us</a></li>

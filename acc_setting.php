@@ -25,8 +25,8 @@ if (isset($_POST['submit'])) {
 	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
 	<link rel="stylesheet" href="./fontawesome-free-5.14.0-web/css/all.css">
 	<link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="./css/account.css">
-	<link rel="stylesheet" href="./style/account.css">
+	<!-- <link rel="stylesheet" href="./css/account.css"> -->
+	<link rel="stylesheet" href="./style/acc_setting.css">
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body>
@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
 		<a class="navbar-brand" href="dashboard.php"><img src="img/res_logo.png" height=35>My Restaurant</a>
 		<div>
 			<div class="nav-nav">
-				<li class="navbar-nav"><a href="account.php" class="nav-link"><?php echo $_SESSION['cus_row']['cus_name'] ?></a></li>
+				<li class="navbar-nav"><a href="acc_setting.php" class="nav-link"><?php echo $_SESSION['cus_row']['cus_name'] ?></a></li>
 			</div>
 			<div class="cart-btn" type="button" onclick='location.href="cart.php";'>
 				<span class="nav-icon"><i class="fas fa-cart-plus"></i></span>
@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
 			<li class="nav-item home"><a href="dashboard.php" class="nav-link">Home</a></li>
 			<li class="nav-item help"><a href="help.php" class="nav-link">Help</a></li>
 			<li class="nav-item order"><a href="order.php" class="nav-link">My Order</a></li>
-			<li class="nav-item account"><a href="account.php" class="nav-link">Account Setting</a></li>
+			<li class="nav-item account"><a href="acc_setting.php" class="nav-link">Account Setting</a></li>
 			<li class="nav-item logout"><a href="logout.php" class="nav-link">Logout</a></li>
 			<hr>
 			<li class="nav-item tel"><a href="tel:0388699498" class="nav-link">Contact Us</a></li>
