@@ -53,3 +53,12 @@ adjusted css in admin login
 2020/08/29
 #32
 1. basically updated view order
+
+
+2020/09/02
+#45
+prefinal version admin
+1. sql changed:
+    table: admin 
+    password type> char(150)
+    reason: i encrpyt the password using password_hash function of php
