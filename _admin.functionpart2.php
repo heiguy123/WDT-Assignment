@@ -64,8 +64,6 @@ function setdashboardnumber()
         global $cancelledorder;
         $cancelledorder = $row[0];
     }
-
-
     mysqli_close($con);
 }
 
@@ -75,8 +73,10 @@ function havesession()
     session_start();
     if (!isset($_SESSION['admin_row']))        // check if session is set
     {
-        if (empty($_COOKIE['admin_username']) || empty($_COOKIE['admin_password'])) { //session not found
+        //if no session
+        if (empty($_COOKIE['admin_username']) || empty($_COOKIE['admin_password'])) {
             //if cookie is empty return false
+
             return false;
         } else {
             //if cookie is not empty, return true
@@ -88,7 +88,10 @@ function havesession()
                 return true;
             }
         }
+        return false;
     }
+
+
     //if have session, return true
     return true;
 }
@@ -107,14 +110,19 @@ function getadminrow($uname, $pword)
 {
     include_once("conn.php");
 
-    $sql = "SELECT * FROM admin WHERE username='$uname' AND password = '$pword'";
+    $sql = "SELECT * FROM admin WHERE username='$uname'";
 
     $result = mysqli_query($con, $sql);
 
     if (mysqli_num_rows($result) == 1) { //result must be only one record
-        $adminrow = mysqli_fetch_array($result);
+        $row = mysqli_fetch_array($result);
+        if (password_verify($pword, $row['password'])) {
+            //if password matches
+            mysqli_close($con);
+            return $row;
+        }
         mysqli_close($con);
-        return $adminrow;
+        return "";
     } else {
         mysqli_close($con);
         return "";
@@ -549,17 +557,17 @@ function displayclosedsearch($sort, $order, $searchname)
             echo '
             <div class="row details">
             <form action="" method="POST">
-                <div class="col-7">
+                <div class="col-8">
                     <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
                     <p>Order ID:' . $row["order_id"] . '</p>
                     <p>Name: ' . $row['cus_name'] . '</p>
                     <p>Time: ' . $row['time'] . '</p>    
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                
-                    <span>Status:   </span>
+                    <span>Status:   ' . $row['order_status'] . '</span>
                     ';
-            orderstatusoption($row['order_status']); //display option
+
             echo '    
                 <br><br>   
                 </div>  
@@ -588,7 +596,6 @@ function displayclosedsearch($sort, $order, $searchname)
             echo '      </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary float-right" onclick="return confirm(\'Are you sure you want to update the status?\')">Update Status</button>
                             </form>
                         </div>
                     </div>

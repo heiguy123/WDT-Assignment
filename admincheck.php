@@ -6,7 +6,6 @@ if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-
     include_once("conn.php");
 
 
@@ -21,16 +20,11 @@ if (isset($_POST['submit'])) {
         mysqli_close($con);
     } elseif (mysqli_num_rows($result) == 1) { //result must be only one record
         //if valid username or email
-        $sql = "SELECT * FROM admin WHERE (username='$username' OR email='$username') AND password = '$password'";
-        $result = mysqli_query($con, $sql);
-        if (mysqli_num_rows($result) == 0) {
-            //if password doesnt match
-            $password_err = "Invalid Password!";
-            mysqli_close($con);
-        } else {
+        $row = mysqli_fetch_array($result);
+
+        if (password_verify($password, $row['password'])) {
             //if password matches
             session_start();
-            $row = mysqli_fetch_array($result);
             $_SESSION["admin_row"] = $row;
             session_write_close();
             if (!empty($_POST["remember"])) { //if the user choose to "remember me", store the credential into cookie
@@ -39,6 +33,10 @@ if (isset($_POST['submit'])) {
             }
             mysqli_close($con);
             header("Location:admindashboard.php?welcome=welcome");
+        } else {
+            //if password doesnt match
+            $password_err = "Invalid Password!";
+            mysqli_close($con);
         }
     } else {
         echo "<script>
