@@ -71,16 +71,7 @@ if (isset($_POST["submit"])) //If all the field is filled
                     <span><?php echo $email_err; ?></span>
                 </div>
                 <button class="btn col-12" type="submit" name="submit">Create New Account</button>
-                <div class="separator">Create New Account</div>
             </form>
-
-            <div class="row text-center padding">
-                <div class="col-12" id="link">
-                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.google.com" target="_blank"><i class="fab fa-google-plus-g"></i></a>
-                </div>
-            </div>
         </div>
     </div>
 </div>

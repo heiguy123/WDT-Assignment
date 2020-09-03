@@ -3,6 +3,10 @@ Food Delivery System (Website)
 
 <h4>Date: 2020/09/02</h4>
 <b>From: heiguy123</b><br>
+1. Remove social links to register (too mafan).<br>
+
+<h4>Date: 2020/09/02</h4>
+<b>From: heiguy123</b><br>
 1. Fixing minor bugs.<br>
 
 <h4>Date: 2020/09/01</h4>
