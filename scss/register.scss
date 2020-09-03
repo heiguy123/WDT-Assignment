@@ -114,37 +114,25 @@ html, body {
     border-bottom: 4px solid #25a890 !important;
 }
 
-.separator {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: $primary-color;  
-    margin-bottom: 1rem;  
-}   
+// .separator {
+//     display: flex;
+//     align-items: center;
+//     text-align: center;
+//     color: $primary-color;  
+//     margin-bottom: 1rem;  
+// }   
 
-.separator::before, .separator::after {
-    content: '';
-    flex: 1;
-    border-top: 1px solid $primary-color;
-    margin-bottom: 8px;
-}
+// .separator::before, .separator::after {
+//     content: '';
+//     flex: 1;
+//     border-top: 1px solid $primary-color;
+//     margin-bottom: 8px;
+// }
 
-.separator::before {
-    margin-right: .25em;
-}
+// .separator::before {
+//     margin-right: .25em;
+// }
 
-.separator::after {
-    margin-left: .25em;
-}
-
-#link {
-    margin-bottom: 15px;
-    > a {
-        font-size: 30px;
-        padding: 45px;
-        color: $secondary-color;
-    }
-    > a:hover {
-        color: $primary-color;
-    }
-}
+// .separator::after {
+//     margin-left: .25em;
+// }
