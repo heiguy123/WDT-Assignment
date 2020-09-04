@@ -62,3 +62,10 @@ prefinal version admin
     table: admin 
     password type> char(150)
     reason: i encrpyt the password using password_hash function of php
+
+2020/09/05
+FINAL UPDATE
+1. added validation when editing menu (js)
+2. added validation when sign up admin (php)
+3. added contact in admin sql table
+4. admin bug fixes

@@ -24,7 +24,7 @@ if (isset($_POST['order_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/admin_currentorder.css">
-    <script src="script/admin_sortcurrent.js"></script>
+    <script src="script/admin_current.js"></script>
 </head>
 
 <body>
