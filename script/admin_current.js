@@ -22,6 +22,14 @@ $(document).ready(function () {
     x.style.display = "inline";
   }
 
+  //to reset on close
+  $(".modal").on("hidden.bs.modal", function () {
+    var id = $(this).attr("id");
+    id = id.replace("exampleModal", "");
+    id = "form" + id;
+    document.getElementById(id).reset();
+  });
+
   //if the radio button is changed, use ajax
   $("#sortbox").change(function () {
     var xmlhttp = new XMLHttpRequest();
@@ -117,4 +125,18 @@ function showsearch() {
       xmlhttp.send();
     }
   }
+}
+
+function validateupdate(ele) {
+  var id = ele.id;
+  id = id.replace("submit", "");
+  id = "order_status" + id;
+  var x = document.getElementById(id).value;
+  var msg =
+    "Are you sure you want to update the status?\n(this cannot be undone)";
+  if (x == "Delivered") {
+    msg =
+      "The order will be closed, are you sure to continue?\n(this cannot be undone)";
+  }
+  return confirm(msg);
 }

@@ -130,13 +130,9 @@ function getadminrow($uname, $pword)
 }
 
 // Validate email structure
-function validate_structure($email)
+function isValidEmail($email)
 {
-    return (!preg_match(
-        "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",
-        $email
-    ))
-        ? FALSE : TRUE;
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
 // Validate Email with database
@@ -194,7 +190,7 @@ function sendforgotemail($email)
             $mail->addBCC('howard_bb@hotmail.com');
 
             //Content
-            $url = "http://localhost:8080/WDT-Assignment-master/WDT-Assignment/adminresetpass.php?email=" . $email;
+            $url = "http://localhost:8080/WDT-Assignment/adminresetpass.php?email=" . $email;
 
             $subject = "[RESET PASSWORD] Please verify your email";
 
@@ -254,14 +250,23 @@ function resetpassword($email, $password, $re_pasword)
 
 function orderstatusoption($current_status)
 {
+    $disabledArray = array();
+    switch ($current_status) {
+            //to set the disabled option, so that it cannot be updated backward
+        case 'Food Being Prepared':
+            $disabledArray = array('Confirmed');
+            break;
+        case 'Picked Up':
+            $disabledArray = array('Confirmed', 'Food Being Prepared');
+            break;
+    }
     //excluded cancelled status because got cancel request management
     $sql = "SELECT DISTINCT(order_status) FROM `order_status` WHERE order_status IN ('Confirmed','Food Being Prepared','Picked Up','Delivered') ";
     include('conn.php');
     $result = mysqli_query($con, $sql);
     mysqli_close($con);
-    echo '<select class="float-right order_status" name="order_status">';
-    if (mysqli_num_rows($result) == 0) { //if there is no record
 
+    if (mysqli_num_rows($result) == 0) { //if there is no record
         echo '<script>alert("Sorry, something went wrong! caller:orderstatusoption");
                 </script>';
     } else {
@@ -269,6 +274,11 @@ function orderstatusoption($current_status)
             echo '   <option value="' . $row['order_status'] . '" ';
             if ($current_status == $row['order_status']) {
                 echo 'selected';
+            }
+            foreach ($disabledArray as $option) {
+                if ($option == $row['order_status']) {
+                    echo 'disabled';
+                }
             }
             echo '>' . $row['order_status'] . '</option>';
         }
@@ -435,7 +445,7 @@ function displaycurrentsearch($sort, $order, $searchname)
             //=======================below is the body of modal===============================
             echo '
             <div class="row details">
-            <form action="" method="POST">
+            <form id="form' . $row['order_id'] . '"action="" method="POST">
                 <div class="col-7">
                     <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
                     <p>Order ID:' . $row["order_id"] . '</p>
@@ -446,6 +456,7 @@ function displaycurrentsearch($sort, $order, $searchname)
                
                     <span>Status:   </span>
                     ';
+            echo '<select id="order_status' . $row['order_id'] . '" class="float-right order_status" name="order_status">';
             orderstatusoption($row['order_status']); //display option
             echo '    
                 <br><br>   
@@ -475,7 +486,7 @@ function displaycurrentsearch($sort, $order, $searchname)
             echo '      </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary float-right" onclick="return confirm(\'Are you sure you want to update the status?\')">Update Status</button>
+                            <button id="submit' . $row['order_id'] . '" type="submit" class="btn btn-primary float-right" onclick="return validateupdate(this);">Update Status</button>
                             </form>
                         </div>
                     </div>

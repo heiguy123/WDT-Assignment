@@ -127,36 +127,6 @@ if (isset($_POST['reject'])) {
             <hr id="seperator">
         </div>
         <br>
-        <!-- filter -->
-        <!-- <div class="container filter">
-            <div class="row">
-                <div class="col float-right">
-                    <h4>Filter</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class=" col-md-9">
-                    <form id="sortbox">
-                        <span class="radio">Sort by:</span>
-                        <input type="radio" name="sortby" id="sdate" value="Time" checked> <span class="radio"> Time </span>
-                        <input type="radio" name="sortby" id="stotal" value="Total"> <span class="radio"> Total</span>
-                        <span class="radio">|</span>
-                        <span class="radio">Order:</span>
-                        <input type="radio" name="orderby" id="sasc" value="Acs" checked> <span class="radio"> Acs </span>
-                        <input type="radio" name="orderby" id="sdesc" value="Desc"> <span class="radio"> Desc</span>
-                    </form>
-                </div>
-
-                <div class="col-md-3 ">
-
-                    <div class="float-right">
-                        <input class="form-control searchbox" type="text" id="searchitem" placeholder="Search name..">
-                    </div>
-
-                </div>
-            </div>
-            <br>
-        </div> -->
 
 
         <div class="container">

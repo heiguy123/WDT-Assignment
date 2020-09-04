@@ -60,7 +60,7 @@ function searchmenu($searchitem)
 
                 <div class="col-2">
 
-                    <span>Order ID: </span>
+                    <span>Food ID: </span>
                     <br><br>
                     <span>Name : </span>
                     <br><br>
@@ -76,16 +76,16 @@ function searchmenu($searchitem)
 
                     <input type="text" name="food_id" value="' . $row["food_id"] . '" readonly>
                     <br><br>
-                    <input type="text" name="food_name" value="' . $row["name"] . '" required>
+                    <input id="foodname' . $row['food_id'] . '" type="text" name="food_name" value="' . $row["name"] . '" required>
                     <br><br>
-                    <input list="cate" name="category" value="' . $row["category_name"] . '" required>
-                        <datalist id="cate">';
+                    <input id="cateinput' . $row['food_id'] . '" list="cate' . $row['food_id'] . '" name="category" value="' . $row["category_name"] . '" required>
+                        <datalist id="cate' . $row['food_id'] . '">';
             insertcatelist();
             echo '</datalist>
                     <br><br>
-                    <input type="number" step="0.01"name="food_price" value="' . $row["price"] . '" required>  
+                    <input id="price' . $row['food_id'] . '" type="number" step="0.01"name="food_price" value="' . $row["price"] . '" required>  
                     <br><br>
-                    <textarea name="food_desc" required>' . trim($row[3]) . '</textarea>
+                    <textarea id="description' . $row['food_id'] . '" name="food_desc" maxlength="500" required>' . trim($row[3]) . '</textarea>
                 </div>
 
                 <div class="col-5">
@@ -164,8 +164,7 @@ function displaycate()
 function insertcatelist()
 {
 
-    $sql = "SELECT * FROM `food_category`
-    ";
+    $sql = "SELECT * FROM `food_category` ";
     include('conn.php');
     $result = mysqli_query($con, $sql);
     mysqli_close($con);
@@ -434,6 +433,7 @@ function searchrequest($sort, $order, $searchitem)
             
                 <div class="col-7">
                     <input type="hidden" name="request_id" value="' . $row["request_id"] . '" readonly>
+                    <input type="hidden" name="order_id" value="' . $row["order_id"] . '" readonly>
                     <p>Request ID:' . $row["request_id"] . '</p>
                     <p>Order ID:' . $row["order_id"] . '</p>
                     <p>Name: ' . $row['cus_name'] . '</p>
@@ -506,16 +506,29 @@ function updaterequest($i)
         $status = "Accepted";
     }
     include("conn.php");
+
+    if ($i == 1) { //update status in order table
+        $sql = "UPDATE `order` SET
+            order_status='Cancelled'
+            WHERE order_id=" . $_POST['order_id'] . ";";
+        if (mysqli_query($con, $sql)) {
+        } else {
+            echo '<script>alert("Sorry something went wrong! Caller: Update request status.");
+            window.location.href = "admin_viewrequest.php";
+            </script>';
+            return;
+        }
+    }
+
     $sql = "UPDATE `order_cancel_request` SET
             request_status='$status'
             WHERE request_id=" . $_POST['request_id'] . ";";
-
     if (mysqli_query($con, $sql)) {
-        mysqli_close($con);
         echo '<script>alert("Successfully ' . $status . '!");
         window.location.href = "admin_viewrequest.php";
         </script>';
     }
+    mysqli_close($con);
 }
 
 function getEncryptedPassword($password)
@@ -578,4 +591,185 @@ function updatepassword($id, $password)
         window.location.href = "admin_managepassword.php";
         </script>';
     }
+}
+
+function adminRegister()
+{
+    $username = $_POST['username'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $pass = $_POST['pass'];
+    $re_pass = $_POST['re_pass'];
+    $contact = $_POST['tel'];
+    setcookie("username", $username, time() + (300), "/");
+    setcookie("name", $name, time() + (300), "/");
+    setcookie("email", $email, time() + (300), "/");
+    setcookie("contact", $contact, time() + (300), "/");
+
+    $errarray = array(); //a 2D array (An associated array nest into a normal array)
+    //i used array[] to add new value to array
+    //validate username
+    if (!isNewUsername($username)) {
+        $errarray[] = array(
+            'errtype'  => "username_err",
+            'msg' => "username existed"
+        );
+        alert("This username is existed, please use another username!");
+    } else if (!isValidUsername($username)) {
+        $errarray[] = array(
+            'errtype'  => "username_err",
+            'msg' => "invalid username"
+        );
+        alert("Username must have more than 5 characters only contain alphabets, number or _");
+    }
+
+    if (!isNewEmail($email)) {
+        $errarray[] = array(
+            'errtype'  => "email_err",
+            'msg' => "email existed"
+        );
+        alert("Email existed, please enter a new email!");
+    } else if (!isValidEmail($email)) {
+        $errarray[] = array(
+            'errtype'  => "email_err",
+            'msg' => "invalid email"
+        );
+        alert("Please enter a valid email!");
+    }
+
+
+    if (!isValidName($name)) {
+        $errarray[] = array(
+            'errtype'  => "name_err",
+            'msg' => "invalid name"
+        );
+        alert("Please enter a valid name!");
+    }
+
+
+    if (!isValidPassword($pass)) {
+        $errarray[] = array(
+            'errtype'  => "password_err",
+            'msg' => "invalid password"
+        );
+        alert("Password must have more than 5 characters and must no contain blankspace!");
+    }
+
+    if (!isValidContact($contact)) {
+        $errarray[] = array(
+            'errtype'  => "contact_err",
+            'msg' => "invalid contact"
+        );
+        alert("Please enter a valid contact number!");
+    }
+
+    if ($pass != $re_pass) {
+        $errarray[] = array(
+            'errtype'  => "repassword_err",
+            'msg' => "passwords do not match"
+        );
+        alert("Please make sure you re-entered the same password!");
+    }
+
+    if (count($errarray) != 0) { //failed
+        return $errarray;
+    } else {
+        //create when the array is empty
+        createnewadmin($username, $name, $email, $pass, $contact);
+    }
+}
+
+function createnewadmin($username, $name, $email, $pass, $contact)
+{
+    $pass = getEncryptedPassword($pass);
+    include("conn.php");
+    $sql = "INSERT INTO `admin` 
+    (`username`, `contact`, `name`, `email`, `password`) 
+    VALUES ('$username', '$contact', '$name', '$email', '$pass');";
+
+    if (mysqli_query($con, $sql)) {
+        mysqli_close($con);
+        echo '<script>alert("Successfully registered!");
+        window.location.href = "admin_login.php";
+        </script>';
+    }
+}
+
+function isNewEmail($email)
+{
+    include("conn.php");
+    $sql = "SELECT * FROM `admin` WHERE email = '$email'";
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+    if (mysqli_num_rows($result) > 0) {
+        //if there is record for this email
+        return false;
+    }
+    return true;
+}
+
+function isValidContact($contact)
+{
+    if (empty($contact)) {
+        return false;
+    }
+    if (preg_match('/^[0-9]{8,15}$/', $contact)) { // have 8-15 numbers
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+function isValidPassword($pass)
+{
+    if (empty($pass)) {
+        return false;
+    }
+    if (preg_match('/^[^ ]{5,}$/', $pass)) { // for all char except space bar, must more than 5 characters
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isValidName($name)
+{
+    if (empty($name)) {
+        return false;
+    }
+    if (preg_match('/^[a-zA-Z ]{2,}$/', $name)) { // for english chars only
+        return true;
+    } else {
+        return false;
+    }
+}
+function isValidUsername($username)
+{
+    if (empty($username)) {
+        return false;
+    }
+    if (preg_match('/^[a-zA-Z0-9_]{5,}$/', $username)) { // for english chars + numbers + _ only
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function alert($msg)
+{
+    echo '<script>alert("' . $msg . '")</script>';
+}
+
+function isNewUsername($username)
+{
+    include("conn.php");
+    $sql = "SELECT * FROM `admin` WHERE username = '$username'";
+    $result = mysqli_query($con, $sql);
+    mysqli_close($con);
+    if (mysqli_num_rows($result) > 0) {
+        //if there is record for this username
+        return false;
+    }
+    return true;
 }

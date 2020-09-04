@@ -148,7 +148,8 @@ if (havesession()) {
                     <hr>
                     <h5>Admin</h5>
                     <hr>
-                    <a href="./adminlogin.php">Login</a>
+                    <p><a href="./adminlogin.php">Login</a></p>
+                    <p><a href="./admin_register.php">Sign Up</a></p>
                 </div>
 
                 <div class="col-12">

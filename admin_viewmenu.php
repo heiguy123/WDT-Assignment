@@ -142,16 +142,16 @@ if (isset($_POST['newfood_name'])) {
 
                                 <div class="col-5 fooddetails">
 
-                                    <input type="text" name="newfood_name" required>
+                                    <input id="foodname-1" type="text" name="newfood_name" required>
                                     <br><br>
-                                    <input list="cate" name="newcategory" required>
-                                    <datalist id="cate">
+                                    <input id="cateinput-1" list="cate-1" name="newcategory" required>
+                                    <datalist id="cate-1">
                                         <?php insertcatelist() ?>
                                     </datalist>
                                     <br><br>
-                                    <input type="number" step="0.01" name="newfood_price" required=>
+                                    <input id="price-1" type="number" step="0.01" name="newfood_price" required=>
                                     <br><br>
-                                    <textarea name="newfood_desc" required=""></textarea>
+                                    <textarea id="description-1" name="newfood_desc" required=""></textarea>
                                 </div>
 
                                 <div class="col-5">

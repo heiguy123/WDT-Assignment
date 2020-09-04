@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Sep 02, 2020 at 10:33 AM
+-- Generation Time: Sep 04, 2020 at 04:30 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.12
 
@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `admin_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
+  `contact` varchar(30) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` char(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -43,9 +44,9 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `username`, `name`, `email`, `password`, `last_login`) VALUES
-(2, 'admin1', 'Jerry Sung', 'howard_bb@hotmail.com', '$2y$10$sdYH2h2kik/BHFwYXTdKaeXtwBuObMD.CzPViSwY2YN32y3IKgDR.', NULL),
-(3, 'admin2', 'Jerry Two', 'jerry2@mail.com', '$2y$10$sk3.6iF6nXtMEzV/ClwA4uYMJ7iTwe93H/zJ9qONEnNsyGtWcHYh.', NULL);
+INSERT INTO `admin` (`admin_id`, `username`, `contact`, `name`, `email`, `password`, `last_login`) VALUES
+(2, 'admin1', '0123232323', 'Jerry Sung', 'howard_bb@hotmail.com', '$2y$10$sdYH2h2kik/BHFwYXTdKaeXtwBuObMD.CzPViSwY2YN32y3IKgDR.', NULL),
+(3, 'admin2', '01232312323', 'Jerry Two', 'jerry2@mail.com', '$2y$10$sk3.6iF6nXtMEzV/ClwA4uYMJ7iTwe93H/zJ9qONEnNsyGtWcHYh.', NULL);
 
 -- --------------------------------------------------------
 
@@ -60,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `add_id` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cart_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `cart`
@@ -68,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `cart` (
 
 INSERT INTO `cart` (`cart_id`, `cus_id`, `add_id`, `total`) VALUES
 (1, 1, 1, '21.00'),
-(2, 2, 3, '21.00');
+(2, 2, 3, '21.00'),
+(3, 6, 0, '0.00');
 
 -- --------------------------------------------------------
 
@@ -113,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `contact` varchar(20) NOT NULL,
   `gender` varchar(10) NOT NULL,
   PRIMARY KEY (`cus_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `customer`
