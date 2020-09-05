@@ -102,7 +102,7 @@ getcartdetail();
                                                 <div class="form-group">
                                                     <label for="card_num">Card number</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="card_num">
+                                                        <input type="tel" class="form-control" name="card_num" maxlength="16">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text text-muted">
                                                                 <i class="fab fa-cc-visa"></i>    
@@ -117,15 +117,15 @@ getcartdetail();
                                                         <div class="form-group">
                                                             <label><span class="hidden-xs">Expiration</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="MM" name="MM" required>
-                                                                <input type="number" class="form-control" placeholder="YY" name="YY" required>
+                                                                <input type="tel" class="form-control" placeholder="MM" name="MM" required maxlength="2">
+                                                                <input type="tel" class="form-control" placeholder="YY" name="YY" required maxlength="2">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group">
                                                             <label>CVV <i class="fa fa-question-circle"></i></label>
-                                                            <input type="number" class="form-control" name="CVV" required>
+                                                            <input type="tel" class="form-control" name="CVV" required maxlength="3">
                                                         </div> <!-- form-group.// -->
                                                     </div>
                                                 </div> <!-- row.// -->
