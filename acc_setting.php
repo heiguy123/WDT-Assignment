@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="contact">Contact number</label>
-                                            <input type="text" id="contact" name="contact" class="form-control form-control-alternative" value="+<?php echo $_SESSION['cus_row']['contact'] ?>" required>
+                                            <input type="text" id="contact" name="contact" class="form-control form-control-alternative" value="<?php echo $_SESSION['cus_row']['contact'] ?>" required>
                                         </div>
                                     </div>
                                 </div>
