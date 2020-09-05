@@ -21,15 +21,10 @@ if (isset($_POST['submit'])) {
         mysqli_close($con);
     } elseif (mysqli_num_rows($result) == 1) {
         //if valid username or email
-        $sql = "SELECT * FROM customer WHERE (username='$username' OR email='$username') AND password = '$password'";
-        $result = mysqli_query($con, $sql);
-        if (mysqli_num_rows($result) == 0) {
-            //if password doesnt match
-            $password_err = "Invalid Password!";
-            mysqli_close($con);
-        } else {
-            $row = mysqli_fetch_array($result);
-            // session_start();
+        $row = mysqli_fetch_array($result);
+
+        if (password_verify($password,$row['password'])) {
+            session_start();
 
             // get address if there is
             $sql = "SELECT `address`,`city`,`postcode` FROM `user_address` WHERE `cus_id` = $row[0] ORDER BY `add_id` DESC LIMIT 1";
@@ -63,7 +58,11 @@ if (isset($_POST['submit'])) {
 
             mysqli_close($con);
             header("Location:dashboard.php");
-        }
+        } else {
+            //if password doesnt match
+            $password_err = "Invalid Password!";
+            mysqli_close($con);
+        } 
     } else {
         echo "<script>
         alert('Something went wrong! Please try again!');

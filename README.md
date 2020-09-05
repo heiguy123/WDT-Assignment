@@ -1,6 +1,12 @@
 # WDT-Assignment
 Food Delivery System (Website)
 
+<h4>Date: 2020/09/05</h4>
+<b>From: heiguy123</b><br>
+1. Add encryted password function.<br>
+2. Fixing minor bugs.<br>
+3. sql `customer` update table.<br>
+
 <h4>Date: 2020/09/02</h4>
 <b>From: heiguy123</b><br>
 1. Remove social links to register (too mafan).<br>

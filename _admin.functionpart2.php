@@ -159,7 +159,7 @@ function validate_email($email)
 function sendforgotemail($email)
 {
     // Function call
-    if (!validate_structure("$email")) {
+    if (!isValidEmail("$email")) {
         echo '<script>
         window.location.href = "adminforgot.php?err=0";
     </script>';

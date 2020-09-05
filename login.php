@@ -1,10 +1,9 @@
 <?php
 include_once('_cus.function.php');
+include_once('cus_check.php');
 if (havesession()) {
     header("location:dashboard.php"); //if the cookie or session is empty, go to login
 }
-
-include_once('cus_check.php');
 ?>
 
 <!DOCTYPE html>

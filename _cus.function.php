@@ -42,14 +42,21 @@ function getcusrow($uname, $pword)
 {
     include_once("conn.php");
 
-    $sql = "SELECT * FROM customer WHERE username='$uname' AND password = '$pword'";
+    $sql = "SELECT * FROM customer WHERE username='$uname'";
 
     $result = mysqli_query($con, $sql);
 
     if (mysqli_num_rows($result) == 1) { // result must be only one record
         $cusrow = mysqli_fetch_array($result);
-        mysqli_close($con);
-        return $cusrow;
+        if (password_verify($pword, $cusrow['password'])) {
+            //password matched
+            mysqli_close($con);
+            return $cusrow;
+        } else {
+            mysqli_close($con);
+            return "";
+        }
+        
     } else {
         mysqli_close($con);
         return "";
@@ -60,22 +67,18 @@ function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$
     if (empty($email)) { // means in user information is incompleted
         echo '<script>
         alert("Please complete all the field in User Information to update your profile!");
-        window.location.href="account.php";</script>';
+        window.location.href="acc_setting.php";</script>';
     } else {
-        if (empty($cur_pass)) { // means customer just want to update user information
+        if (empty($cur_pass) && empty($new_pass)) { // means customer just want to update user information
             
             if (!validate_structure($email)) { 
                 echo '<script>
-                    alert("Email format is incorrect!");
-                    window.location.href="account.php";</script>';
-            } elseif (!validate_email($email,1)) {
-                echo '<script>
-                    alert("Email format is incorrect!");
-                    window.location.href="account.php";</script>';
-            } elseif (!validate_mobile('',$contact)) {
+                    alert("Email structure is incorrect!");
+                    window.location.href="acc_setting.php";</script>';
+            } elseif (!validate_mobile("",$contact)) {
                 echo '<script>
                     alert("Contact number format is incorrect!");
-                    window.location.href="account.php";</script>';
+                    window.location.href="acc_setting.php";</script>';
             } else {
                 // Validation PASS
                 include("conn.php");
@@ -94,7 +97,7 @@ function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$
                 }
     
                 echo '<script>alert("Update successfully! Please re-login to make changes");
-                window.location.href="account.php";</script>';
+                window.location.href="acc_setting.php";</script>';
     
                 mysqli_close($con);
             }
@@ -104,59 +107,68 @@ function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$
             if (empty($cur_pass)) {
                 echo '<script>
                 alert("Please complete all the field in Password Setting to update your profile!");
-                window.location.href="account.php";</script>';
+                window.location.href="acc_setting.php";</script>';
             } else {
                 include("conn.php");
 
-                $sql = "SELECT * FROM `customer` WHERE `password` = '$cur_pass' AND `username` = '$username'";
+                $sql = "SELECT * FROM `customer` WHERE `username` = '$username'";
+                $result = mysqli_query($con,$sql);
 
-                if (mysqli_num_rows(mysqli_query($con,$sql)) == 1) { // he/she inserted correct password
-                    // pass
-
-                    if (!validate_structure($email)) { 
-                        echo '<script>
-                            alert("Email format is incorrect!");
-                            window.location.href="account.php";</script>';
-                    } elseif (!validate_email($email,1)) {
-                        echo '<script>
-                            alert("Email format is incorrect!");
-                            window.location.href="account.php";</script>';
-                    } elseif (!validate_mobile($contact)) {
-                        echo '<script>
-                            alert("Contact number format is incorrect!");
-                            window.location.href="account.php";</script>';
-                    }  elseif (!validate_password($new_pass,$conf_pass)) {
-                        echo '<script>
-                            alert("New password is incorrect!");
-                            window.location.href="account.php";</script>';
-                    }   else {
-                        // Validation PASS
-                        include("conn.php");
-            
-                        $sql =  "UPDATE `customer` SET 
-                        
-                                `cus_name` = '$nickname',
-                                `email` = '$email',
-                                `contact` = $contact,
-                                `password` = '$new_pass'
-                                
-                                WHERE `username` = '$username'";
-            
-                        if (!mysqli_query($con,$sql))
-                        {
-                            die ("Error: ".mysqli_error($con));
-                        }
-            
-                        echo '<script>alert("Update successfully! Please re-login to make changes");
-                        window.location.href="account.php";</script>';
-            
-                        mysqli_close($con);
-                    }
-
+                if (mysqli_num_rows($result) == 0) { //if there is no record
+                    die('Error:' . mysqli_error($con));
                 } else {
-                    echo '<script>
-                    alert("Current password is incorrect!");
-                    window.location.href="account.php";</script>';
+                    $row = mysqli_fetch_array($result);
+                    $passhash = $row['password'];
+
+                    // check is the current password matched
+                    if (password_verify($cur_pass, $passhash)) { // if same
+                        // pass
+
+                        if (!validate_structure($email)) { 
+                            echo '<script>
+                                alert("Email structure is incorrect!");
+                                window.location.href="acc_setting.php";</script>';
+                        }  elseif (!validate_mobile("",$contact)) {
+                            echo '<script>
+                                alert("Contact number format is incorrect!");
+                                window.location.href="acc_setting.php";</script>';
+                        }  elseif (!validate_password($new_pass,$conf_pass)) {
+                            echo '<script>
+                                alert("New password is incorrect!");
+                                window.location.href="acc_setting.php";</script>';
+                        }   else {
+                            // Validation PASS
+
+                            $enc_pass = getEncryptedPassword($new_pass);
+
+                            include("conn.php");
+                
+                            $sql =  "UPDATE `customer` SET 
+                            
+                                    `cus_name` = '$nickname',
+                                    `email` = '$email',
+                                    `contact` = $contact,
+                                    `password` = '$enc_pass'
+                                    
+                                    WHERE `username` = '$username'";
+                
+                            if (!mysqli_query($con,$sql))
+                            {
+                                die ("Error: ".mysqli_error($con));
+                            }
+                
+                            echo '<script>alert("Update successfully! Please re-login to make changes");
+                            window.location.href="acc_setting.php";</script>';
+                
+                            mysqli_close($con);
+                        }
+
+
+                    } else {
+                        echo '<script>
+                        alert("Current password is incorrect!");
+                        window.location.href="acc_setting.php";</script>';
+                    }
                 }
             }        
         }
@@ -729,11 +741,7 @@ function deleteCart($cartdetail_id) {
 // Validate email structure
 function validate_structure($email)
 {
-    return (!preg_match(
-        "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",
-        $email
-    ))
-        ? FALSE : TRUE;
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
 // Validate Email with database
@@ -976,13 +984,18 @@ function validate_username($username) {
         return FALSE;
     } else {
         //if there is no record in database
-        mysqli_close($con);
-        return TRUE;
+        if (preg_match('/^[a-zA-Z0-9_]{5,}$/', $username)) { // for english chars + numbers + _ only
+            mysqli_close($con);
+            return TRUE;
+        } else {
+            mysqli_close($con);
+            return FALSE;
+        }
     }
 }
 
 // Validate Phone Number
-function validate_mobile($telcode,$tel) {
+function validate_mobile($telcode="",$tel) {
     $phone_num = $telcode.$tel;
     return preg_match('/^[0-9]{10}+$/', $phone_num)
     ? FALSE : TRUE; 
@@ -992,10 +1005,19 @@ function validate_mobile($telcode,$tel) {
 function validate_password($password, $re_pasword)
 {
     if ($password == $re_pasword) {
-        return TRUE;
+        if (preg_match('/^[^ ]{5,}$/', $password)) { // for all char except space bar, must more than 5 characters
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     } else {
         return FALSE;
     }
+}
+
+function getEncryptedPassword($password)
+{
+    return password_hash($password, PASSWORD_BCRYPT);
 }
 
 function resetpassword($email, $password, $re_pasword)
@@ -1005,9 +1027,12 @@ function resetpassword($email, $password, $re_pasword)
         echo '<script>window.location.href="reset_password.php?email='.$email.'&err=0";</script>';
     } else {
         // Validation PASS
+
+        $enc_pass = getEncryptedPassword($password);
+
         include_once("conn.php");
 
-        $sql = "UPDATE customer SET password = '$password' WHERE email = '$email';";
+        $sql = "UPDATE customer SET password = '$enc_pass' WHERE email = '$email';";
 
         if (!mysqli_query($con,$sql))
         {

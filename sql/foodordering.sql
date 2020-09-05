@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Sep 04, 2020 at 04:30 PM
+-- Generation Time: Sep 05, 2020 at 03:23 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.12
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `username`, `contact`, `name`, `email`, `password`, `last_login`) VALUES
-(2, 'admin1', '0123232323', 'Jerry Sung', 'howard_bb@hotmail.com', '$2y$10$sdYH2h2kik/BHFwYXTdKaeXtwBuObMD.CzPViSwY2YN32y3IKgDR.', NULL),
+(2, 'admin1', '0123232323', 'Jerry Sung', 'howard_bb@hotmail.com', '$2y$10$sbRkFbveV/CbxKpyS3IY.u4E.9t3MNFtmp068FeGHz1m6fa14ASKG', NULL),
 (3, 'admin2', '01232312323', 'Jerry Two', 'jerry2@mail.com', '$2y$10$sk3.6iF6nXtMEzV/ClwA4uYMJ7iTwe93H/zJ9qONEnNsyGtWcHYh.', NULL);
 
 -- --------------------------------------------------------
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `add_id` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cart_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `cart`
@@ -70,7 +70,10 @@ CREATE TABLE IF NOT EXISTS `cart` (
 INSERT INTO `cart` (`cart_id`, `cus_id`, `add_id`, `total`) VALUES
 (1, 1, 1, '21.00'),
 (2, 2, 3, '21.00'),
-(3, 6, 0, '0.00');
+(3, 6, 0, '0.00'),
+(4, 7, 0, '0.00'),
+(5, 8, 0, '0.00'),
+(6, 9, 0, '0.00');
 
 -- --------------------------------------------------------
 
@@ -110,21 +113,21 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `cus_id` int(11) NOT NULL AUTO_INCREMENT,
   `cus_name` varchar(255) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `password` varchar(100) NOT NULL,
+  `password` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `contact` varchar(20) NOT NULL,
   `gender` varchar(10) NOT NULL,
   PRIMARY KEY (`cus_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`cus_id`, `cus_name`, `username`, `password`, `email`, `contact`, `gender`) VALUES
-(1, 'Brown Wong', 'customer1', 'customer1', 'brown@mail.com', '011111111', 'Male'),
-(2, 'Sally Wong', 'customer2', 'customer', 'sally@mail.com', '0111111111', 'Female'),
-(3, 'Bear Wong', 'customer3', 'customer', 'bear@mail.com', '011111111', 'Male');
+(8, 'Sally Wong', 'customer2', '$2y$10$NQ3t1EhKqJuL0g11iX6N.OnrVMKU1cJW7emwy3uYqMADE8J4ggelO', 'sally@mail.com', '6098765432', 'Female'),
+(7, 'Brown Wong', 'customer1', '$2y$10$tpyvHnrlXawQBvKUUZ6x6O3EUFEta4lIOU5qZ/Rf9h0mGhgT/s/Su', 'brown@mail.com', '+6012345678', 'Male'),
+(9, 'Bear Wong', 'customer3', '$2y$10$nvLWViJos7G2RIUYPs0G0.z3JdnTWwgo.QpFTmlhcU6wEQSaXfT16', 'bear@mail.com', '6033442133', 'Male');
 
 -- --------------------------------------------------------
 
