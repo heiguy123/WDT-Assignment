@@ -69,7 +69,7 @@ if (isset($_POST['submit'])) {
         <div class="row">
             <div class="col-12 m-auto order-1">
                 <div class="card bg-secondary">
-                    <form action="account.php" method="POST">
+                    <form action="acc_setting.php" method="POST">
                         <div class="card-header bg-white border-0">
                             <div class="row align-items-center">
                                 <div class="col-8">
@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="contact">Contact number</label>
-                                            <input type="text" id="contact" name="contact" class="form-control form-control-alternative" value="<?php echo $_SESSION['cus_row']['contact'] ?>" required>
+                                            <input type="text" id="contact" name="contact" class="form-control form-control-alternative" value="+<?php echo $_SESSION['cus_row']['contact'] ?>" required>
                                         </div>
                                     </div>
                                 </div>

@@ -17,7 +17,7 @@
             $username_err = '';
             $password_err = '';
         } elseif ($err == 2) {
-            $password_err = "Password are not matched!";
+            $password_err = "Password are not matched or your password is not valid!";
             $username_err = '';
             $contact_err = '';
         }
@@ -46,13 +46,17 @@
             echo '<script>window.location.href="register_form.php?email='.$email.'&err=2";</script>';
         } else {
             // Validation PASS
+
+            // setting encryted password
+            $enc_pass = getEncryptedPassword($password);
+
             include("conn.php");
 
             $sql = "INSERT INTO customer (cus_name, username, password, email, contact, gender)
                     
                     VALUES
                     
-                    ('$cus_name','$username','$password','$email',
+                    ('$cus_name','$username','$enc_pass','$email',
                     '$phone_num','$gender');";
 
             if (!mysqli_query($con,$sql))
