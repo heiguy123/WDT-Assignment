@@ -31,7 +31,6 @@ function setdashboardnumber()
         global $totalorder;
         $totalorder = $row[0];
     }
-
     //confirmed order
     $sql = 'SELECT COUNT(order_id) FROM `order` WHERE `order_status` LIKE "Confirmed";';
     $result = mysqli_query($con, $sql);

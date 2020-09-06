@@ -21,10 +21,10 @@ function searchmenu($searchitem)
         ORDER BY fc.category_name;   
     ";
     }
-
     include('conn.php');
     $result = mysqli_query($con, $sql);
     mysqli_close($con);
+
     if (mysqli_num_rows($result) == 0) { //if there is no record
         echo '<span>Opps, no result for the searched item D:</span>';
     } else {
@@ -57,9 +57,7 @@ function searchmenu($searchitem)
             echo '
             <form action="" method="POST" id="form' . $row['food_id'] . '" enctype="multipart/form-data">
             <div class="row">
-
                 <div class="col-2">
-
                     <span>Food ID: </span>
                     <br><br>
                     <span>Name : </span>
@@ -70,7 +68,6 @@ function searchmenu($searchitem)
                     <br><br>
                     <span>Description: </span>
                 </div>
-
                 <div class="col-5 fooddetails">
                     <input type="hidden" name="cate_id" value="' . $row["cate_id"] . '" readonly>
 
@@ -87,9 +84,7 @@ function searchmenu($searchitem)
                     <br><br>
                     <textarea id="description' . $row['food_id'] . '" name="food_desc" maxlength="500" required>' . trim($row[3]) . '</textarea>
                 </div>
-
                 <div class="col-5">
-
                     <span>Picture: </span>
                     <div class="foodimgcontainer row">
                         <div class="col">
@@ -104,22 +99,18 @@ function searchmenu($searchitem)
                         </div>
                     </div>
                     ';
-
             echo '    
                 <br><br>   
                 </div>  
             </div>
             ';
-
             // ======================end of modal body===========================================
             echo '      </div>
                         <div class="modal-footer">
-
                             <button type="button" class="btn btn-secondary" onclick="resetc(' . $row['food_id'] . ')" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-success" onclick="deleteitem(' . $row['food_id'] . ')">Delete</button>
                             <button id="resetbutton' . $row['food_id'] . '" type="reset" class="btn btn-success" onclick="resetimg(' . $row["food_id"] . ')">Reset</button>
                             <button type="submit" id="' . $row['food_id'] . '"class="btn btn-primary float-right" onclick="return validateform(this)">Update</button>
-
                             </form>
                         </div>
                     </div>
@@ -211,27 +202,23 @@ function deletefood($food_id)
     }
     mysqli_close($con);
 }
-
 //to update the food upon click
 function updatefood()
 {
     include("connpdo.php");
-
     $food_id = $_POST['food_id'];
     $food_name = $_POST['food_name'];
     $cate_name = $_POST['category'];
     $description = $_POST['food_desc'];
     $price = $_POST['food_price'];
     //check if cate exist, if not create new category, and return cate_id
-    // $cate_id = getcateid($cate_name);
     $cate_id = getcateid($cate_name);
-    if ($_FILES['foodimg']['name'] != "") {
+    if ($_FILES['foodimg']['name'] != "") { //if new picture is inserted
         //check validation for file type
         imagevalidation($_FILES['foodimg']);
         //set the $picture
         $picture = file_get_contents($_FILES['foodimg']['tmp_name']);
         //set sql
-        // echo "<script>alert('this is a image file :D')</script>"; //for testing purpose
         $sql = "UPDATE `food` SET
         name = :name,
         cate_id= :cate_id,
@@ -246,7 +233,7 @@ function updatefood()
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':picture', $picture);
         $stmt->bindParam(':food_id', $food_id);
-    } else { //else no need to change picture, set sql
+    } else { //else no need to update picture
         $sql = "UPDATE `food` SET
         name = :name,
         cate_id= :cate_id,
@@ -266,7 +253,7 @@ function updatefood()
     }
 }
 
-//to check if the category is existed
+//to check if the category  existed
 function getcateid($cate)
 {
     include("conn.php");
@@ -342,19 +329,16 @@ function insertfood()
     $price = $_POST['newfood_price'];
     //check if cate exist, if not create new category, and return cate_id
     $cate_id = getcateid($cate_name);
-
     if ($_FILES['newfoodimg']['name'] != "") {
         //check validation for file type
         imagevalidation($_FILES['newfoodimg']);
         //set the $picture
         $picture = file_get_contents($_FILES['newfoodimg']['tmp_name']);
         //set sql
-
     } else { //else no need to change picture, set sql
         $picture = file_get_contents("img/default.jpg");
     }
-    $sql = "INSERT INTO `food` (`name`, `cate_id`, `description`, `picture`, `price`, `option`) VALUES (:name, :cate_id, :description, :picture, :price, '');
-        ";
+    $sql = "INSERT INTO `food` (`name`, `cate_id`, `description`, `picture`, `price`, `option`) VALUES (:name, :cate_id, :description, :picture, :price, '');";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':name', $food_name);
     $stmt->bindParam(':cate_id', $cate_id);
@@ -605,9 +589,7 @@ function adminRegister()
     setcookie("name", $name, time() + (300), "/");
     setcookie("email", $email, time() + (300), "/");
     setcookie("contact", $contact, time() + (300), "/");
-
     $errarray = array(); //a 2D array (An associated array nest into a normal array)
-    //i used array[] to add new value to array
     //validate username
     if (!isNewUsername($username)) {
         $errarray[] = array(
@@ -622,7 +604,7 @@ function adminRegister()
         );
         alert("Username must have more than 5 characters only contain alphabets, number or _");
     }
-
+    //validate email
     if (!isNewEmail($email)) {
         $errarray[] = array(
             'errtype'  => "email_err",
@@ -636,8 +618,7 @@ function adminRegister()
         );
         alert("Please enter a valid email!");
     }
-
-
+    //validate name
     if (!isValidName($name)) {
         $errarray[] = array(
             'errtype'  => "name_err",
@@ -645,8 +626,7 @@ function adminRegister()
         );
         alert("Please enter a valid name!");
     }
-
-
+    //validate password
     if (!isValidPassword($pass)) {
         $errarray[] = array(
             'errtype'  => "password_err",
@@ -654,7 +634,6 @@ function adminRegister()
         );
         alert("Password must have more than 5 characters and must no contain blankspace!");
     }
-
     if (!isValidContact($contact)) {
         $errarray[] = array(
             'errtype'  => "contact_err",
@@ -662,7 +641,7 @@ function adminRegister()
         );
         alert("Please enter a valid contact number!");
     }
-
+    //check if paswords match each other
     if ($pass != $re_pass) {
         $errarray[] = array(
             'errtype'  => "repassword_err",
@@ -670,11 +649,11 @@ function adminRegister()
         );
         alert("Please make sure you re-entered the same password!");
     }
-
-    if (count($errarray) != 0) { //failed
+    if (count($errarray) != 0) {
+        //failed
         return $errarray;
     } else {
-        //create when the array is empty
+        //create new admin when the array is empty
         createnewadmin($username, $name, $email, $pass, $contact);
     }
 }

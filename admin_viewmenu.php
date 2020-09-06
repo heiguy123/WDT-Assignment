@@ -141,7 +141,6 @@ if (isset($_POST['newfood_name'])) {
                                 </div>
 
                                 <div class="col-5 fooddetails">
-
                                     <input id="foodname-1" type="text" name="newfood_name" required>
                                     <br><br>
                                     <input id="cateinput-1" list="cate-1" name="newcategory" required>
