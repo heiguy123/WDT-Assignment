@@ -7,10 +7,10 @@ const welcome = urlParams.get("welcome");
 
 $(document).ready(function () {
   var input = document.getElementById("searchitem");
-
   input.addEventListener("keyup", function (event) {
     showsearch();
   });
+
   //only alert when the user is logged in through login page
   if (welcome === "welcome") {
     showAlert();

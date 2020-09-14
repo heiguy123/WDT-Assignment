@@ -2,7 +2,6 @@
 include_once('_admin.function.php');
 checksession();
 setdashboardnumber();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -124,13 +123,6 @@ setdashboardnumber();
         <!-- Details display-->
         <div class="container detail-box">
             <div class="row">
-
-                <!-- Total Orders
-                        Confirmed
-                        Food being prepared
-                        Delivering
-                        Completed
-                        Cancelled -->
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
                         <i class="fas fa-history"></i>
@@ -142,7 +134,6 @@ setdashboardnumber();
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-xs-12  text-center">
                     <div class="box">
                         <i class="far fa-file"></i>
@@ -154,7 +145,6 @@ setdashboardnumber();
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
                         <i class="fas fa-sync"></i>
@@ -166,7 +156,6 @@ setdashboardnumber();
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
                         <i class="fas fa-truck"></i>
@@ -178,7 +167,6 @@ setdashboardnumber();
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
                         <i class="far fa-check-circle"></i>
@@ -190,7 +178,6 @@ setdashboardnumber();
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-xs-12 text-center">
                     <div class="box">
                         <i class="fas fa-ban"></i>
@@ -202,10 +189,8 @@ setdashboardnumber();
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 
     <br><br><br>

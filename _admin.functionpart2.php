@@ -31,7 +31,6 @@ function setdashboardnumber()
         global $totalorder;
         $totalorder = $row[0];
     }
-
     //confirmed order
     $sql = 'SELECT COUNT(order_id) FROM `order` WHERE `order_status` LIKE "Confirmed";';
     $result = mysqli_query($con, $sql);
@@ -190,7 +189,7 @@ function sendforgotemail($email)
             $mail->addBCC('howard_bb@hotmail.com');
 
             //Content
-            $url = "http://localhost:8080/WDT-Assignment/adminresetpass.php?email=" . $email;
+            $url = "http://localhost:8080/WDT-Assignment-master/WDT-Assignment/adminresetpass.php?email=" . $email;
 
             $subject = "[RESET PASSWORD] Please verify your email";
 

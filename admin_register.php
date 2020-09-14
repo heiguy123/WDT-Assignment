@@ -7,7 +7,7 @@ $password_err = "";
 $email_err = "";
 $repassword_err = "";
 if (isset($_POST['username'])) {
-    if ($errarray = adminRegister()) { //if true meaning failed
+    if ($errarray = adminRegister()) { //failed to login
         foreach ($errarray as $i) { //compare the errtype in a for loop
             switch ($i['errtype']) {
                 case 'username_err':
