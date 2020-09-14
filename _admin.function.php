@@ -662,6 +662,7 @@ function createnewadmin($username, $name, $email, $pass, $contact)
 {
     $pass = getEncryptedPassword($pass);
     include("conn.php");
+    $contact = '0' . $contact;
     $sql = "INSERT INTO `admin` 
     (`username`, `contact`, `name`, `email`, `password`) 
     VALUES ('$username', '$contact', '$name', '$email', '$pass');";
@@ -669,7 +670,7 @@ function createnewadmin($username, $name, $email, $pass, $contact)
     if (mysqli_query($con, $sql)) {
         mysqli_close($con);
         echo '<script>alert("Successfully registered!");
-        window.location.href = "admin_login.php";
+        window.location.href = "adminlogin.php";
         </script>';
     }
 }

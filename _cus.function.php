@@ -56,33 +56,33 @@ function getcusrow($uname, $pword)
             mysqli_close($con);
             return "";
         }
-        
     } else {
         mysqli_close($con);
         return "";
     }
 }
 
-function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$conf_pass) {
+function updateProfile($username, $email, $nickname, $contact, $cur_pass, $new_pass, $conf_pass)
+{
     if (empty($email)) { // means in user information is incompleted
         echo '<script>
         alert("Please complete all the field in User Information to update your profile!");
         window.location.href="acc_setting.php";</script>';
     } else {
         if (empty($cur_pass) && empty($new_pass)) { // means customer just want to update user information
-            
-            if (!validate_structure($email)) { 
+
+            if (!validate_structure($email)) {
                 echo '<script>
                     alert("Email structure is incorrect!");
                     window.location.href="acc_setting.php";</script>';
-            } elseif (!validate_mobile("",$contact)) {
+            } elseif (!validate_mobile("", $contact)) {
                 echo '<script>
                     alert("Contact number format is incorrect!");
                     window.location.href="acc_setting.php";</script>';
             } else {
                 // Validation PASS
                 include("conn.php");
-    
+
                 $sql =  "UPDATE `customer` SET 
                 
                         `cus_name` = '$nickname',
@@ -90,20 +90,18 @@ function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$
                         `contact` = $contact
                         
                         WHERE `username` = '$username'";
-    
-                if (!mysqli_query($con,$sql))
-                {
-                    die ("Error: ".mysqli_error($con));
+
+                if (!mysqli_query($con, $sql)) {
+                    die("Error: " . mysqli_error($con));
                 }
-    
+
                 echo '<script>alert("Update successfully! Please re-login to make changes");
                 window.location.href="acc_setting.php";</script>';
-    
+
                 mysqli_close($con);
             }
-
         } else { // means customer want to update user information and both password setting
-            
+
             if (empty($cur_pass)) {
                 echo '<script>
                 alert("Please complete all the field in Password Setting to update your profile!");
@@ -112,7 +110,7 @@ function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$
                 include("conn.php");
 
                 $sql = "SELECT * FROM `customer` WHERE `username` = '$username'";
-                $result = mysqli_query($con,$sql);
+                $result = mysqli_query($con, $sql);
 
                 if (mysqli_num_rows($result) == 0) { //if there is no record
                     die('Error:' . mysqli_error($con));
@@ -124,25 +122,25 @@ function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$
                     if (password_verify($cur_pass, $passhash)) { // if same
                         // pass
 
-                        if (!validate_structure($email)) { 
+                        if (!validate_structure($email)) {
                             echo '<script>
                                 alert("Email structure is incorrect!");
                                 window.location.href="acc_setting.php";</script>';
-                        }  elseif (!validate_mobile("",$contact)) {
+                        } elseif (!validate_mobile("", $contact)) {
                             echo '<script>
                                 alert("Contact number format is incorrect!");
                                 window.location.href="acc_setting.php";</script>';
-                        }  elseif (!validate_password($new_pass,$conf_pass)) {
+                        } elseif (!validate_password($new_pass, $conf_pass)) {
                             echo '<script>
                                 alert("New password is incorrect!");
                                 window.location.href="acc_setting.php";</script>';
-                        }   else {
+                        } else {
                             // Validation PASS
 
                             $enc_pass = getEncryptedPassword($new_pass);
 
                             include("conn.php");
-                
+
                             $sql =  "UPDATE `customer` SET 
                             
                                     `cus_name` = '$nickname',
@@ -151,52 +149,50 @@ function updateProfile($username,$email,$nickname,$contact,$cur_pass,$new_pass,$
                                     `password` = '$enc_pass'
                                     
                                     WHERE `username` = '$username'";
-                
-                            if (!mysqli_query($con,$sql))
-                            {
-                                die ("Error: ".mysqli_error($con));
+
+                            if (!mysqli_query($con, $sql)) {
+                                die("Error: " . mysqli_error($con));
                             }
-                
+
                             echo '<script>alert("Update successfully! Please re-login to make changes");
                             window.location.href="acc_setting.php";</script>';
-                
+
                             mysqli_close($con);
                         }
-
-
                     } else {
                         echo '<script>
                         alert("Current password is incorrect!");
                         window.location.href="acc_setting.php";</script>';
                     }
                 }
-            }        
+            }
         }
     }
 }
 
 // Update cart number
-function numCart($cus_id) {
+function numCart($cus_id)
+{
     include('conn.php');
 
     $sql =  "SELECT SUM(quantity) FROM `cart_detail` WHERE `cart_id` = 
             (SELECT `cart_id` FROM `cart` WHERE `cus_id` = $cus_id)";
-    $result = mysqli_query($con,$sql);
-    if (mysqli_num_rows($result)==1)
-    {
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_array($result);
         return $row[0];
     }
 }
 
 // disable checkout when there is no item in cart
-function disableCheckout($cus_id) {
+function disableCheckout($cus_id)
+{
     include('conn.php');
 
     $sql = "SELECT * FROM `cart_detail` WHERE `cart_id` =
     (SELECT `cart_id` FROM `cart` WHERE `cus_id` = $cus_id)";
-    
-    if (mysqli_num_rows(mysqli_query($con,$sql)) > 0) {
+
+    if (mysqli_num_rows(mysqli_query($con, $sql)) > 0) {
         return true;
     } else {
         return false;
@@ -216,21 +212,22 @@ $total = 0;
 $cart_result = '';
 $food_result = '';
 
-function getcartdetail() {
+function getcartdetail()
+{
     include_once('conn.php');
     // Get food item
     $cus_name = $_SESSION['cus_row']['username'];
-    
+
     $sql =  "SELECT * FROM `cart_detail` WHERE `cart_id` = 
             (SELECT `cart_id` FROM `cart` WHERE `cus_id` = 
             (SELECT `cus_id` FROM `customer` WHERE `username` = '$cus_name'))";
-    $result = mysqli_query($con,$sql);
+    $result = mysqli_query($con, $sql);
     global $num;
-    if (mysqli_num_rows($result) > 0) {  
-        $num = mysqli_num_rows($result);                                          
+    if (mysqli_num_rows($result) > 0) {
+        $num = mysqli_num_rows($result);
         global $cart_detail;
         foreach ($result as $row) {
-            $cart_detail[] = array($row['food_id'],$row['quantity'],$row['remark'],$row['subtotal'],$row['cartdetail_id']);
+            $cart_detail[] = array($row['food_id'], $row['quantity'], $row['remark'], $row['subtotal'], $row['cartdetail_id']);
         }
     } else {
         $cart_detail = array();
@@ -238,16 +235,18 @@ function getcartdetail() {
 
     if (!empty($cart_detail)) // if there is cart detail
     {
-        for ($i=0;$i<=$num-1;$i++) {
+        for ($i = 0; $i <= $num - 1; $i++) {
             $food_id = $cart_detail[$i][0];
             $sql = "SELECT * FROM `food` WHERE `food_id` = '$food_id'";
-            $result = mysqli_query($con,$sql);
+            $result = mysqli_query($con, $sql);
             if (mysqli_num_rows($result) == 1) {
                 global $food_item;
                 header("Content-type: jpeg");
                 foreach ($result as $row) {
-                    $food_item[] = array($row['name'],$row['description'],$row['price'],
-                    '<img class="img-reposnsive" style="max-height: 80px;" src="data:image/jpeg;base64,'.base64_encode( $row['picture'] ).'"/>');
+                    $food_item[] = array(
+                        $row['name'], $row['description'], $row['price'],
+                        '<img class="img-reposnsive" style="max-height: 80px;" src="data:image/jpeg;base64,' . base64_encode($row['picture']) . '"/>'
+                    );
                 }
             }
         }
@@ -258,10 +257,10 @@ function getcartdetail() {
         global $total;
 
         // get subtotal from cart
-        for ($i=0;$i<=$num-1;$i++) {
+        for ($i = 0; $i <= $num - 1; $i++) {
             $subtotal += $cart_detail[$i][3];
         }
-        
+
         if ($subtotal >= 30) {
             $delivery_fee = 0;
         }
@@ -269,7 +268,6 @@ function getcartdetail() {
         $service_tax *= ($subtotal + $delivery_fee);
 
         $total = $subtotal + $delivery_fee + $service_tax;
-        
     } else {  // cart is empty
         global $delivery_fee;
         global $service_tax;
@@ -284,30 +282,28 @@ function getcartdetail() {
 
     global $cart_result;
 
-    if ($num > 0)
-    {
-        for ($i=0;$i<=$num-1;$i++) 
-        {        
+    if ($num > 0) {
+        for ($i = 0; $i <= $num - 1; $i++) {
             $cart_result .=  '
             <form action="cart.php" method="post">
             <div class="row">
-                <input type="hidden" name="cartdetail_id" value="'.$cart_detail[$i][4].'">
+                <input type="hidden" name="cartdetail_id" value="' . $cart_detail[$i][4] . '">
                 <div class="col-12 col-md-2 text-center image">
-                    '.$food_item[$i][3].'
+                    ' . $food_item[$i][3] . '
                 </div>
                 <div class="col-12 text-md-left col-md-4">
-                    <h4 class="product-name"><strong>'.$food_item[$i][0].'</strong></h4>
+                    <h4 class="product-name"><strong>' . $food_item[$i][0] . '</strong></h4>
                     <h4>
-                        <small>'.$food_item[$i][1].'</small>
+                        <small>' . $food_item[$i][1] . '</small>
                     </h4>
                 </div>
                 <div class="right col-12 col-md-6 text-md-right row">
                     <div class="price col-3 col-sm-3 col-md-4 text-md-right" style="padding-top: 5px">
-                        <h6><strong>'.$food_item[$i][2].' <span class="text-muted">x</span></strong></h6>
+                        <h6><strong>' . $food_item[$i][2] . ' <span class="text-muted">x</span></strong></h6>
                     </div>
                     <div class="number col-4 col-md-2">
                         <div class="quantity">
-                            <input name="food_quantity" type="number" step="1" max="99" min="1" value="'.$cart_detail[$i][1].'" title="Qty" class="qty"
+                            <input name="food_quantity" type="number" step="1" max="99" min="1" value="' . $cart_detail[$i][1] . '" title="Qty" class="qty"
                                     size="4">
                         </div>
                     </div>
@@ -328,7 +324,7 @@ function getcartdetail() {
             ';
         }
     }
-    
+
 
     mysqli_close($con);
 }
@@ -339,83 +335,84 @@ $food_list = array();
 $food_result = '';
 $directory = '';
 
-function getfoodlist() {
+function getfoodlist()
+{
     include_once('conn.php');
 
     // Category Name
-    $sql = "SELECT `cate_id`,`description` FROM `food_category`";                  
-    $result = mysqli_query($con,$sql);                                             
-    $num_of_cate = mysqli_num_rows($result);                                         
-    if (mysqli_num_rows($result) > 0) {                                            
+    $sql = "SELECT `cate_id`,`description` FROM `food_category`";
+    $result = mysqli_query($con, $sql);
+    $num_of_cate = mysqli_num_rows($result);
+    if (mysqli_num_rows($result) > 0) {
         global $category_name;
         foreach ($result as $row) {
-            $category_name[] = array($row['cate_id'],$row['description']);
+            $category_name[] = array($row['cate_id'], $row['description']);
         }
     }
 
     // After getting num_of_cate insert food_item one by one
     global $directory;
 
-    for ($i=0;$i<=$num_of_cate-1;$i++) 
-    {   
+    for ($i = 0; $i <= $num_of_cate - 1; $i++) {
         $directory .= '
             <li class="nav-item">
-                <a href="#link'.$category_name[$i][0].'" class="nav-link active">'.$category_name[$i][1].'</a>
+                <a href="#link' . $category_name[$i][0] . '" class="nav-link active">' . $category_name[$i][1] . '</a>
             </li>
         ';
 
-        if($i != $num_of_cate-1){ 
+        if ($i != $num_of_cate - 1) {
             $directory .= '
             <span> | </span>
-            ';  
+            ';
         }
     }
 
     // After getting num_of_cate insert food_item one by one
     global $food_result;
-    
-    for ($i=0;$i<=$num_of_cate-1;$i++) 
-    {   
+
+    for ($i = 0; $i <= $num_of_cate - 1; $i++) {
         $food_result .= '
         <br>
         <!-- Section -->
-        <a name="link'.($i+1).'"></a>
+        <a name="link' . ($i + 1) . '"></a>
         <div class="section-title">
-            <h2>'.$category_name[$i][1].'</h2>
+            <h2>' . $category_name[$i][1] . '</h2>
         </div>
         
         <!-- products -->
         <div class="row padding" id="card">
         ';
-        
+
         // get food based on cate
         $sql = "SELECT * FROM `food` WHERE `cate_id` = ($i+1)";
-        $result = mysqli_query($con,$sql);
+        $result = mysqli_query($con, $sql);
         $num_of_food = mysqli_num_rows($result);
 
         global $food_list;
 
         if (mysqli_num_rows($result) > 0) { // if there is food under this cate, 
-            
+
             header("Content-type: jpeg");
             foreach ($result as $row) {
-                $food_list[] = array($row['food_id'],$i,$row['name'],$row['price'],
-                '<img class="card-img-top product-image" style="max-height: 130px;" src="data:image/jpeg;base64,'.base64_encode( $row['picture'] ).'"/>');
+                $food_list[] = array(
+                    $row['food_id'], $i, $row['name'], $row['price'],
+                    '<img class="card-img-top product-image" style="max-height: 130px;" src="data:image/jpeg;base64,' . base64_encode($row['picture']) . '"/>'
+                );
             }
 
-            for ($j=0;$j<=$num_of_food-1;$j++) {
-                
+            for ($j = 0; $j <= $num_of_food - 1; $j++) {
+
                 $food_result .= '
                 <!-- single product -->
                 <div class="products-center col-2">
                     <form action="dashboard.php" method="POST">
-                        <input type="hidden" name="food_id" value="'.$food_list[$j][0].'">
+                        <input type="hidden" name="food_id" value="' . $food_list[$j][0] . '">
                         <div class="card">
-                            '.$food_list[$j][4].'
+                            ' . $food_list[$j][4] . '
                             <div class="card-body">
-                                <h6 class="card-title col-12">'.$food_list[$j][2].'</h6>
+                                <h6 class="card-title col-12">' . $food_list[$j][2] . '</h6>
                                 <div class="row">
-                                    <p class="card-text product-price col-8">Start from RM'.$food_list[$j][3].'</p>
+                                    <p class="card-text product-price col-8">Start from RM' . $food_list[$j][3] . '</p>
                                     <button name="add" type="submit" class="btn col-2" text-right><i class="fas fa-plus-square"></i></button>
                                 </div>
                             </div>
@@ -427,8 +424,8 @@ function getfoodlist() {
 
             $food_result .= '
             </div>
-            '; 
-            
+            ';
+
             // Reset array
             $food_list = array();
         }
@@ -458,19 +455,21 @@ function getfoodlist() {
 //                         [4] => img
 
 // postcode validation
-function extract_numbers($string) {
-   return preg_match_all('/(?<!\d)\d{5}(?!\d)/', $string, $match) ? $match[0] : [];
+function extract_numbers($string)
+{
+    return preg_match_all('/(?<!\d)\d{5}(?!\d)/', $string, $match) ? $match[0] : [];
 }
 
 // postcode validate in database
-function validatePostcode($postcode) {
+function validatePostcode($postcode)
+{
     $bool_check = false;
 
     include('conn.php');
 
     $sql = "SELECT `postcode` FROM `deliverable_postcode`";
-    
-    $result = mysqli_query($con,$sql);
+
+    $result = mysqli_query($con, $sql);
     foreach ($result as $row) {
         $post_row = $row['postcode'];
 
@@ -486,34 +485,30 @@ function validatePostcode($postcode) {
 }
 
 // Search address
-function searchAdd($address) {
+function searchAdd($address)
+{
     $postcode_arr = extract_numbers($address);
     if (!empty($postcode_arr)) {
         // there is valid postcode
-        $add_arr = explode(",",$address);
+        $add_arr = explode(",", $address);
         $num_of_arr = count($add_arr);
         $postcode = '';
         $street_name = '';
         $city = '';
 
-        for ($i=0;$i<=$num_of_arr-1;$i++) {
-            if ($postcode_arr[0] == $add_arr[$i]) 
-            {
+        for ($i = 0; $i <= $num_of_arr - 1; $i++) {
+            if ($postcode_arr[0] == $add_arr[$i]) {
                 // here is the postcode
                 $postcode = $add_arr[$i];
                 // remove last coma from the streetname
                 $street_name = rtrim($street_name, ",");
-                $city = $add_arr[($i+1)];
+                $city = $add_arr[($i + 1)];
                 break;
-            } 
-
-            else 
-            {
-                $street_name .= $add_arr[$i].',';
+            } else {
+                $street_name .= $add_arr[$i] . ',';
             }
         }
-        
-    } else{
+    } else {
         header("Location:dashboard.php?add=undefinedpostcode");
     }
 
@@ -533,8 +528,8 @@ function searchAdd($address) {
             $_SESSION['cus_row']['street_name'] = $street_name;
             $_SESSION['cus_row']['city'] = $city;
             $_SESSION['cus_row']['postcode'] = $postcode;
-            $_SESSION['cus_row']['address'] = $street_name.','.$city.','.$postcode;
-            header("Location:dashboard.php?address=".$address);
+            $_SESSION['cus_row']['address'] = $street_name . ',' . $city . ',' . $postcode;
+            header("Location:dashboard.php?address=" . $address);
         }
     }
 }
@@ -550,7 +545,8 @@ function searchAdd($address) {
 // )
 
 // Modal block address
-function blockAdd($address) {
+function blockAdd($address)
+{
     if (!empty($address)) {
         return TRUE;
     } else {
@@ -561,7 +557,8 @@ function blockAdd($address) {
 }
 
 // Add cart
-function addCart($food_id) {
+function addCart($food_id)
+{
     include('conn.php');
 
     $cus_id = $_SESSION['cus_row']['cus_id'];
@@ -570,17 +567,15 @@ function addCart($food_id) {
     $cart_id = 0;
 
     $sql = "SELECT `cart_id` FROM `cart` WHERE `cus_id` = $cus_id";
-    $result = mysqli_query($con,$sql);
-    if (mysqli_num_rows($result)==1)
-    {
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_array($result);
         $cart_id = $row[0];
     }
 
     $sql = "SELECT `price` FROM `food` WHERE `food_id` = $food_id";
-    $result = mysqli_query($con,$sql);
-    if (mysqli_num_rows($result)==1)
-    {
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_array($result);
         $price = $row[0];
     }
@@ -588,7 +583,7 @@ function addCart($food_id) {
     // Check whether food exist in cart
     $sql = "SELECT SUM(quantity) FROM `cart_detail` WHERE `food_id` = $food_id AND `cart_id` = $cart_id";
 
-    $result = mysqli_query($con,$sql);
+    $result = mysqli_query($con, $sql);
     $row = mysqli_fetch_array($result);
     if (!empty($row[0])) // perform update quantity
     {
@@ -597,17 +592,15 @@ function addCart($food_id) {
 
         $sql = "UPDATE `cart_detail` SET `quantity` = $quantity, `subtotal` = $price WHERE `food_id` = $food_id";
 
-        if (mysqli_query($con,$sql)) {
+        if (mysqli_query($con, $sql)) {
             mysqli_close($con);
             echo '<script>
             window.location.href="dashboard.php";</script>';
-        } else{
+        } else {
             mysqli_close($con);
             echo '<script>alert("Added failed.");
             window.location.href="dashboard.php";</script>';
         }
-
-
     } else { // perform insert new item
 
         $sql =  "INSERT INTO `cart_detail`
@@ -618,11 +611,11 @@ function addCart($food_id) {
              
              ($cart_id, $food_id, 1 , $price)";
 
-        if (mysqli_query($con,$sql)) {
+        if (mysqli_query($con, $sql)) {
             mysqli_close($con);
             echo '<script>
             window.location.href="dashboard.php";</script>';
-        } else{
+        } else {
             mysqli_close($con);
             echo '<script>alert("Added failed.");
             window.location.href="dashboard.php";</script>';
@@ -631,13 +624,14 @@ function addCart($food_id) {
 }
 
 // Update cart 
-function updateCart($cartdetail_id,$quantity) {
+function updateCart($cartdetail_id, $quantity)
+{
     include('conn.php');
 
     $sql = "SELECT `price` FROM `food` WHERE `food_id` =
     (SELECT `food_id` FROM `cart_detail` WHERE `cartdetail_id` = $cartdetail_id)";
 
-    $result = (mysqli_query($con,$sql)); 
+    $result = (mysqli_query($con, $sql));
     if (mysqli_num_rows($result) == 1) {
         foreach ($result as $row) {
             $food_price = $row['price'];
@@ -645,11 +639,11 @@ function updateCart($cartdetail_id,$quantity) {
     }
 
     $food_price *= $quantity;
-    
+
     // Update cart detail table
     $sql = "UPDATE `cart_detail` SET `quantity` = $quantity, `subtotal` = $food_price WHERE `cartdetail_id` = $cartdetail_id";
 
-    if (!mysqli_query($con,$sql)) {
+    if (!mysqli_query($con, $sql)) {
         mysqli_close($con);
         echo '<script>alert("Update failed.");
         </script>';
@@ -661,9 +655,8 @@ function updateCart($cartdetail_id,$quantity) {
     $total_price = 0;
 
     $sql = "SELECT * FROM `customer` WHERE `username` = '$cus_name'";
-    $result = mysqli_query($con,$sql);
-    if (mysqli_num_rows($result)==1)
-    {
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_array($result);
         $cus_id = $row[0];
     }
@@ -673,18 +666,18 @@ function updateCart($cartdetail_id,$quantity) {
             b.cus_id = c.cus_id AND
             c.username = '$cus_name';";
 
-    $result = mysqli_query($con,$sql);
+    $result = mysqli_query($con, $sql);
     foreach ($result as $row) {
         $total_price += $row['subtotal'];
     }
 
     $sql = "UPDATE `cart` SET `total` = $total_price WHERE `cus_id` = $cus_id";
 
-    if (mysqli_query($con,$sql)) {
+    if (mysqli_query($con, $sql)) {
         mysqli_close($con);
         echo '<script>alert("The item has been updated.");
         window.location.href="cart.php";</script>';
-    } else{
+    } else {
         mysqli_close($con);
         echo '<script>alert("Update failed. type=1");
         window.location.href="cart.php";</script>';
@@ -692,7 +685,8 @@ function updateCart($cartdetail_id,$quantity) {
 }
 
 // Delete Cart
-function deleteCart($cartdetail_id) {
+function deleteCart($cartdetail_id)
+{
     $cus_name = $_SESSION['cus_row']['username'];
     $cus_id = 0;
     $total_price = 0;
@@ -700,16 +694,15 @@ function deleteCart($cartdetail_id) {
     include('conn.php');
 
     $sql = "SELECT * FROM `customer` WHERE `username` = '$cus_name'";
-    $result = mysqli_query($con,$sql);
-    if (mysqli_num_rows($result)==1)
-    {
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_array($result);
         $cus_id = $row[0];
     }
 
     $sql = "DELETE FROM `cart_detail` WHERE `cartdetail_id` = $cartdetail_id";
 
-    if (!mysqli_query($con,$sql)) {
+    if (!mysqli_query($con, $sql)) {
         mysqli_close($con);
         echo '<script>alert("Remove failed.");
         </script>';
@@ -720,18 +713,18 @@ function deleteCart($cartdetail_id) {
             b.cus_id = c.cus_id AND
             c.username = '$cus_name';";
 
-    $result = mysqli_query($con,$sql);
+    $result = mysqli_query($con, $sql);
     foreach ($result as $row) {
         $total_price += $row['subtotal'];
     }
 
     $sql = "UPDATE `cart` SET `total` = $total_price WHERE `cus_id` = $cus_id";
 
-    if (mysqli_query($con,$sql)) {
+    if (mysqli_query($con, $sql)) {
         mysqli_close($con);
         echo '<script>alert("The item has been removed.");
         window.location.href="cart.php";</script>';
-    } else{
+    } else {
         mysqli_close($con);
         echo '<script>alert("Remove failed. type=1(Cart)");
         window.location.href="cart.php";</script>';
@@ -745,7 +738,7 @@ function validate_structure($email)
 }
 
 // Validate Email with database
-function validate_email($email, $type=0)
+function validate_email($email, $type = 0)
 {
     include_once("conn.php");
 
@@ -756,17 +749,17 @@ function validate_email($email, $type=0)
     if (mysqli_num_rows($result) == 0) {
         // if there is no record in database
         mysqli_close($con);
-        if ($type==0) {
+        if ($type == 0) {
             return TRUE;
-        } elseif ($type=1) {
+        } elseif ($type = 1) {
             return FALSE;
         }
     } else {
         // if there is a record matched in database
         mysqli_close($con);
-        if ($type==0) {
+        if ($type == 0) {
             return FALSE;
-        } elseif ($type=1) {
+        } elseif ($type = 1) {
             return TRUE;
         }
     }
@@ -776,11 +769,11 @@ function validate_email($email, $type=0)
 function sendregisteremail($email)
 {
     // Function call 
-    if (!validate_structure($email)) { 
+    if (!validate_structure($email)) {
         echo '<script>window.location.href="register.php?err=0";</script>';
     } elseif (!validate_email($email)) {
         echo '<script>window.location.href="register.php?err=1";</script>';
-    } else { 
+    } else {
         // Send email to from company website to recipient
         //Load composer's autoloader
         require './phpmailer/vendor/autoload.php';
@@ -802,12 +795,12 @@ function sendregisteremail($email)
             $mail->addBCC('momolau2001@gmail.com');
 
             //Content
-            $url = "http://localhost:8080/WDT-Assignment/register_form.php?email=".$email;
+            $url = "http://localhost:8080/WDT-Assignment/register_form.php?email=" . $email;
 
             $subject = "[SIGN UP] Please verify your email";
 
             $body = "<center>You are almost there!</center><br><br>
-            <center>Please <a href=".$url.">click here</a> to redirect back to fill up your information.</center><br><br>
+            <center>Please <a href=" . $url . ">click here</a> to redirect back to fill up your information.</center><br><br>
             <center>By myrestaurant</center>";
 
             $mail->isHTML(true);                                     // Set email format to HTML
@@ -815,24 +808,23 @@ function sendregisteremail($email)
             $mail->Body    = $body;
 
             $mail->send();
-            echo '<script>window.location.href="verification.php?email='.$email.'&type=register";</script>';
+            echo '<script>window.location.href="verification.php?email=' . $email . '&type=register";</script>';
         } catch (Exception $e) {
             echo 'Message could not be sent.';
-            echo 'Mailer Error: '.$mail->ErrorInfo;
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
         }
-        
-    } 
+    }
 }
 
 // to send RESET PASSWORD eamil using phpmailer
-function sendresetemail($email) 
+function sendresetemail($email)
 {
     // Function call 
-    if (!validate_structure($email)) { 
+    if (!validate_structure($email)) {
         echo '<script>window.location.href="forgot.php?err=0";</script>';
-    } elseif (!validate_email($email,1)) {
+    } elseif (!validate_email($email, 1)) {
         echo '<script>window.location.href="forgot.php?err=1";</script>';
-    } else { 
+    } else {
         // Send email to from company website to recipient
         //Load composer's autoloader
         require './phpmailer/vendor/autoload.php';
@@ -854,12 +846,12 @@ function sendresetemail($email)
             $mail->addBCC('momolau2001@gmail.com');
 
             //Content
-            $url = "http://localhost:8080/WDT-Assignment/reset_password.php?email=".$email;
+            $url = "http://localhost:8080/WDT-Assignment/reset_password.php?email=" . $email;
 
             $subject = "[RESET PASSWORD] Please verify your email";
 
             $body = "<center>You are almost there!</center><br><br>
-            <center>Please <a href=".$url.">click here</a> to redirect back to reset your password.</center><br><br>
+            <center>Please <a href=" . $url . ">click here</a> to redirect back to reset your password.</center><br><br>
             <center>By myrestaurant</center>";
 
             $mail->isHTML(true);                                     // Set email format to HTML
@@ -867,17 +859,16 @@ function sendresetemail($email)
             $mail->Body    = $body;
 
             $mail->send();
-            echo '<script>window.location.href="verification.php?email='.$email.'&type=forgot";</script>';
+            echo '<script>window.location.href="verification.php?email=' . $email . '&type=forgot";</script>';
         } catch (Exception $e) {
             echo 'Message could not be sent.';
-            echo 'Mailer Error: '.$mail->ErrorInfo;
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
         }
-        
-    } 
+    }
 }
 
 // to send E-RECEIPT eamil using phpmailer
-function sendreceipt($email) 
+function sendreceipt($email)
 {
     // Send email to from company website to recipient
     //Load composer's autoloader
@@ -905,7 +896,7 @@ function sendreceipt($email)
         $subject = "[E-RECEIPT] Here is your e-receipt for your order";
 
         $body = "<center>Thanks for ordering through My Restaurant!</center><br><br>
-        <center>Please <a href=".$url.">click here</a> to redirect back to track your order.</center><br><br>
+        <center>Please <a href=" . $url . ">click here</a> to redirect back to track your order.</center><br><br>
         <center>By myrestaurant</center>";
 
         $mail->isHTML(true);                                     // Set email format to HTML
@@ -913,19 +904,19 @@ function sendreceipt($email)
         $mail->Body    = $body;
 
         $mail->send();
-        echo '<script>window.location.href="receipt.php?email='.$email.'";</script>';
+        echo '<script>window.location.href="receipt.php?email=' . $email . '";</script>';
     } catch (Exception $e) {
         echo 'Message could not be sent.';
-        echo 'Mailer Error: '.$mail->ErrorInfo;
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
     }
 
 
 
-    if (!validate_structure($email)) { 
+    if (!validate_structure($email)) {
         echo '<script>window.location.href="forgot.php?err=0";</script>';
-    } elseif (!validate_email($email,1)) {
+    } elseif (!validate_email($email, 1)) {
         echo '<script>window.location.href="forgot.php?err=1";</script>';
-    } else { 
+    } else {
         // Send email to from company website to recipient
         //Load composer's autoloader
         require './phpmailer/vendor/autoload.php';
@@ -947,12 +938,12 @@ function sendreceipt($email)
             $mail->addBCC('momolau2001@gmail.com');
 
             //Content
-            $url = "http://localhost:8080/WDT-Assignment/reset_password.php?email=".$email;
+            $url = "http://localhost:8080/WDT-Assignment/reset_password.php?email=" . $email;
 
             $subject = "[RESET PASSWORD] Please verify your email";
 
             $body = "<center>You are almost there!</center><br><br>
-            <center>Please <a href=".$url.">click here</a> to redirect back to reset your password.</center><br><br>
+            <center>Please <a href=" . $url . ">click here</a> to redirect back to reset your password.</center><br><br>
             <center>By myrestaurant</center>";
 
             $mail->isHTML(true);                                     // Set email format to HTML
@@ -960,17 +951,17 @@ function sendreceipt($email)
             $mail->Body    = $body;
 
             $mail->send();
-            echo '<script>window.location.href="verification.php?email='.$email.'&type=forgot";</script>';
+            echo '<script>window.location.href="verification.php?email=' . $email . '&type=forgot";</script>';
         } catch (Exception $e) {
             echo 'Message could not be sent.';
-            echo 'Mailer Error: '.$mail->ErrorInfo;
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
         }
-        
-    } 
+    }
 }
 
 // Validate Username
-function validate_username($username) {
+function validate_username($username)
+{
     include_once("conn.php");
 
     $sql = "SELECT * FROM customer WHERE (username='$username')";
@@ -995,10 +986,11 @@ function validate_username($username) {
 }
 
 // Validate Phone Number
-function validate_mobile($telcode="",$tel) {
-    $phone_num = $telcode.$tel;
-    return preg_match('/^[0-9]{10}+$/', $phone_num)
-    ? FALSE : TRUE; 
+function validate_mobile($telcode = "", $tel)
+{
+    $phone_num = $telcode . $tel;
+    return preg_match('/^\+[0-9]{8,15}$/', $phone_num)
+        ? TRUE : FALSE;
 }
 
 // Validate Password
@@ -1023,8 +1015,8 @@ function getEncryptedPassword($password)
 function resetpassword($email, $password, $re_pasword)
 {
     // Function call
-    if (!validate_password("$password","$re_pasword")) {
-        echo '<script>window.location.href="reset_password.php?email='.$email.'&err=0";</script>';
+    if (!validate_password("$password", "$re_pasword")) {
+        echo '<script>window.location.href="reset_password.php?email=' . $email . '&err=0";</script>';
     } else {
         // Validation PASS
 
@@ -1034,9 +1026,8 @@ function resetpassword($email, $password, $re_pasword)
 
         $sql = "UPDATE customer SET password = '$enc_pass' WHERE email = '$email';";
 
-        if (!mysqli_query($con,$sql))
-        {
-            die ("Error: ".mysqli_error($con));
+        if (!mysqli_query($con, $sql)) {
+            die("Error: " . mysqli_error($con));
         }
 
         echo '<script>alert("You have successfully reset your password. Please proceed to login page.");
@@ -1046,25 +1037,26 @@ function resetpassword($email, $password, $re_pasword)
     }
 }
 
-function checkStatus($order_id) {
+function checkStatus($order_id)
+{
     include('conn.php');
     $status = '';
 
     // check whether the order is under cancel pending
     $sql = "SELECT * FROM `order_cancel_request` WHERE `order_id` = $order_id AND `request_status` = 'Pending'";
 
-    $result = mysqli_query($con,$sql);
+    $result = mysqli_query($con, $sql);
     if (mysqli_num_rows($result) == 1) // the order is under cancel pending 
-    {   
+    {
         $status = mysqli_fetch_array($result)['request_status'];
-    } 
+    }
 
     mysqli_close($con);
     return $status;
 }
 
 //display for current order
-function displaycurrent($sort, $order,$cus_id)
+function displaycurrent($sort, $order, $cus_id)
 {
     if ($sort == 0 && $order == 0) {
         $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
@@ -1110,7 +1102,7 @@ function displaycurrent($sort, $order,$cus_id)
         while ($row = mysqli_fetch_array($result)) {
 
             if (!empty(checkStatus($row['order_id']))) // the order is under cancel pending 
-            {   
+            {
                 $status = checkStatus($row['order_id']);
 
                 echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
@@ -1144,7 +1136,7 @@ function displaycurrent($sort, $order,$cus_id)
                     </div>
                     <div class="col-4">
                 
-                        <span id="req1">Status: '. $status .'</span>';
+                        <span id="req1">Status: ' . $status . '</span>';
                 echo '    
                     <br><br>   
                     </div>  
@@ -1180,8 +1172,7 @@ function displaycurrent($sort, $order,$cus_id)
                     </div>
                 </div>
                 ';
-            } 
-            else // the order is just a normal order 
+            } else // the order is just a normal order 
             {
                 echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
                 echo '<th scope="row">' . $i . '</th>';
@@ -1214,7 +1205,7 @@ function displaycurrent($sort, $order,$cus_id)
                     </div>
                     <div class="col-4">
                 
-                        <span id="req1">Status: '. $row['order_status'] .'</span>';
+                        <span id="req1">Status: ' . $row['order_status'] . '</span>';
                 echo '    
                     <br><br>   
                     </div>  
@@ -1308,7 +1299,7 @@ function display_items($order_id)
 }
 
 //display for completed order
-function displayclosed($sort, $order,$cus_id)
+function displayclosed($sort, $order, $cus_id)
 {
     if ($sort == 0 && $order == 0) {
         $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
@@ -1383,7 +1374,7 @@ function displayclosed($sort, $order,$cus_id)
                 </div>
                 <div class="col-4">
                
-                    <span>Status: '. $row['order_status'] .'</span>';
+                    <span>Status: ' . $row['order_status'] . '</span>';
             echo '    
                 <br><br>   
                 </div>  
@@ -1425,7 +1416,7 @@ function displayclosed($sort, $order,$cus_id)
 }
 
 //display for current order
-function displaycurrentsearch($sort, $order, $searchname,$cus_id)
+function displaycurrentsearch($sort, $order, $searchname, $cus_id)
 {
     if ($sort == 0 && $order == 0) {
         $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
@@ -1475,7 +1466,7 @@ function displaycurrentsearch($sort, $order, $searchname,$cus_id)
         while ($row = mysqli_fetch_array($result)) {
 
             if (!empty(checkStatus($row['order_id']))) // the order is under cancel pending 
-            {   
+            {
                 $status = checkStatus($row['order_id']);
 
                 echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
@@ -1509,7 +1500,7 @@ function displaycurrentsearch($sort, $order, $searchname,$cus_id)
                     </div>
                     <div class="col-4">
                 
-                        <span id="req1">Status: '. $status .'</span>';
+                        <span id="req1">Status: ' . $status . '</span>';
                 echo '    
                     <br><br>   
                     </div>  
@@ -1545,8 +1536,7 @@ function displaycurrentsearch($sort, $order, $searchname,$cus_id)
                     </div>
                 </div>
                 ';
-            } 
-            else // the order is just a normal order 
+            } else // the order is just a normal order 
             {
                 echo '<tr class="orderrow" data-toggle="modal" data-target="#exampleModal' . $row['order_id'] . '">';
                 echo '<th scope="row">' . $i . '</th>';
@@ -1579,7 +1569,7 @@ function displaycurrentsearch($sort, $order, $searchname,$cus_id)
                     </div>
                     <div class="col-4">
                 
-                        <span id="req1">Status: '. $row['order_status'] .'</span>';
+                        <span id="req1">Status: ' . $row['order_status'] . '</span>';
                 echo '    
                     <br><br>   
                     </div>  
@@ -1624,7 +1614,7 @@ function displaycurrentsearch($sort, $order, $searchname,$cus_id)
 
 
 //display for order
-function displayclosedsearch($sort, $order, $searchname,$cus_id)
+function displayclosedsearch($sort, $order, $searchname, $cus_id)
 {
     if ($sort == 0 && $order == 0) {
         $sql = "SELECT * FROM `order` ord, `customer` cus, `payment` pay 
@@ -1703,7 +1693,7 @@ function displayclosedsearch($sort, $order, $searchname,$cus_id)
                 </div>
                 <div class="col-4">
                
-                    <span>Status: '. $row['order_status'] .'</span>';
+                    <span>Status: ' . $row['order_status'] . '</span>';
             echo '    
                 <br><br>   
                 </div>  
@@ -1744,7 +1734,8 @@ function displayclosedsearch($sort, $order, $searchname,$cus_id)
     }
 }
 
-function cancelBtn() {
+function cancelBtn()
+{
 
     if (isset($_POST['submit'])) {
         include('conn.php');
@@ -1754,7 +1745,7 @@ function cancelBtn() {
         $disableBtn = '';
         $req0 = '';
         $req1 = '';
- 
+
         $sql = "INSERT INTO `order_cancel_request`
                  
                  (`order_id`, `request_status`, `time`)
@@ -1762,26 +1753,26 @@ function cancelBtn() {
                  VALUES 
                  
                  ($order_id, 'Pending', '$time')";
- 
-        if (mysqli_query($con,$sql)) {
+
+        if (mysqli_query($con, $sql)) {
             global $disableBtn;
-            
+
             $disableBtn = "<script>
             document.getElementById('cancelBtn').disabled = True;</script>"; // disabled all button until the request done (no matter is accepted or rejected)
 
 
             $sql = "SELECT `request_status` FROM `order_cancel_request` WHERE `order_id` = $order_id";
 
-            $result = mysqli_query($con,$sql);
+            $result = mysqli_query($con, $sql);
             if (mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_array($result);
                 global $req0;
                 global $req1;
 
                 $req0 = "<script>
-                document.getElementById('req0').innerHTML = '".$row[0]."';</script>";
+                document.getElementById('req0').innerHTML = '" . $row[0] . "';</script>";
                 $req1 = "<script>
-                document.getElementById('req1').innerHTML = 'Status: ".$row[0]."';</script>"; 
+                document.getElementById('req1').innerHTML = 'Status: " . $row[0] . "';</script>";
             }
         }
 
@@ -1789,4 +1780,3 @@ function cancelBtn() {
         echo '<script>window.location.href="order.php";</script>';
     }
 }
-?>

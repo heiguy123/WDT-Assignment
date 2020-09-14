@@ -189,7 +189,7 @@ function sendforgotemail($email)
             $mail->addBCC('howard_bb@hotmail.com');
 
             //Content
-            $url = "http://localhost:8080/WDT-Assignment/adminresetpass.php?email=" . $email;
+            $url = "http://localhost:8080/WDT-Assignment-master/WDT-Assignment/adminresetpass.php?email=" . $email;
 
             $subject = "[RESET PASSWORD] Please verify your email";
 
