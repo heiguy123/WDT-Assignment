@@ -1,7 +1,9 @@
 # WDT-Assignment
 Food Delivery System (Website)
 
-<h4>Date: 2020/09/05</h4>
+1. abf
+
+
 <b>From: heiguy123</b><br>
 1. Add encryted password function.<br>
 2. Fixing minor bugs.<br>

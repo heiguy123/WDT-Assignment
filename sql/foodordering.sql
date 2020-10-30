@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Sep 05, 2020 at 03:23 AM
+-- Generation Time: Sep 06, 2020 at 02:56 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.12
 
@@ -517,51 +517,6 @@ INSERT INTO `deliverable_postcode` (`id`, `postcode`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `delivery_status`
---
-
-DROP TABLE IF EXISTS `delivery_status`;
-CREATE TABLE IF NOT EXISTS `delivery_status` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `delivery_status` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `delivery_status`
---
-
-INSERT INTO `delivery_status` (`id`, `delivery_status`) VALUES
-(1, 'Delivering'),
-(2, 'Delivered');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `delivery_task`
---
-
-DROP TABLE IF EXISTS `delivery_task`;
-CREATE TABLE IF NOT EXISTS `delivery_task` (
-  `delivery_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `rider_id` int(11) NOT NULL,
-  `delivery_status` varchar(255) NOT NULL,
-  PRIMARY KEY (`delivery_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `delivery_task`
---
-
-INSERT INTO `delivery_task` (`delivery_id`, `order_id`, `rider_id`, `delivery_status`) VALUES
-(1, 1, 1, 'Delivered'),
-(2, 2, 1, 'Delivered'),
-(3, 3, 1, 'Delivering');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `food`
 --
 
@@ -811,53 +766,6 @@ INSERT INTO `request_status` (`status_id`, `request_status`) VALUES
 (1, 'Pending'),
 (2, 'Rejected'),
 (3, 'Accepted');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rider`
---
-
-DROP TABLE IF EXISTS `rider`;
-CREATE TABLE IF NOT EXISTS `rider` (
-  `rider_id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `contact` varchar(255) NOT NULL,
-  `rider_status` varchar(255) NOT NULL,
-  PRIMARY KEY (`rider_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `rider`
---
-
-INSERT INTO `rider` (`rider_id`, `username`, `name`, `password`, `contact`, `rider_status`) VALUES
-(1, 'driver1', 'Driver Bong', 'driver', '011111111', 'Out for Delivery'),
-(2, 'driver2', 'Driver Bing', 'driver', '0112222222', 'Available'),
-(3, 'driver3', 'Driver Beng', 'driver', '0133333333', 'Available');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rider_status`
---
-
-DROP TABLE IF EXISTS `rider_status`;
-CREATE TABLE IF NOT EXISTS `rider_status` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rider_status` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `rider_status`
---
-
-INSERT INTO `rider_status` (`id`, `rider_status`) VALUES
-(1, 'Available'),
-(2, 'Out for Delivery');
 
 -- --------------------------------------------------------
 
