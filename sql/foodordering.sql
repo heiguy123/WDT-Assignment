@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `username`, `contact`, `name`, `email`, `password`, `last_login`) VALUES
-(2, 'admin1', '0123232323', 'Jerry Sung', 'howard_bb@hotmail.com', '$2y$10$sbRkFbveV/CbxKpyS3IY.u4E.9t3MNFtmp068FeGHz1m6fa14ASKG', NULL),
+(2, 'admin1', '0123232323', 'Jerry Sung', 'jerry@hotmail.com', '$2y$10$sbRkFbveV/CbxKpyS3IY.u4E.9t3MNFtmp068FeGHz1m6fa14ASKG', NULL),
 (3, 'admin2', '01232312323', 'Jerry Two', 'jerry2@mail.com', '$2y$10$sk3.6iF6nXtMEzV/ClwA4uYMJ7iTwe93H/zJ9qONEnNsyGtWcHYh.', NULL);
 
 -- --------------------------------------------------------
